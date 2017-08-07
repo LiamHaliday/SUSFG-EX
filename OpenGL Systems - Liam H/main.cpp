@@ -1,6 +1,6 @@
 #include "Scene.h"
 
-
+// this is a comment for testing stuffs
 #define BUTTON_UP   0 
 #define BUTTON_DOWN 1
 
