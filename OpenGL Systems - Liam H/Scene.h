@@ -73,6 +73,8 @@ public:
 
 	void update(unsigned char *keyState, unsigned int *ArrowKeyState);
 
+	void MoventBox();
+
 
 private:
 	
@@ -85,6 +87,7 @@ private:
 	TextLabel* FPS;
 
 	objectStruct player;
+	objectStruct player2;
 	objectStruct mainMenuObject;
 
 	object floor;

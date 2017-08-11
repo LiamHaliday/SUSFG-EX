@@ -90,7 +90,7 @@ void camera::drawflat(GLuint program, GLfloat currentThime, bool spin, float one
 
 	view = glm::lookAt(cameraPos, cameraFront, cameraUp);
 	model = glm::translate(glm::mat4(), newPositonObj) * glm::rotate(glm::mat4(), -0.0f / 100, glm::vec3(0.0f, 1.0f, 0.0f));
-	projection = glm::perspective(45.0f, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 10.0f);
+	projection = glm::perspective(45.0f, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 10.0f);																		// needs to be ortho to look right
 
 
 	GLint modelLoc = glGetUniformLocation(program, "model");

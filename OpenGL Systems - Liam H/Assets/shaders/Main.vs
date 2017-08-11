@@ -22,7 +22,6 @@ uniform mat4 scale;
 void main(void)
 { 
 	gl_Position = world * projection * view * model * vec4(position, 1.0);
-	//  (transform * projection * view * model * vec4(position, 1.0));
 	outColor = color;
 	TexCoord = texCoord;
 

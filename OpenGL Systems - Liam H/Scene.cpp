@@ -45,7 +45,15 @@ void Scene::init()
 
 
 	//player creation
-	player.object.setImage("Assets/images/lava.jpg");
+	player.object.setImage("Assets/images/blueBOX.png");
+	player2.object.setImage("Assets/images/pinkBOX.png");
+
+	player.yCoord = 1.5f;
+	player2.yCoord = 1.5f;
+
+	player.xCoord = 0.5f;
+	player2.xCoord = -0.5f;
+
 	Setsquare();	
 
 	//floor.setImage("Assets/images/blueBOX.png");
@@ -66,7 +74,9 @@ void Scene::render()
 
 
 	// player render and movment
-	player.object.render(player.xCoord, player.yCoord,  player.zCoord, 0.15, false);
+	player.object.render(player.xCoord, player.zCoord, player.yCoord , 0.15, false);
+	player2.object.render(player2.xCoord, player2.zCoord, player2.yCoord, 0.15, false);
+
 	//floor.render(0.0, 0.0, -1.0, 0.0 , true);             // put back from thing
 
 
@@ -95,7 +105,7 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	CurrentFPS = ((1 / deltaTime) * 1000);
 	//std::cout << currentTime << std::endl;
 
-	Playerspeed = 0.001f * deltaTime;
+	Playerspeed = 0.005f * deltaTime;
 
 
 	std::string FPString = "FPS: ";
@@ -103,21 +113,40 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	FPS->setText(FPString.c_str());
 
 
-	if (keyState[(unsigned char)'w'] == BUTTON_DOWN || keyState[(unsigned char)'W'] == BUTTON_DOWN){ player.zCoord -= Playerspeed;}
-	if (keyState[(unsigned char)'s'] == BUTTON_DOWN || keyState[(unsigned char)'S'] == BUTTON_DOWN){ player.zCoord += Playerspeed; }
-	if (keyState[(unsigned char)'a'] == BUTTON_DOWN || keyState[(unsigned char)'A'] == BUTTON_DOWN){ player.xCoord -= Playerspeed; }
-	if (keyState[(unsigned char)'d'] == BUTTON_DOWN || keyState[(unsigned char)'D'] == BUTTON_DOWN){ player.xCoord += Playerspeed; }
-	if (keyState[(unsigned char)'r'] == BUTTON_DOWN || keyState[(unsigned char)'R'] == BUTTON_DOWN){ player.yCoord -= Playerspeed; }
-	if (keyState[(unsigned char)'f'] == BUTTON_DOWN || keyState[(unsigned char)'F'] == BUTTON_DOWN){ player.yCoord += Playerspeed; }
+	if (keyState[(unsigned char)'s'] == BUTTON_DOWN && player.yCoord <=  2.5f  || keyState[(unsigned char)'S'] == BUTTON_DOWN && player.yCoord <=   2.5f) { player.yCoord += Playerspeed; }
+	if (keyState[(unsigned char)'w'] == BUTTON_DOWN && player.yCoord >= -0.5f  || keyState[(unsigned char)'W'] == BUTTON_DOWN && player.yCoord >=  -0.5f){ player.yCoord -= Playerspeed; }
+	if (keyState[(unsigned char)'d'] == BUTTON_DOWN && player.xCoord >= -4.0f || keyState[(unsigned char)'D'] == BUTTON_DOWN && player.xCoord >=   -4.0f) { player.xCoord -= Playerspeed; }
+	if (keyState[(unsigned char)'a'] == BUTTON_DOWN && player.xCoord <=  4.0f  || keyState[(unsigned char)'A'] == BUTTON_DOWN && player.xCoord <=   4.0f){ player.xCoord += Playerspeed; }
 
 
-	if (ArrowKeyState[0] == BUTTON_DOWN) { std::cout << "UP"; } //up
-	if (ArrowKeyState[1] == BUTTON_DOWN) { std::cout << "DOWN"; } //down
-	if (ArrowKeyState[2] == BUTTON_DOWN) { std::cout << "LEFT";  CamLookX - 0.01f; } //left
-	if (ArrowKeyState[3] == BUTTON_DOWN) { std::cout << "RIGHT"; CamLookX + 0.01f; } //right
+	//if (keyState[(unsigned char)'r'] == BUTTON_DOWN || keyState[(unsigned char)'R'] == BUTTON_DOWN){ player.zCoord -= Playerspeed; }
+	//if (keyState[(unsigned char)'f'] == BUTTON_DOWN || keyState[(unsigned char)'F'] == BUTTON_DOWN){ player.zCoord += Playerspeed; }
+	std::cout << "x:" << player.xCoord << std::endl;
+	std::cout << "y:" << player.yCoord << std::endl;
+
+	if (ArrowKeyState[0] == BUTTON_DOWN && player2.yCoord >= -0.5f)  { player2.yCoord -= Playerspeed; }	 //up
+	if (ArrowKeyState[1] == BUTTON_DOWN && player2.yCoord <= 2.5f) { player2.yCoord += Playerspeed; }	 //down
+	if (ArrowKeyState[2] == BUTTON_DOWN && player2.xCoord <= 4.0f) { player2.xCoord += Playerspeed; }	 //left
+	if (ArrowKeyState[3] == BUTTON_DOWN && player2.xCoord >= -4.0f)  { player2.xCoord -= Playerspeed; }	 //right 
+
+
+
 
 	
 }
+
+
+
+void Scene::MoventBox() 
+{
+
+	if (player.xCoord > 0.4f)
+	{
+		player.xCoord -= (Playerspeed);
+	}
+
+
+}	
 
 
 /****************************************************/
@@ -183,12 +212,29 @@ void Scene::Setsquare()
 //		20, 22, 23,
 	};
 
+	// player two ind and vert 
+	GLfloat Player2Vert[] = {
+		-0.125f, 0.125f, -0.125f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		-0.125f, 0.125f, 0.125f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		0.125f, 0.125f, 0.125f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		0.125f, 0.125f, -0.125f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+	};
 
-	GLfloat * testVert = vertices;
-	GLuint * testInd = indices;
+	GLuint Player2Ind[] = {
+		0, 1, 2,
+		0, 2, 3,
+	};
 
+
+	GLfloat * playerVert = vertices;
+	GLuint * playerInd = indices;
+
+	GLfloat * prtPlayer2Vert = Player2Vert;
+	GLuint * prtPlayer2Ind = Player2Ind;
 	
-	player.object.createObj(testVert, sizeof(vertices), testInd, sizeof(indices));
+	player.object.createObj(playerVert, sizeof(vertices), playerInd, sizeof(indices));
+
+	player2.object.createObj(prtPlayer2Vert, sizeof(Player2Vert), prtPlayer2Ind, sizeof(Player2Ind));
 }
 
 
