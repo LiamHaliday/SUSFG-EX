@@ -50,7 +50,7 @@ void object::createObj(GLfloat *vert, int vertSize, GLuint *ind, int indSize)
 		&width, //width of the image 
 		&height, // height of the image
 		0, // number of channels 
-		SOIL_LOAD_RGB);// load RGB values only
+		SOIL_LOAD_RGBA);// load RGB values only
 
 	//std::cout << image;
 	if (!image)
@@ -60,11 +60,11 @@ void object::createObj(GLfloat *vert, int vertSize, GLuint *ind, int indSize)
 
 	glTexImage2D(GL_TEXTURE_2D, // type of texture 
 		0, //mipmap level 
-		GL_RGB,// format of RGB values to be stored 5225
+		GL_RGBA,// format of RGB values to be stored 5225
 		width, // width of resulting texture 
 		height, //height of resulting texture 
 		0, //value must be 0 
-		GL_RGB,// format of the pixel data 
+		GL_RGBA,// format of the pixel data 
 		GL_UNSIGNED_BYTE,// type of data passed in 
 		image);//pointer to image data in memory
 
@@ -180,6 +180,9 @@ void object::render(float one, float two, float three, float size, bool moving)
 		(GLvoid*)(6 * sizeof(GLfloat))); // stride
 	
 	glEnableVertexAttribArray(2);
+
+
+
 
 	glDrawElements(GL_TRIANGLES, 3 * 12, GL_UNSIGNED_INT, 0);
 

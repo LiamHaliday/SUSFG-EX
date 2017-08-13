@@ -45,8 +45,8 @@ void Scene::init()
 
 
 	//player creation
-	player.object.setImage("Assets/images/blueBOX.png");
-	player2.object.setImage("Assets/images/pinkBOX.png");
+	player.object.setImage("Assets/images/greenTRI.png");
+	player2.object.setImage("Assets/images/pinkTRI.png");
 
 	player.yCoord = 1.5f;
 	player2.yCoord = 1.5f;
@@ -57,7 +57,7 @@ void Scene::init()
 	Setsquare();	
 
 	// pink
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		float RandX = rand() % 800;
 		float RandY = rand() % 1000;
@@ -75,7 +75,7 @@ void Scene::init()
 	}
 
 	//green
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		float RandX = rand() % 800;
 		float RandY = rand() % 1000;
@@ -136,7 +136,7 @@ void Scene::render()
 	glClearColor(0.050f, 0.050f, 0.050f, 1.0f);
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 3D
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	glEnable(GL_BLEND);
 
 	// player render and movment
 	player.object.render(player.xCoord, player.zCoord, player.yCoord , 0.15, false);
@@ -260,7 +260,7 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 			bullets[i].yCoord -= 0.1;
 		}
 
-		if (bullets[i].yCoord < -2.0)
+		if (bullets[i].yCoord < -3.0)
 		{
 			bullets[i].direction = 0;	//dircetion
 			bullets[i].xCoord = (0.5 + i * 0.02) - 1;
@@ -298,7 +298,7 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 			bullets2[i].yCoord -= 0.1;
 		}
 
-		if (bullets2[i].yCoord < -2.0)
+		if (bullets2[i].yCoord < -3.0)
 		{
 			bullets2[i].direction = 0;	//dircetion
 			bullets2[i].xCoord = (0.5 + i * 0.02) - 1;

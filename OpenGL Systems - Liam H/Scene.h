@@ -87,7 +87,7 @@ private:
 	//object* enemy = new object();
 	float bulletsPlace = 4.0f;
 
-	float fireTime = 0.1;
+	float fireTime = 0.2;
 	float fireDifrents = 0.0;
 	float fireDifrentsp2 = 0.0;
 

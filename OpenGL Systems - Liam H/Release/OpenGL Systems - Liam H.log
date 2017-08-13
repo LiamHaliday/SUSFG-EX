@@ -1,0 +1,41 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Release\) contains files shared from another project (graphics day 1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  camera.cpp
+camera.cpp(12): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+camera.cpp(68): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+  main.cpp
+e:\super space fighter x\opengl systems - liam h\Scene.h(90): warning C4305: 'initializing': truncation from 'double' to 'float'
+  object.cpp
+  Scene.cpp
+e:\super space fighter x\opengl systems - liam h\Scene.h(90): warning C4305: 'initializing': truncation from 'double' to 'float'
+Scene.cpp(24): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+Scene.cpp(62): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+Scene.cpp(63): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+Scene.cpp(80): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+Scene.cpp(81): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+Scene.cpp(101): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Scene.cpp(114): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Scene.cpp(38): warning C4101: 'channel': unreferenced local variable
+Scene.cpp(142): warning C4305: 'argument': truncation from 'double' to 'float'
+Scene.cpp(143): warning C4305: 'argument': truncation from 'double' to 'float'
+Scene.cpp(148): warning C4305: 'argument': truncation from 'double' to 'float'
+Scene.cpp(153): warning C4305: 'argument': truncation from 'double' to 'float'
+Scene.cpp(158): warning C4305: 'argument': truncation from 'double' to 'float'
+Scene.cpp(163): warning C4305: 'argument': truncation from 'double' to 'float'
+Scene.cpp(180): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+Scene.cpp(184): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+Scene.cpp(260): warning C4305: '-=': truncation from 'double' to 'float'
+Scene.cpp(266): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Scene.cpp(298): warning C4305: '-=': truncation from 'double' to 'float'
+Scene.cpp(304): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Scene.cpp(332): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+Scene.cpp(333): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+Scene.cpp(342): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Scene.cpp(357): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+Scene.cpp(358): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+Scene.cpp(368): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  ShaderLoader.cpp
+  Square.cpp
+  Text.cpp
+Text.cpp(77): warning C4838: conversion from 'FT_Pos' to 'GLuint' requires a narrowing conversion
+LINK : fatal error C1047: The object or library file 'E:\Super Space Fighter X\OpenGL Systems - Liam H\\Dependencies\soil\SOIL.lib' was created with an older compiler than other objects; rebuild old objects and libraries
+LINK : fatal error LNK1257: code generation failed
