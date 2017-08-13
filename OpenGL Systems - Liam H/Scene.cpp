@@ -235,6 +235,8 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 		}
 	}
 
+
+	MoventBox();
 	
 }
 
@@ -242,12 +244,6 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 void Scene::MoventBox() 
 {
-
-	if (player.xCoord > 0.4f)
-	{
-		player.xCoord -= (Playerspeed);
-	}
-
 
 
 	//bullets 
@@ -257,35 +253,31 @@ void Scene::MoventBox()
 	{
 		for (size_t x = 0; x < pinkEnemys.size(); x++)
 		{
-			if (bullets[i].xCoord >= (pinkEnemys[x].xCoord - 0.5) && bullets[i].xCoord <= (pinkEnemys[x].xCoord + 0.5)
-				&& bullets[i].yCoord >= (pinkEnemys[x].yCoord - 0.5) && bullets[i].yCoord <= (pinkEnemys[x].yCoord + 0.5))
+			if (bullets[i].xCoord >= (pinkEnemys[x].xCoord - 0.2) && bullets[i].xCoord <= (pinkEnemys[x].xCoord + 0.2)
+				&& bullets[i].yCoord >= (pinkEnemys[x].yCoord - 0.2) && bullets[i].yCoord <= (pinkEnemys[x].yCoord + 0.2))
 			{
-
-																													//randomize
-				float RandX = rand() % 1000;
+				//randomize
+				float RandX = rand() % 800;
 				float RandY = rand() % 1000;
-				RandX = (RandX / 100) - 5;
-				RandY = (RandY / 100) - 5;
+				RandX = (RandX / 100) - 4;
+				RandY = -(RandY / 100);
 
-				while (player.xCoord >= (RandX - 0.3) && player.xCoord <= (RandX + 0.3)
-					&& player.yCoord >= (RandY - 0.3) && player.yCoord <= (RandY + 0.3))
-				{
-					RandX = rand() % 1000;
-					RandY = rand() % 1000;
-					RandX = (RandX / 100) - 5;
-					RandY = (RandY / 100) - 5;
-				}
 
 				pinkEnemys[x].xCoord = RandX;
 				pinkEnemys[x].yCoord = RandY;
 
 				//bullet delete on hit
-				bullets[i].direction = 9;	//dircetion
+				bullets[i].direction = 0;	//dircetion
 				bullets[i].xCoord = (0.5 + i * 0.02) - 1;
 				bullets[i].yCoord = 2;
 			};
 		}
 	}
+
+
+
+
+
 
 
 }	

@@ -13,11 +13,9 @@ c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(139): 
 c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(143): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(226): warning C4305: '-=': truncation from 'double' to 'float'
 c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(232): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(265): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(266): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(273): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(274): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(284): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(260): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(261): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(271): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   SOIL.lib(SOIL.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
 camera.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
