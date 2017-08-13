@@ -56,6 +56,24 @@ void Scene::init()
 
 	Setsquare();	
 
+
+	for (int i = 0; i < 50; i++)
+	{
+		float RandX = rand() % 800;
+		float RandY = rand() % 1000;
+		RandX = (RandX / 100) - 4;
+		RandY = -(RandY / 100);
+	
+		objectStruct* enemy = new objectStruct();
+		enemy->direction = 0;	//dircetion
+		enemy->xCoord = RandX;
+		enemy->yCoord = RandY;
+		pinkEnemys.push_back(*enemy);
+		delete enemy;
+		pinkEnemys[pinkEnemys.size() - 1].object.setImage("Assets/images/mainMenu.png");
+		Setenemy();
+	}
+
 	//floor.setImage("Assets/images/blueBOX.png");
 	//SetFloor();
 
@@ -78,7 +96,10 @@ void Scene::render()
 	player2.object.render(player2.xCoord, player2.zCoord, player2.yCoord, 0.15, false);
 
 	//floor.render(0.0, 0.0, -1.0, 0.0 , true);             // put back from thing
-
+		for (unsigned int i = 0; i < pinkEnemys.size(); i++)
+		{
+			pinkEnemys[i].object.render(pinkEnemys[i].xCoord, 0.10, pinkEnemys[i].yCoord,  0.0, false);
+		}
 
 	FPS->Render();
 	
@@ -130,7 +151,14 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	if (ArrowKeyState[3] == BUTTON_DOWN && player2.xCoord >= -4.0f)  { player2.xCoord -= Playerspeed; }	 //right 
 
 
-
+	for (unsigned int i = 0; i < pinkEnemys.size(); i++)
+	{
+		pinkEnemys[i].yCoord += 0.01f;
+		if (pinkEnemys[i].yCoord > 2.0)
+		{
+			pinkEnemys[i].yCoord = -3.0;
+		}
+	}
 
 	
 }
@@ -239,10 +267,6 @@ void Scene::Setsquare()
 
 
 
-
-
-
-
 void Scene::SetFloor()
 {
 
@@ -310,3 +334,35 @@ void Scene::SetFloor()
 
 	floor.createObj(testVert, sizeof(floorVertices), testInd, sizeof(floorIndices));
 };
+
+
+
+void Scene::Setenemy()
+{
+	// square ver and ind
+
+	GLfloat vertices[192] = {
+
+		-0.125f, 0.125f, -0.125f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		-0.125f, 0.125f, 0.125f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		0.125f, 0.125f, 0.125f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		0.125f, 0.125f, -0.125f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+
+	};
+
+
+	GLuint indices[36] = {
+		// front
+		0, 1, 2,
+		0, 2, 3,
+
+	};
+
+	GLfloat * ptrEnemyVert = vertices;
+	GLuint * prtEnemyInd = indices;
+
+
+	//	std::cout << "Object \n";
+	pinkEnemys[pinkEnemys.size() - 1].object.createObj(ptrEnemyVert, sizeof(vertices), prtEnemyInd, sizeof(indices));
+
+}

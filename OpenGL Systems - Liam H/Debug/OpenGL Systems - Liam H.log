@@ -1,10 +1,13 @@
 ﻿  Scene.cpp
 c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(24): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(62): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(63): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(38): warning C4101: 'channel': unreferenced local variable
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(77): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(78): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(97): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(101): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(95): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(96): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(101): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(118): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(122): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   SOIL.lib(SOIL.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
 camera.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification

@@ -73,6 +73,8 @@ public:
 
 	void update(unsigned char *keyState, unsigned int *ArrowKeyState);
 
+
+	void Setenemy();
 	void MoventBox();
 
 
