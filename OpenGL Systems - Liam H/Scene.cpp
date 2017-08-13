@@ -74,6 +74,21 @@ void Scene::init()
 		Setenemy();
 	}
 
+	//bullet creation
+	for (int b = 0; b < 50; b++)
+	{
+		objectStruct * bullet = new objectStruct;
+
+		bullet->direction = 0;	//dircetion
+		bullet->xCoord = (0.5 + b * 0.02) - 1;
+		bullet->yCoord = 2;
+		bullets.push_back(*bullet);
+		delete bullet;
+		bullets[bullets.size() - 1].object.setImage("Assets/images/redBOX.png");
+		SetBulet();
+	}
+
+
 	//floor.setImage("Assets/images/blueBOX.png");
 	//SetFloor();
 
@@ -100,6 +115,12 @@ void Scene::render()
 		{
 			pinkEnemys[i].object.render(pinkEnemys[i].xCoord, 0.10, pinkEnemys[i].yCoord,  0.0, false);
 		}
+
+		for (unsigned int i = 0; i < bullets.size(); i++)
+		{
+			bullets[i].object.render(bullets[i].xCoord, 0.10, bullets[i].yCoord, 0.0, false);
+		}
+
 
 	FPS->Render();
 	
@@ -142,21 +163,75 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 	//if (keyState[(unsigned char)'r'] == BUTTON_DOWN || keyState[(unsigned char)'R'] == BUTTON_DOWN){ player.zCoord -= Playerspeed; }
 	//if (keyState[(unsigned char)'f'] == BUTTON_DOWN || keyState[(unsigned char)'F'] == BUTTON_DOWN){ player.zCoord += Playerspeed; }
-	std::cout << "x:" << player.xCoord << std::endl;
-	std::cout << "y:" << player.yCoord << std::endl;
+	//std::cout << "x:" << player.xCoord << std::endl;
+	//std::cout << "y:" << player.yCoord << std::endl;
 
 	if (ArrowKeyState[0] == BUTTON_DOWN && player2.yCoord >= -0.5f)  { player2.yCoord -= Playerspeed; }	 //up
 	if (ArrowKeyState[1] == BUTTON_DOWN && player2.yCoord <= 2.5f) { player2.yCoord += Playerspeed; }	 //down
 	if (ArrowKeyState[2] == BUTTON_DOWN && player2.xCoord <= 4.0f) { player2.xCoord += Playerspeed; }	 //left
 	if (ArrowKeyState[3] == BUTTON_DOWN && player2.xCoord >= -4.0f)  { player2.xCoord -= Playerspeed; }	 //right 
 
-
+	// ---------------------------------- enemy reset
 	for (unsigned int i = 0; i < pinkEnemys.size(); i++)
 	{
 		pinkEnemys[i].yCoord += 0.01f;
-		if (pinkEnemys[i].yCoord > 2.0)
+		if (pinkEnemys[i].yCoord > 3.0)
 		{
 			pinkEnemys[i].yCoord = -3.0;
+		}
+	}
+
+
+
+	if ((currentTime - fireDifrents) > fireTime)
+	{
+		fireDifrents = currentTime;
+		if (keyState[(unsigned char)'g'] == BUTTON_DOWN || keyState[(unsigned char)'G'] == BUTTON_DOWN)
+		{
+			bullets[bulletsInUse].xCoord = player.xCoord;
+			bullets[bulletsInUse].yCoord = player.yCoord;
+			bullets[bulletsInUse].direction = 1;
+			bulletsInUse++;
+		}
+	}
+
+	if (bulletsInUse >= 50)
+	{
+		bulletsInUse = 0;
+	}
+
+	if ((currentTime - fireDifrentsp2) > fireTime)
+	{
+		fireDifrentsp2 = currentTime;
+		if (keyState[(unsigned char)'/'] == BUTTON_DOWN || keyState[(unsigned char)'?'] == BUTTON_DOWN)
+		{
+			bullets[bulletsInUse].xCoord = player2.xCoord;
+			bullets[bulletsInUse].yCoord = player2.yCoord;
+			bullets[bulletsInUse].direction = 1;
+			bulletsInUse++;
+		}
+	}
+
+	// shooting
+	if (bulletsInUse >= 50)
+	{
+		bulletsInUse = 0;
+	}
+
+		// ---------------------------------- enemy reset
+	for (unsigned int i = 0; i < bullets.size(); i++)
+	{	
+		if (bullets[i].direction == 1)
+		{
+			bullets[i].yCoord -= 0.1;
+		}
+
+		if (bullets[i].yCoord < -2.0)
+		{
+			bullets[i].direction = 0;	//dircetion
+			bullets[i].xCoord = (0.5 + i * 0.02) - 1;
+			bullets[i].yCoord = 2;
+			//std::cout << bulletsInUse << "\n";
 		}
 	}
 
@@ -171,6 +246,45 @@ void Scene::MoventBox()
 	if (player.xCoord > 0.4f)
 	{
 		player.xCoord -= (Playerspeed);
+	}
+
+
+
+	//bullets 
+
+	// bullet to pink enemy
+	for (size_t i = 0; i < bullets.size(); i++)
+	{
+		for (size_t x = 0; x < pinkEnemys.size(); x++)
+		{
+			if (bullets[i].xCoord >= (pinkEnemys[x].xCoord - 0.5) && bullets[i].xCoord <= (pinkEnemys[x].xCoord + 0.5)
+				&& bullets[i].yCoord >= (pinkEnemys[x].yCoord - 0.5) && bullets[i].yCoord <= (pinkEnemys[x].yCoord + 0.5))
+			{
+
+																													//randomize
+				float RandX = rand() % 1000;
+				float RandY = rand() % 1000;
+				RandX = (RandX / 100) - 5;
+				RandY = (RandY / 100) - 5;
+
+				while (player.xCoord >= (RandX - 0.3) && player.xCoord <= (RandX + 0.3)
+					&& player.yCoord >= (RandY - 0.3) && player.yCoord <= (RandY + 0.3))
+				{
+					RandX = rand() % 1000;
+					RandY = rand() % 1000;
+					RandX = (RandX / 100) - 5;
+					RandY = (RandY / 100) - 5;
+				}
+
+				pinkEnemys[x].xCoord = RandX;
+				pinkEnemys[x].yCoord = RandY;
+
+				//bullet delete on hit
+				bullets[i].direction = 9;	//dircetion
+				bullets[i].xCoord = (0.5 + i * 0.02) - 1;
+				bullets[i].yCoord = 2;
+			};
+		}
 	}
 
 
@@ -266,7 +380,6 @@ void Scene::Setsquare()
 }
 
 
-
 void Scene::SetFloor()
 {
 
@@ -336,7 +449,6 @@ void Scene::SetFloor()
 };
 
 
-
 void Scene::Setenemy()
 {
 	// square ver and ind
@@ -366,3 +478,56 @@ void Scene::Setenemy()
 	pinkEnemys[pinkEnemys.size() - 1].object.createObj(ptrEnemyVert, sizeof(vertices), prtEnemyInd, sizeof(indices));
 
 }
+
+
+void Scene::SetBulet()
+{
+
+	GLfloat vertices[] = {
+	//  //position				//color				//texture coord		 
+	//  -0.15f, -0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+	//  -0.15f, 0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+	//  0.15f, 0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+	//  0.15f, -0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+	//  // Fill in the back face vertex data.							 
+	//  -0.15f, -0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+	//  0.15f, -0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+	//  0.15f, 0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+	//  -0.15f, 0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		// Fill in the top face vertex data.							 
+		-0.025f, 0.01f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		-0.025f, 0.01f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		 0.025f, 0.01f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		 0.025f, 0.01f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+	//	// Fill in the bottom face vertex data.							 
+	//	-0.15f, -0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+	//	0.15f, -0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+	//	0.15f, -0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+	//	-0.15f, -0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+	//	// Fill in the left face vertex data.							 
+	//	-0.15f, -0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+	//	-0.15f, 0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+	//	-0.15f, 0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+	//	-0.15f, -0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+	//	// Fill in the right face vertex data.							 
+	//	0.15f, -0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+	//	0.15f, 0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+	//	0.15f, 0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+	//	0.15f, -0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+	};
+
+	GLuint indices[] = {
+		// front
+		0, 1, 2,
+		0, 2, 3,
+
+	};
+
+
+	GLfloat * ptrEnemyVert = vertices;
+	GLuint * prtEnemyInd = indices;
+
+
+	bullets[bullets.size() - 1].object.createObj(ptrEnemyVert, sizeof(vertices), prtEnemyInd, sizeof(indices));
+
+};

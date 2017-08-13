@@ -73,7 +73,7 @@ public:
 
 	void update(unsigned char *keyState, unsigned int *ArrowKeyState);
 
-
+	void SetBulet();
 	void Setenemy();
 	void MoventBox();
 
@@ -81,6 +81,10 @@ public:
 private:
 	
 	//object* enemy = new object();
+
+	float fireTime = 0.1;
+	float fireDifrents = 0.0;
+	float fireDifrentsp2 = 0.0;
 
 	//text
 	TextLabel* label;
