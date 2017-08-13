@@ -74,13 +74,18 @@ public:
 	void update(unsigned char *keyState, unsigned int *ArrowKeyState);
 
 	void SetBulet();
+	void SetBulet2();
+
 	void Setenemy();
+	void Setenemy2();
+	
 	void MoventBox();
 
 
 private:
 	
 	//object* enemy = new object();
+	float bulletsPlace = 4.0f;
 
 	float fireTime = 0.1;
 	float fireDifrents = 0.0;
@@ -105,6 +110,10 @@ private:
 	//bullets 
 	std::vector<objectStruct> bullets;
 	int bulletsInUse;
+
+	std::vector<objectStruct> bullets2;
+	int bulletsInUse2;
+
 
 	std::vector<objectStruct> pinkEnemys;
 	std::vector<objectStruct> greenEnemys;

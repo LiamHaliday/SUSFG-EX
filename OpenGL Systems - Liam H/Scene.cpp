@@ -56,13 +56,13 @@ void Scene::init()
 
 	Setsquare();	
 
-
-	for (int i = 0; i < 50; i++)
+	// pink
+	for (int i = 0; i < 20; i++)
 	{
 		float RandX = rand() % 800;
 		float RandY = rand() % 1000;
 		RandX = (RandX / 100) - 4;
-		RandY = -(RandY / 100);
+		RandY = (-(RandY / 100) - 2);
 	
 		objectStruct* enemy = new objectStruct();
 		enemy->direction = 0;	//dircetion
@@ -70,8 +70,26 @@ void Scene::init()
 		enemy->yCoord = RandY;
 		pinkEnemys.push_back(*enemy);
 		delete enemy;
-		pinkEnemys[pinkEnemys.size() - 1].object.setImage("Assets/images/mainMenu.png");
+		pinkEnemys[pinkEnemys.size() - 1].object.setImage("Assets/images/pinkBOX - Copy.png");
 		Setenemy();
+	}
+
+	//green
+	for (int i = 0; i < 20; i++)
+	{
+		float RandX = rand() % 800;
+		float RandY = rand() % 1000;
+		RandX = (RandX / 100) - 4;
+		RandY = (-(RandY / 100) - 2);
+
+		objectStruct* enemy = new objectStruct();
+		enemy->direction = 0;	//dircetion
+		enemy->xCoord = RandX;
+		enemy->yCoord = RandY;
+		greenEnemys.push_back(*enemy);
+		delete enemy;
+		greenEnemys[greenEnemys.size() - 1].object.setImage("Assets/images/blueBOX - Copy.png");
+		Setenemy2();
 	}
 
 	//bullet creation
@@ -81,12 +99,26 @@ void Scene::init()
 
 		bullet->direction = 0;	//dircetion
 		bullet->xCoord = (0.5 + b * 0.02) - 1;
-		bullet->yCoord = 2;
+		bullet->yCoord = bulletsPlace;
 		bullets.push_back(*bullet);
 		delete bullet;
-		bullets[bullets.size() - 1].object.setImage("Assets/images/redBOX.png");
+		bullets[bullets.size() - 1].object.setImage("Assets/images/blueBOX.png");
 		SetBulet();
 	}
+
+	for (int b = 0; b < 50; b++)
+	{
+		objectStruct * bullet = new objectStruct;
+
+		bullet->direction = 0;	//dircetion
+		bullet->xCoord = (0.5 + b * 0.02) - 1;
+		bullet->yCoord = bulletsPlace;
+		bullets2.push_back(*bullet);
+		delete bullet;
+		bullets2[bullets2.size() - 1].object.setImage("Assets/images/pinkBOX.png");
+		SetBulet2();
+	}
+
 
 
 	//floor.setImage("Assets/images/blueBOX.png");
@@ -116,11 +148,20 @@ void Scene::render()
 			pinkEnemys[i].object.render(pinkEnemys[i].xCoord, 0.10, pinkEnemys[i].yCoord,  0.0, false);
 		}
 
+		for (unsigned int i = 0; i < greenEnemys.size(); i++)
+		{
+			greenEnemys[i].object.render(greenEnemys[i].xCoord, 0.10, greenEnemys[i].yCoord, 0.0, false);
+		}
+
 		for (unsigned int i = 0; i < bullets.size(); i++)
 		{
 			bullets[i].object.render(bullets[i].xCoord, 0.10, bullets[i].yCoord, 0.0, false);
 		}
 
+		for (unsigned int i = 0; i < bullets2.size(); i++)
+		{
+			bullets2[i].object.render(bullets2[i].xCoord, 0.10, bullets2[i].yCoord, 0.0, false);
+		}
 
 	FPS->Render();
 	
@@ -157,7 +198,7 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 	if (keyState[(unsigned char)'s'] == BUTTON_DOWN && player.yCoord <=  2.5f  || keyState[(unsigned char)'S'] == BUTTON_DOWN && player.yCoord <=   2.5f) { player.yCoord += Playerspeed; }
 	if (keyState[(unsigned char)'w'] == BUTTON_DOWN && player.yCoord >= -0.5f  || keyState[(unsigned char)'W'] == BUTTON_DOWN && player.yCoord >=  -0.5f){ player.yCoord -= Playerspeed; }
-	if (keyState[(unsigned char)'d'] == BUTTON_DOWN && player.xCoord >= -4.0f || keyState[(unsigned char)'D'] == BUTTON_DOWN && player.xCoord >=   -4.0f) { player.xCoord -= Playerspeed; }
+	if (keyState[(unsigned char)'d'] == BUTTON_DOWN && player.xCoord >= -4.0f  || keyState[(unsigned char)'D'] == BUTTON_DOWN && player.xCoord >=   -4.0f) { player.xCoord -= Playerspeed; }
 	if (keyState[(unsigned char)'a'] == BUTTON_DOWN && player.xCoord <=  4.0f  || keyState[(unsigned char)'A'] == BUTTON_DOWN && player.xCoord <=   4.0f){ player.xCoord += Playerspeed; }
 
 
@@ -181,8 +222,18 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 		}
 	}
 
+	for (unsigned int i = 0; i < greenEnemys.size(); i++)
+	{
+		greenEnemys[i].yCoord += 0.01f;
+		if (greenEnemys[i].yCoord > 3.0)
+		{
+			greenEnemys[i].yCoord = -3.0;
+		}
+	}
 
 
+
+	// bullet part ---------------------------------------------
 	if ((currentTime - fireDifrents) > fireTime)
 	{
 		fireDifrents = currentTime;
@@ -200,23 +251,6 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 		bulletsInUse = 0;
 	}
 
-	if ((currentTime - fireDifrentsp2) > fireTime)
-	{
-		fireDifrentsp2 = currentTime;
-		if (keyState[(unsigned char)'/'] == BUTTON_DOWN || keyState[(unsigned char)'?'] == BUTTON_DOWN)
-		{
-			bullets[bulletsInUse].xCoord = player2.xCoord;
-			bullets[bulletsInUse].yCoord = player2.yCoord;
-			bullets[bulletsInUse].direction = 1;
-			bulletsInUse++;
-		}
-	}
-
-	// shooting
-	if (bulletsInUse >= 50)
-	{
-		bulletsInUse = 0;
-	}
 
 		// ---------------------------------- enemy reset
 	for (unsigned int i = 0; i < bullets.size(); i++)
@@ -230,11 +264,48 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 		{
 			bullets[i].direction = 0;	//dircetion
 			bullets[i].xCoord = (0.5 + i * 0.02) - 1;
-			bullets[i].yCoord = 2;
+			bullets[i].yCoord = bulletsPlace;
 			//std::cout << bulletsInUse << "\n";
 		}
 	}
 
+
+	// bullet part ---------------------------------------------   2   ----------------------------------------------
+	if ((currentTime - fireDifrentsp2) > fireTime)
+	{
+		fireDifrentsp2 = currentTime;
+		if (keyState[(unsigned char)'/'] == BUTTON_DOWN || keyState[(unsigned char)'?'] == BUTTON_DOWN)
+		{
+			bullets2[bulletsInUse2].xCoord = player2.xCoord;
+			bullets2[bulletsInUse2].yCoord = player2.yCoord;
+			bullets2[bulletsInUse2].direction = 1;
+			bulletsInUse2++;
+		}
+	}
+
+	// shooting
+	if (bulletsInUse2 >= 50)
+	{
+		bulletsInUse2 = 0;
+	}
+
+
+	// ---------------------------------- enemy reset  2
+	for (unsigned int i = 0; i < bullets2.size(); i++)
+	{
+		if (bullets2[i].direction == 1)
+		{
+			bullets2[i].yCoord -= 0.1;
+		}
+
+		if (bullets2[i].yCoord < -2.0)
+		{
+			bullets2[i].direction = 0;	//dircetion
+			bullets2[i].xCoord = (0.5 + i * 0.02) - 1;
+			bullets2[i].yCoord = bulletsPlace;
+			//std::cout << bulletsInUse << "\n";
+		}
+	}
 
 	MoventBox();
 	
@@ -249,31 +320,56 @@ void Scene::MoventBox()
 	//bullets 
 
 	// bullet to pink enemy
-	for (size_t i = 0; i < bullets.size(); i++)
+	for (size_t i = 0; i < bullets2.size(); i++)
 	{
 		for (size_t x = 0; x < pinkEnemys.size(); x++)
 		{
-			if (bullets[i].xCoord >= (pinkEnemys[x].xCoord - 0.2) && bullets[i].xCoord <= (pinkEnemys[x].xCoord + 0.2)
-				&& bullets[i].yCoord >= (pinkEnemys[x].yCoord - 0.2) && bullets[i].yCoord <= (pinkEnemys[x].yCoord + 0.2))
+			if (bullets2[i].xCoord >= (pinkEnemys[x].xCoord - 0.2) && bullets2[i].xCoord <= (pinkEnemys[x].xCoord + 0.2)
+				&& bullets2[i].yCoord >= (pinkEnemys[x].yCoord - 0.2) && bullets2[i].yCoord <= (pinkEnemys[x].yCoord + 0.2))
 			{
 				//randomize
+				//
 				float RandX = rand() % 800;
 				float RandY = rand() % 1000;
 				RandX = (RandX / 100) - 4;
-				RandY = -(RandY / 100);
-
+				RandY = (-(RandY / 100) - 2);
 
 				pinkEnemys[x].xCoord = RandX;
 				pinkEnemys[x].yCoord = RandY;
 
 				//bullet delete on hit
-				bullets[i].direction = 0;	//dircetion
-				bullets[i].xCoord = (0.5 + i * 0.02) - 1;
-				bullets[i].yCoord = 2;
+				bullets2[i].direction = 0;	//dircetion
+				bullets2[i].xCoord = (0.5 + i * 0.02) - 1;
+				bullets2[i].yCoord = bulletsPlace;
 			};
 		}
 	}
 
+
+	for (size_t i = 0; i < bullets.size(); i++)
+	{
+		for (size_t x = 0; x < greenEnemys.size(); x++)
+		{
+			if (bullets[i].xCoord >= (greenEnemys[x].xCoord - 0.2) && bullets[i].xCoord <= (greenEnemys[x].xCoord + 0.2)
+				&& bullets[i].yCoord >= (greenEnemys[x].yCoord - 0.2) && bullets[i].yCoord <= (greenEnemys[x].yCoord + 0.2))
+			{
+				//randomize
+				float RandX = rand() % 800;
+				float RandY = rand() % 1000;
+				RandX = (RandX / 100) - 4;
+				RandY = (-(RandY / 100) - 2);
+	
+	
+				greenEnemys[x].xCoord = RandX;
+				greenEnemys[x].yCoord = RandY;
+	
+				//bullet delete on hit
+				bullets[i].direction = 0;	//dircetion
+				bullets[i].xCoord = (0.5 + i * 0.02) - 1;
+				bullets[i].yCoord = bulletsPlace;
+			};
+		}
+	}
 
 
 
@@ -471,6 +567,35 @@ void Scene::Setenemy()
 
 }
 
+void Scene::Setenemy2()
+{
+	// square ver and ind
+
+	GLfloat vertices[192] = {
+
+		-0.125f, 0.125f, -0.125f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		-0.125f, 0.125f, 0.125f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		0.125f, 0.125f, 0.125f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		0.125f, 0.125f, -0.125f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+
+	};
+
+
+	GLuint indices[36] = {
+		// front
+		0, 1, 2,
+		0, 2, 3,
+
+	};
+
+	GLfloat * ptrEnemyVert = vertices;
+	GLuint * prtEnemyInd = indices;
+
+
+	//	std::cout << "Object \n";
+	greenEnemys[greenEnemys.size() - 1].object.createObj(ptrEnemyVert, sizeof(vertices), prtEnemyInd, sizeof(indices));
+
+}
 
 void Scene::SetBulet()
 {
@@ -521,5 +646,33 @@ void Scene::SetBulet()
 
 
 	bullets[bullets.size() - 1].object.createObj(ptrEnemyVert, sizeof(vertices), prtEnemyInd, sizeof(indices));
+
+};
+
+void Scene::SetBulet2()
+{
+
+	GLfloat vertices[] = {
+		// Fill in the top face vertex data.							 
+		-0.025f, 0.01f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		-0.025f, 0.01f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		0.025f, 0.01f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		0.025f, 0.01f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+
+	};
+
+	GLuint indices[] = {
+		// front
+		0, 1, 2,
+		0, 2, 3,
+
+	};
+
+
+	GLfloat * ptrEnemyVert = vertices;
+	GLuint * prtEnemyInd = indices;
+
+
+	bullets2[bullets2.size() - 1].object.createObj(ptrEnemyVert, sizeof(vertices), prtEnemyInd, sizeof(indices));
 
 };
