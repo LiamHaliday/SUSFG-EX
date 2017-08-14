@@ -88,8 +88,8 @@ private:
 	float bulletsPlace = 4.0f;
 
 	float fireTime = 0.2;
-	float fireDifrents = 0.0;
-	float fireDifrentsp2 = 0.0;
+	float fireDifference = 0.0;
+	float fireDifferencep2 = 0.0;
 
 	//text
 	TextLabel* label;
@@ -117,6 +117,8 @@ private:
 
 	std::vector<objectStruct> pinkEnemys;
 	std::vector<objectStruct> greenEnemys;
+
+	std::vector<objectStruct> Stars;
 
 	glm::vec2 whiteBoxVec;
 

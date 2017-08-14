@@ -16,16 +16,21 @@ e:\super space fighter x\opengl systems - liam h\scene.cpp(158): warning C4305: 
 e:\super space fighter x\opengl systems - liam h\scene.cpp(163): warning C4305: 'argument': truncation from 'double' to 'float'
 e:\super space fighter x\opengl systems - liam h\scene.cpp(180): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
 e:\super space fighter x\opengl systems - liam h\scene.cpp(184): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-e:\super space fighter x\opengl systems - liam h\scene.cpp(260): warning C4305: '-=': truncation from 'double' to 'float'
-e:\super space fighter x\opengl systems - liam h\scene.cpp(266): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-e:\super space fighter x\opengl systems - liam h\scene.cpp(298): warning C4305: '-=': truncation from 'double' to 'float'
-e:\super space fighter x\opengl systems - liam h\scene.cpp(304): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-e:\super space fighter x\opengl systems - liam h\scene.cpp(332): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-e:\super space fighter x\opengl systems - liam h\scene.cpp(333): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-e:\super space fighter x\opengl systems - liam h\scene.cpp(342): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-e:\super space fighter x\opengl systems - liam h\scene.cpp(357): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-e:\super space fighter x\opengl systems - liam h\scene.cpp(358): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-e:\super space fighter x\opengl systems - liam h\scene.cpp(368): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+e:\super space fighter x\opengl systems - liam h\scene.cpp(263): warning C4305: '-=': truncation from 'double' to 'float'
+e:\super space fighter x\opengl systems - liam h\scene.cpp(269): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+e:\super space fighter x\opengl systems - liam h\scene.cpp(303): warning C4305: '-=': truncation from 'double' to 'float'
+e:\super space fighter x\opengl systems - liam h\scene.cpp(309): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+e:\super space fighter x\opengl systems - liam h\scene.cpp(337): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+e:\super space fighter x\opengl systems - liam h\scene.cpp(338): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+e:\super space fighter x\opengl systems - liam h\scene.cpp(347): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+e:\super space fighter x\opengl systems - liam h\scene.cpp(362): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+e:\super space fighter x\opengl systems - liam h\scene.cpp(363): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+e:\super space fighter x\opengl systems - liam h\scene.cpp(373): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  Compiling...
+  main.cpp
+e:\super space fighter x\opengl systems - liam h\scene.h(90): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Generating Code...
   SOIL.lib(SOIL.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
 camera.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification

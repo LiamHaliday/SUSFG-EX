@@ -234,15 +234,18 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 
 	// bullet part ---------------------------------------------
-	if ((currentTime - fireDifrents) > fireTime)
+	if (keyState[(unsigned char)'g'] == BUTTON_DOWN || keyState[(unsigned char)'G'] == BUTTON_DOWN)
 	{
-		fireDifrents = currentTime;
-		if (keyState[(unsigned char)'g'] == BUTTON_DOWN || keyState[(unsigned char)'G'] == BUTTON_DOWN)
+
+		if ((currentTime - fireDifference) > fireTime)
 		{
+			fireDifference = currentTime;
+
 			bullets[bulletsInUse].xCoord = player.xCoord;
 			bullets[bulletsInUse].yCoord = player.yCoord;
 			bullets[bulletsInUse].direction = 1;
 			bulletsInUse++;
+
 		}
 	}
 
@@ -271,15 +274,17 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 
 	// bullet part ---------------------------------------------   2   ----------------------------------------------
-	if ((currentTime - fireDifrentsp2) > fireTime)
+	if (keyState[(unsigned char)'/'] == BUTTON_DOWN || keyState[(unsigned char)'?'] == BUTTON_DOWN)
 	{
-		fireDifrentsp2 = currentTime;
-		if (keyState[(unsigned char)'/'] == BUTTON_DOWN || keyState[(unsigned char)'?'] == BUTTON_DOWN)
+		if ((currentTime - fireDifferencep2) > fireTime)
 		{
+			fireDifferencep2 = currentTime;
+
 			bullets2[bulletsInUse2].xCoord = player2.xCoord;
 			bullets2[bulletsInUse2].yCoord = player2.yCoord;
 			bullets2[bulletsInUse2].direction = 1;
 			bulletsInUse2++;
+
 		}
 	}
 
@@ -341,7 +346,7 @@ void Scene::MoventBox()
 				bullets2[i].direction = 0;	//dircetion
 				bullets2[i].xCoord = (0.5 + i * 0.02) - 1;
 				bullets2[i].yCoord = bulletsPlace;
-			};
+			}
 		}
 	}
 
@@ -367,7 +372,7 @@ void Scene::MoventBox()
 				bullets[i].direction = 0;	//dircetion
 				bullets[i].xCoord = (0.5 + i * 0.02) - 1;
 				bullets[i].yCoord = bulletsPlace;
-			};
+			}
 		}
 	}
 
