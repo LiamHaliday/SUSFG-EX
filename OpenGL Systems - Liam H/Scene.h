@@ -16,7 +16,6 @@ struct objectStruct
 	float xCoord;
 	float yCoord;
 	float zCoord;
-
 	float mag;
 	float dir;
 
@@ -87,9 +86,11 @@ private:
 	//object* enemy = new object();
 	float bulletsPlace = 4.0f;
 
-	float fireTime = 0.2;
+	float fireTime = 0.1;
 	float fireDifference = 0.0;
 	float fireDifferencep2 = 0.0;
+	float BulletX;
+	bool IsLeft = false;
 
 	//text
 	TextLabel* label;

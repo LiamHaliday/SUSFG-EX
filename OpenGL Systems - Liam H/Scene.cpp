@@ -11,6 +11,7 @@
 // Mail			: liamhaliday@gmail.com	
 
 #include "Scene.h"
+#include <iostream>
 
 #define BUTTON_UP   0 
 #define BUTTON_DOWN 1
@@ -236,16 +237,21 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	// bullet part ---------------------------------------------
 	if (keyState[(unsigned char)'g'] == BUTTON_DOWN || keyState[(unsigned char)'G'] == BUTTON_DOWN)
 	{
-
 		if ((currentTime - fireDifference) > fireTime)
 		{
 			fireDifference = currentTime;
-
 			bullets[bulletsInUse].xCoord = player.xCoord;
 			bullets[bulletsInUse].yCoord = player.yCoord;
 			bullets[bulletsInUse].direction = 1;
 			bulletsInUse++;
-
+			if (IsLeft == false)
+			{
+				IsLeft = true;
+			}
+			else
+			{
+				IsLeft = false;
+			}
 		}
 	}
 
@@ -260,7 +266,19 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	{	
 		if (bullets[i].direction == 1)
 		{
-			bullets[i].yCoord -= 0.1;
+			float Amplitude = 0.3;
+			float Frequency = 7;
+			float StartingAngle = 0;
+			float Yshift = 0;
+			bullets[i].yCoord -= 0.15;
+			if (IsLeft == false)
+			{
+				bullets[i].xCoord = Amplitude * -sin(Frequency * bullets[i].yCoord + StartingAngle) + bullets[i].xCoord;
+			}
+			else
+			{
+				bullets[i].xCoord = Amplitude * sin(Frequency * bullets[i].yCoord + StartingAngle) + bullets[i].xCoord;
+			}
 		}
 
 		if (bullets[i].yCoord < -3.0)
