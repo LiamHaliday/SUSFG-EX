@@ -221,6 +221,9 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 		{
 			pinkEnemys[i].yCoord = -3.0;
 		}
+
+		pinkEnemys[i].xCoord -= sin(currentTime) * 0.01f;
+		//camZ = cos(currentTime) * 4.0f;
 	}
 
 	for (unsigned int i = 0; i < greenEnemys.size(); i++)
@@ -230,6 +233,8 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 		{
 			greenEnemys[i].yCoord = -3.0;
 		}
+
+		greenEnemys[i].xCoord -= sin(currentTime) * 0.01f;
 	}
 
 
@@ -329,7 +334,11 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 			//std::cout << bulletsInUse << "\n";
 		}
 	}
+	//------------------------------
 
+
+
+	//------------------------------
 	MoventBox();
 	
 }
@@ -393,6 +402,8 @@ void Scene::MoventBox()
 			}
 		}
 	}
+
+
 
 
 
