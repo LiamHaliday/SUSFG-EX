@@ -196,22 +196,8 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	FPString += std::to_string(int(CurrentFPS)).c_str();
 	FPS->setText(FPString.c_str());
 
+	controll(keyState,  ArrowKeyState);
 
-	if (keyState[(unsigned char)'s'] == BUTTON_DOWN && player.yCoord <=  2.5f  || keyState[(unsigned char)'S'] == BUTTON_DOWN && player.yCoord <=   2.5f) { player.yCoord += Playerspeed; }
-	if (keyState[(unsigned char)'w'] == BUTTON_DOWN && player.yCoord >= -0.5f  || keyState[(unsigned char)'W'] == BUTTON_DOWN && player.yCoord >=  -0.5f){ player.yCoord -= Playerspeed; }
-	if (keyState[(unsigned char)'d'] == BUTTON_DOWN && player.xCoord >= -4.0f  || keyState[(unsigned char)'D'] == BUTTON_DOWN && player.xCoord >=   -4.0f) { player.xCoord -= Playerspeed; }
-	if (keyState[(unsigned char)'a'] == BUTTON_DOWN && player.xCoord <=  4.0f  || keyState[(unsigned char)'A'] == BUTTON_DOWN && player.xCoord <=   4.0f){ player.xCoord += Playerspeed; }
-
-
-	//if (keyState[(unsigned char)'r'] == BUTTON_DOWN || keyState[(unsigned char)'R'] == BUTTON_DOWN){ player.zCoord -= Playerspeed; }
-	//if (keyState[(unsigned char)'f'] == BUTTON_DOWN || keyState[(unsigned char)'F'] == BUTTON_DOWN){ player.zCoord += Playerspeed; }
-	//std::cout << "x:" << player.xCoord << std::endl;
-	//std::cout << "y:" << player.yCoord << std::endl;
-
-	if (ArrowKeyState[0] == BUTTON_DOWN && player2.yCoord >= -0.5f)  { player2.yCoord -= Playerspeed; }	 //up
-	if (ArrowKeyState[1] == BUTTON_DOWN && player2.yCoord <= 2.5f) { player2.yCoord += Playerspeed; }	 //down
-	if (ArrowKeyState[2] == BUTTON_DOWN && player2.xCoord <= 4.0f) { player2.xCoord += Playerspeed; }	 //left
-	if (ArrowKeyState[3] == BUTTON_DOWN && player2.xCoord >= -4.0f)  { player2.xCoord -= Playerspeed; }	 //right 
 
 	// ---------------------------------- enemy reset
 	for (unsigned int i = 0; i < pinkEnemys.size(); i++)
@@ -222,7 +208,7 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 			pinkEnemys[i].yCoord = -3.0;
 		}
 
-		pinkEnemys[i].xCoord -= sin(currentTime) * 0.01f;
+		pinkEnemys[i].xCoord -= cos(currentTime) * 0.01f;
 		//camZ = cos(currentTime) * 4.0f;
 	}
 
@@ -239,7 +225,41 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 
 
-	// bullet part ---------------------------------------------
+
+	//------------------------------
+
+
+
+	//------------------------------
+	MoventBox();
+	
+}
+
+
+void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
+{
+	GLfloat currentTime = glutGet(GLUT_ELAPSED_TIME);
+	currentTime = currentTime / 1000;
+
+
+
+	if (keyState[(unsigned char)'w'] == BUTTON_DOWN && player.yCoord >= -0.5f || keyState[(unsigned char)'W'] == BUTTON_DOWN && player.yCoord >= -0.5f) { player.yCoord -= Playerspeed; } //up
+	if (keyState[(unsigned char)'s'] == BUTTON_DOWN && player.yCoord <= 2.5f || keyState[(unsigned char)'S'] == BUTTON_DOWN && player.yCoord <= 2.5f) { player.yCoord += Playerspeed; } //down
+	if (keyState[(unsigned char)'a'] == BUTTON_DOWN && player.xCoord <= 4.0f || keyState[(unsigned char)'A'] == BUTTON_DOWN && player.xCoord <= 4.0f) { player.xCoord += Playerspeed; } //left
+	if (keyState[(unsigned char)'d'] == BUTTON_DOWN && player.xCoord >= -4.0f || keyState[(unsigned char)'D'] == BUTTON_DOWN && player.xCoord >= -4.0f) { player.xCoord -= Playerspeed; } //right 
+
+
+	//if (keyState[(unsigned char)'r'] == BUTTON_DOWN || keyState[(unsigned char)'R'] == BUTTON_DOWN){ player.zCoord -= Playerspeed; }
+	//if (keyState[(unsigned char)'f'] == BUTTON_DOWN || keyState[(unsigned char)'F'] == BUTTON_DOWN){ player.zCoord += Playerspeed; }
+	//std::cout << "x:" << player.xCoord << std::endl;
+	//std::cout << "y:" << player.yCoord << std::endl;
+
+	if (ArrowKeyState[0] == BUTTON_DOWN && player2.yCoord >= -0.5f) { player2.yCoord -= Playerspeed; }	 //up
+	if (ArrowKeyState[1] == BUTTON_DOWN && player2.yCoord <= 2.5f) { player2.yCoord += Playerspeed; }	 //down
+	if (ArrowKeyState[2] == BUTTON_DOWN && player2.xCoord <= 4.0f) { player2.xCoord += Playerspeed; }	 //left
+	if (ArrowKeyState[3] == BUTTON_DOWN && player2.xCoord >= -4.0f) { player2.xCoord -= Playerspeed; }	 //right 
+
+																										 // bullet part ---------------------------------------------
 	if (keyState[(unsigned char)'g'] == BUTTON_DOWN || keyState[(unsigned char)'G'] == BUTTON_DOWN)
 	{
 		if ((currentTime - fireDifference) > fireTime)
@@ -266,24 +286,24 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	}
 
 
-		// ---------------------------------- enemy reset
+	// ---------------------------------- enemy reset
 	for (unsigned int i = 0; i < bullets.size(); i++)
-	{	
+	{
 		if (bullets[i].direction == 1)
 		{
 			float Amplitude = 0.3;
 			float Frequency = 7;
 			float StartingAngle = 0;
 			float Yshift = 0;
-			bullets[i].yCoord -= 0.15;
-			if (IsLeft == false)
-			{
-				bullets[i].xCoord = Amplitude * -sin(Frequency * bullets[i].yCoord + StartingAngle) + bullets[i].xCoord;
-			}
-			else
-			{
-				bullets[i].xCoord = Amplitude * sin(Frequency * bullets[i].yCoord + StartingAngle) + bullets[i].xCoord;
-			}
+			bullets[i].yCoord -= 0.15f;
+			//	if (IsLeft == false)
+			//	{
+			//		bullets[i].xCoord = Amplitude * -sin(Frequency * bullets[i].yCoord + StartingAngle) + bullets[i].xCoord;
+			//	}
+			//	else
+			//	{
+			//		bullets[i].xCoord = Amplitude * sin(Frequency * bullets[i].yCoord + StartingAngle) + bullets[i].xCoord;
+			//	}
 		}
 
 		if (bullets[i].yCoord < -3.0)
@@ -323,7 +343,7 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	{
 		if (bullets2[i].direction == 1)
 		{
-			bullets2[i].yCoord -= 0.1;
+			bullets2[i].yCoord -= 0.1f;
 		}
 
 		if (bullets2[i].yCoord < -3.0)
@@ -334,15 +354,8 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 			//std::cout << bulletsInUse << "\n";
 		}
 	}
-	//------------------------------
 
-
-
-	//------------------------------
-	MoventBox();
-	
 }
-
 
 
 void Scene::MoventBox() 
@@ -397,7 +410,7 @@ void Scene::MoventBox()
 	
 				//bullet delete on hit
 				bullets[i].direction = 0;	//dircetion
-				bullets[i].xCoord = (0.5 + i * 0.02) - 1;
+				bullets[i].xCoord = (0.5f + i * 0.02f) - 1;
 				bullets[i].yCoord = bulletsPlace;
 			}
 		}

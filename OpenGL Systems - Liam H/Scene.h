@@ -72,6 +72,8 @@ public:
 
 	void update(unsigned char *keyState, unsigned int *ArrowKeyState);
 
+	void controll(unsigned char *keyState, unsigned int *ArrowKeyState);
+
 	void SetBulet();
 	void SetBulet2();
 

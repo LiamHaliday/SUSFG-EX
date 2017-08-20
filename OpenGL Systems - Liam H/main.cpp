@@ -88,6 +88,7 @@ void render(void)
 /****************************************************/
 bool fullScreen = false;
 bool fullscreenButton = true;
+
 void update() {
 	// update game information.
 	glutPostRedisplay();
@@ -99,21 +100,41 @@ void update() {
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboard_up);
 
-	if (keyState[(unsigned char)'p'] == BUTTON_UP || keyState[(unsigned char)'P'] == BUTTON_UP) { fullscreenButton = false; }
+	// check buttons
+	for (size_t i = 0; i < 255; i++)
+	{
+		if (keyState[i] == BUTTON_DOWN)
+		{
+			std::cout << (unsigned char)i;
+		}
+	}
+	for (size_t i = 0; i < 4; i++)
+	{
+		if (ArrowKeyState[i] == BUTTON_DOWN)
+		{
+			std::cout << i;
+		}
+	}
+
+	std::cout << std::endl;
+
+
+
+	if (keyState[(unsigned char)'p'] == BUTTON_UP || keyState[(unsigned char)'P'] == BUTTON_UP) { fullScreen = true; }
 
 	if (fullscreenButton)
 	{
 		if (fullScreen)
 		{
-			if (keyState[(unsigned char)'p'] == BUTTON_DOWN || keyState[(unsigned char)'P'] == BUTTON_DOWN) { fullScreen = false; }
-			glutFullScreen();
-			fullscreenButton = false;
+			//if (keyState[(unsigned char)'p'] == BUTTON_DOWN || keyState[(unsigned char)'P'] == BUTTON_DOWN) { fullScreen = false; }
+		//	glutFullScreen();
+			//fullscreenButton = true;
 		}
 		else
 		{
-			if (keyState[(unsigned char)'p'] == BUTTON_DOWN || keyState[(unsigned char)'P'] == BUTTON_DOWN) { fullScreen = true; }
-			glutReshapeWindow(1600, 1000);
-			fullscreenButton = false;
+	//	if (keyState[(unsigned char)'p'] == BUTTON_DOWN || keyState[(unsigned char)'P'] == BUTTON_DOWN) { fullScreen = true; }
+	//	glutReshapeWindow(1600, 1000);
+	//	fullscreenButton = false;
 		}
 	}
 	
