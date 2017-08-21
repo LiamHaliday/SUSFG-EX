@@ -77,6 +77,8 @@ public:
 	void SetBulet();
 	void SetBulet2();
 
+	void SetStarFloor();
+
 	void Setenemy();
 	void Setenemy2();
 	
@@ -103,6 +105,8 @@ private:
 	objectStruct player;
 	objectStruct player2;
 	objectStruct mainMenuObject;
+
+	std::vector<objectStruct> starFloor;
 
 	object floor;
 	object end;

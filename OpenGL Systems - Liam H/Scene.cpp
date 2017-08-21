@@ -66,7 +66,7 @@ void Scene::init()
 		RandY = (-(RandY / 100) - 2);
 	
 		objectStruct* enemy = new objectStruct();
-		enemy->direction = 0;	//dircetion
+		enemy->direction = 0;	
 		enemy->xCoord = RandX;
 		enemy->yCoord = RandY;
 		pinkEnemys.push_back(*enemy);
@@ -84,7 +84,7 @@ void Scene::init()
 		RandY = (-(RandY / 100) - 2);
 
 		objectStruct* enemy = new objectStruct();
-		enemy->direction = 0;	//dircetion
+		enemy->direction = 0;	
 		enemy->xCoord = RandX;
 		enemy->yCoord = RandY;
 		greenEnemys.push_back(*enemy);
@@ -98,7 +98,7 @@ void Scene::init()
 	{
 		objectStruct * bullet = new objectStruct;
 
-		bullet->direction = 0;	//dircetion
+		bullet->direction = 0;	
 		bullet->xCoord = (0.5 + b * 0.02) - 1;
 		bullet->yCoord = bulletsPlace;
 		bullets.push_back(*bullet);
@@ -111,7 +111,7 @@ void Scene::init()
 	{
 		objectStruct * bullet = new objectStruct;
 
-		bullet->direction = 0;	//dircetion
+		bullet->direction = 0;	
 		bullet->xCoord = (0.5 + b * 0.02) - 1;
 		bullet->yCoord = bulletsPlace;
 		bullets2.push_back(*bullet);
@@ -120,6 +120,18 @@ void Scene::init()
 		SetBulet2();
 	}
 
+	for (int b = 0; b < 2; b++)
+	{
+		objectStruct * floor = new objectStruct;
+
+		floor->direction = 0;
+		floor->xCoord = 0;
+		floor->yCoord = 0;
+		starFloor.push_back(*floor);
+		delete floor;
+		starFloor[starFloor.size() - 1].object.setImage("Assets/images/STARS.png");
+		SetStarFloor();
+	}
 
 
 	//floor.setImage("Assets/images/blueBOX.png");
@@ -162,6 +174,11 @@ void Scene::render()
 		for (unsigned int i = 0; i < bullets2.size(); i++)
 		{
 			bullets2[i].object.render(bullets2[i].xCoord, 0.10, bullets2[i].yCoord, 0.0, false);
+		}
+
+		for (unsigned int i = 0; i < starFloor.size(); i++)
+		{
+			starFloor[i].object.render(starFloor[i].xCoord, 0.0, starFloor[i].yCoord, 0.0, false);
 		}
 
 	FPS->Render();
@@ -229,8 +246,8 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	//------------------------------
 
 
-
 	//------------------------------
+	
 	MoventBox();
 	
 }
@@ -723,3 +740,30 @@ void Scene::SetBulet2()
 	bullets2[bullets2.size() - 1].object.createObj(ptrEnemyVert, sizeof(vertices), prtEnemyInd, sizeof(indices));
 
 };
+
+void Scene::SetStarFloor() 
+{
+	GLfloat vertices[] = {
+		// Fill in the top face vertex data.							 
+		-1.0f, 1.0f, -1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		 1.0f, 1.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+
+	};
+
+	GLuint indices[] = {
+		// front
+		0, 1, 2,
+		0, 2, 3,
+
+	};
+
+
+	GLfloat * ptrEnemyVert = vertices;
+	GLuint * prtEnemyInd = indices;
+
+
+	starFloor[starFloor.size() - 1].object.createObj(ptrEnemyVert, sizeof(vertices), prtEnemyInd, sizeof(indices));
+
+}
