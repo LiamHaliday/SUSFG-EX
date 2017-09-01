@@ -139,11 +139,12 @@ void Scene::init()
 		floor->yCoord = 0;
 		starFloor.push_back(*floor);
 		delete floor;
-		if (starFloor.size() > 2)
-		starFloor[starFloor.size() - 1].object.setImage("Assets/images/Top_Stars- flip.png");
-		else
-		starFloor[starFloor.size() - 1].object.setImage("Assets/images/Top_Stars.png");
-
+		if (starFloor.size() > 2) {
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/test.png");	// Back Layer
+		}
+		else {
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Top_Stars.png");	// Front Layer
+		}
 		SetStarFloor();
 	}
 
