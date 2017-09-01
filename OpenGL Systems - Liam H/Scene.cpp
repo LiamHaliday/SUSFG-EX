@@ -132,7 +132,7 @@ void Scene::init()
 		floor->yCoord = 0;
 		starFloor.push_back(*floor);
 		delete floor;
-		starFloor[starFloor.size() - 1].object.setImage("Assets/images/STARS.png");
+		starFloor[starFloor.size() - 1].object.setImage("Assets/images/Top_Stars.png");
 		SetStarFloor();
 	}
 
@@ -153,14 +153,12 @@ void Scene::render()
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 3D
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-
 	//floor.render(0.0, 0.0, -1.0, 0.0 , true);             // put back from thing
 
 		for (unsigned int i = 0; i < pinkEnemys.size(); i++)
 		{
 			pinkEnemys[i].object.render(pinkEnemys[i].xCoord, 0.12, pinkEnemys[i].yCoord, true, mainCam);
 		}
-
 
 		for (unsigned int i = 0; i < greenEnemys.size(); i++)
 		{
@@ -177,18 +175,18 @@ void Scene::render()
 			bullets2[i].object.render(bullets2[i].xCoord, bullets2[i].zCoord, bullets2[i].yCoord, true, mainCam);
 		}
 
+		// RGBA Alpha
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 		for (unsigned int i = 0; i < starFloor.size(); i++)
 		{
 			starFloor[i].object.render(0.0f, 0.0f, starScrollPoint[i], true, mainCam);
 		}
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 		// player render and movment
-
-		player2.object.render(player2.xCoord, player2.zCoord, player2.yCoord, true, mainCam);
 		player.object.render(player.xCoord, player.zCoord, player.yCoord , true, mainCam);
+		player2.object.render(player2.xCoord, player2.zCoord, player2.yCoord, true, mainCam);
 
 		glDisable(GL_BLEND);
 

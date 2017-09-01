@@ -150,7 +150,7 @@ int main(int argc, char **argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(50, 5); glutInitWindowSize(1600, 1000);
-	glutCreateWindow("SUSFG-EX");
+	glutCreateWindow("SUPER ULTRA SPACE FIGHTING GAME: EDITION X");
 	glewInit();
 	init();
 	glutDisplayFunc(render);
