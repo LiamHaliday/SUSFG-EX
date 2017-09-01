@@ -129,6 +129,7 @@ void Scene::init()
 		SetBulet2();
 	}
 
+
 	for (int b = 0; b < 4; b++)
 	{
 		objectStruct * floor = new objectStruct;
@@ -138,9 +139,14 @@ void Scene::init()
 		floor->yCoord = 0;
 		starFloor.push_back(*floor);
 		delete floor;
+		if (starFloor.size() > 2)
+		starFloor[starFloor.size() - 1].object.setImage("Assets/images/Top_Stars- flip.png");
+		else
 		starFloor[starFloor.size() - 1].object.setImage("Assets/images/Top_Stars.png");
+
 		SetStarFloor();
 	}
+
 
 
 	//floor.setImage("Assets/images/blueBOX.png");
@@ -185,9 +191,13 @@ void Scene::render()
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		for (unsigned int i = 0; i < starFloor.size(); i++)
+		for (unsigned int i = 0; i < 2; i++)
 		{
 			starFloor[i].object.render(0.0f, 0.0f, starScrollPoint[i], true, mainCam);
+		}
+		for (unsigned int i = 2; i < 4; i++)
+		{
+			starFloor[i].object.render(0.0f, 0.01f, starScrollPoint[i], true, mainCam);
 		}
 
 		// player render and movment
@@ -275,7 +285,7 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 	for (size_t i = 0; i < 2; i++)
 	{
-		starScrollPoint[i] += 0.05f;
+		starScrollPoint[i] += 0.025f;
 		if (starScrollPoint[i] > 10.0f)
 		{
 			starScrollPoint[i] = -10.0f;
