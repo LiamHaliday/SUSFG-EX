@@ -39,6 +39,12 @@ void Scene::init()
 	FMOD::Channel* channel;
 	//audioMgr->playSound(bgMusic, 0, false, &channel); // background sound                                                 //sound -----------------------------------------
 
+	starScrollPoint[0] = 0.0f;
+	starScrollPoint[1] = -10.0f;
+
+	starScrollPointBack[0] = 0.0f;
+	starScrollPointBack[1] = -10.0f;
+
 
 	FPS = new TextLabel("End score", "Assets/fonts/arial.ttf");
 	FPS->setPosition(glm::vec2(1350.0f, 900.0f));
@@ -123,7 +129,7 @@ void Scene::init()
 		SetBulet2();
 	}
 
-	for (int b = 0; b < 2; b++)
+	for (int b = 0; b < 4; b++)
 	{
 		objectStruct * floor = new objectStruct;
 
@@ -270,6 +276,15 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	for (size_t i = 0; i < 2; i++)
 	{
 		starScrollPoint[i] += 0.05f;
+		if (starScrollPoint[i] > 10.0f)
+		{
+			starScrollPoint[i] = -10.0f;
+		}
+	}
+
+	for (size_t i = 2; i < 4; i++)
+	{
+		starScrollPoint[i] += 0.01f;
 		if (starScrollPoint[i] > 10.0f)
 		{
 			starScrollPoint[i] = -10.0f;

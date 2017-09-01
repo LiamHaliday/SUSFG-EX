@@ -88,7 +88,8 @@ public:
 private:
 
 	// star wall scroll
-	float starScrollPoint[2] = {0.0f, -10.0f};
+	float starScrollPoint[2];
+	float starScrollPointBack[2];
 	
 	//object* enemy = new object();
 	float bulletsPlace = 4.0f;
