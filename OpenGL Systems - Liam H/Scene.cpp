@@ -45,6 +45,9 @@ void Scene::init()
 	starScrollPointBack[0] = 0.0f;
 	starScrollPointBack[1] = -10.0f;
 
+	starScrollPointBack2[0] = 0.0f;
+	starScrollPointBack2[1] = -10.0f;
+
 
 	FPS = new TextLabel("End score", "Assets/fonts/arial.ttf");
 	FPS->setPosition(glm::vec2(1350.0f, 900.0f));
@@ -130,7 +133,7 @@ void Scene::init()
 	}
 
 
-	for (int b = 0; b < 4; b++)
+	for (int b = 0; b < 6; b++)
 	{
 		objectStruct * floor = new objectStruct;
 
@@ -139,12 +142,19 @@ void Scene::init()
 		floor->yCoord = 0;
 		starFloor.push_back(*floor);
 		delete floor;
-		if (starFloor.size() > 2) {
+		if (starFloor.size() <= 2)
+		{
 			starFloor[starFloor.size() - 1].object.setImage("Assets/images/test.png");	// Back Layer
 		}
-		else {
+		else if (starFloor.size() > 2 && starFloor.size() <= 4)
+		{
 			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Top_Stars.png");	// Front Layer
 		}
+		else
+		{
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Back_Stars.png");	// Front Layer
+		}
+
 		SetStarFloor();
 	}
 
@@ -168,44 +178,49 @@ void Scene::render()
 
 	//floor.render(0.0, 0.0, -1.0, 0.0 , true);             // put back from thing
 
-		for (unsigned int i = 0; i < pinkEnemys.size(); i++)
-		{
-			pinkEnemys[i].object.render(pinkEnemys[i].xCoord, 0.12, pinkEnemys[i].yCoord, true, mainCam);
-		}
+	for (unsigned int i = 0; i < pinkEnemys.size(); i++)
+	{
+		pinkEnemys[i].object.render(pinkEnemys[i].xCoord, 0.12, pinkEnemys[i].yCoord, true, mainCam);
+	}
 
-		for (unsigned int i = 0; i < greenEnemys.size(); i++)
-		{
-			greenEnemys[i].object.render(greenEnemys[i].xCoord, 0.11, greenEnemys[i].yCoord, true, mainCam);
-		}
+	for (unsigned int i = 0; i < greenEnemys.size(); i++)
+	{
+		greenEnemys[i].object.render(greenEnemys[i].xCoord, 0.11, greenEnemys[i].yCoord, true, mainCam);
+	}
 
-		for (unsigned int i = 0; i < bullets.size(); i++)
-		{
-			bullets[i].object.render(bullets[i].xCoord, bullets[i].zCoord, bullets[i].yCoord, true, mainCam);
-		}
+	for (unsigned int i = 0; i < bullets.size(); i++)
+	{
+		bullets[i].object.render(bullets[i].xCoord, bullets[i].zCoord, bullets[i].yCoord, true, mainCam);
+	}
 
-		for (unsigned int i = 0; i < bullets2.size(); i++)
-		{
-			bullets2[i].object.render(bullets2[i].xCoord, bullets2[i].zCoord, bullets2[i].yCoord, true, mainCam);
-		}
+	for (unsigned int i = 0; i < bullets2.size(); i++)
+	{
+		bullets2[i].object.render(bullets2[i].xCoord, bullets2[i].zCoord, bullets2[i].yCoord, true, mainCam);
+	}
 
-		// RGBA Alpha
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	// RGBA Alpha
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		for (unsigned int i = 0; i < 2; i++)
-		{
-			starFloor[i].object.render(0.0f, 0.0f, starScrollPoint[i], true, mainCam);
-		}
-		for (unsigned int i = 2; i < 4; i++)
-		{
-			starFloor[i].object.render(0.0f, 0.01f, starScrollPoint[i], true, mainCam);
-		}
 
-		// player render and movment
-		player.object.render(player.xCoord, player.zCoord, player.yCoord , true, mainCam);
-		player2.object.render(player2.xCoord, player2.zCoord, player2.yCoord, true, mainCam);
+	starFloor[0].object.render(0.0f, -0.03f, starScrollPoint[0], true, mainCam);
+	starFloor[1].object.render(0.0f, -0.03f, starScrollPoint[1], true, mainCam);
 
-		glDisable(GL_BLEND);
+	starFloor[4].object.render(0.0f, -0.01f, starScrollPointBack2[0], true, mainCam);
+	starFloor[5].object.render(0.0f, -0.01f, starScrollPointBack2[1], true, mainCam);
+
+	starFloor[2].object.render(0.0f, -0.00f, starScrollPointBack[0], true, mainCam);
+	starFloor[3].object.render(0.0f, -0.00f, starScrollPointBack[1], true, mainCam);
+
+//	std::cout << "place " << starScrollPointBack[i] << std::endl;
+
+
+	// player render and movment
+
+	player2.object.render(player2.xCoord, player2.zCoord - 0.001f, player2.yCoord, true, mainCam);
+	player.object.render(player.xCoord, player.zCoord, player.yCoord , true, mainCam);
+
+	glDisable(GL_BLEND);
 
 	FPS->Render();
 	
@@ -286,19 +301,28 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 	for (size_t i = 0; i < 2; i++)
 	{
-		starScrollPoint[i] += 0.025f;
+		starScrollPoint[i] += 0.02f;
 		if (starScrollPoint[i] > 10.0f)
 		{
 			starScrollPoint[i] = -10.0f;
 		}
 	}
 
-	for (size_t i = 2; i < 4; i++)
+	for (size_t i = 0; i < 2; i++)
 	{
-		starScrollPoint[i] += 0.01f;
-		if (starScrollPoint[i] > 10.0f)
+		starScrollPointBack[i] += 0.015f;
+		if (starScrollPointBack[i] > 10.0f)
 		{
-			starScrollPoint[i] = -10.0f;
+			starScrollPointBack[i] = -10.0f;
+		}
+	}
+
+	for (size_t i = 0; i < 2; i++)
+	{
+		starScrollPointBack2[i] += 0.025f;
+		if (starScrollPointBack2[i] > 10.0f)
+		{
+			starScrollPointBack2[i] = -10.0f;
 		}
 	}
 
