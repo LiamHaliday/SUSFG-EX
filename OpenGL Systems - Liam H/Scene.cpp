@@ -144,15 +144,15 @@ void Scene::init()
 		delete floor;
 		if (starFloor.size() <= 2)
 		{
-			starFloor[starFloor.size() - 1].object.setImage("Assets/images/test.png");	// Back Layer
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/BG_Grid.png");	// Back Layer
 		}
 		else if (starFloor.size() > 2 && starFloor.size() <= 4)
 		{
-			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Top_Stars.png");	// Front Layer
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Back_Stars.png");	// Middle Layer
 		}
 		else
 		{
-			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Back_Stars.png");	// Front Layer
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Top_Stars.png");	// Front Layer
 		}
 
 		SetStarFloor();
