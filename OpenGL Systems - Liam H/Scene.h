@@ -8,7 +8,11 @@
 #include "Text.h"
 
 
-
+enum Scenes
+{
+	MAINMENU,
+	GAMESCENE
+};
 
 struct objectStruct
 {
@@ -32,6 +36,8 @@ public:
 	void Setsquare();
 	void SetFloor();
 
+	void MainMenu();
+	void MainMenuRender();
 
 	FMOD::System* audioMgr;
 	FMOD::Sound* hitSound;
@@ -138,7 +144,7 @@ private:
 	unsigned char keyState[255];
 	float Playerspeed;
 	float enemySpeed;
-	float changeableSpeed = 0.001f;
+	float changeableSpeed = 0.0005f;
 
 	float CamLookX = 0.0f;
 	float CamLookY = 0.0f;

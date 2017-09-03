@@ -52,7 +52,7 @@ void SpecialInput_up(int key, int x, int y)
 }
 
 
-
+int sceneSwitch;
 
 Scene MainScene;
 
@@ -66,7 +66,29 @@ bool gameInit = false;
 /****************************************************/
 void init()
 {
-	MainScene.init();
+	sceneSwitch = GAMESCENE;
+
+	switch (sceneSwitch)
+	{
+	case MAINMENU:
+	{
+		// play the main menu
+		MainScene.MainMenu();
+
+		break;
+	}
+	case GAMESCENE:
+	{
+	
+		MainScene.init();
+
+		break;
+	}
+
+	default:
+		break;
+	}
+
 }
 
 /****************************************************/
@@ -76,9 +98,24 @@ void init()
 /****************************************************/
 void render(void)
 {
-	MainScene.render();
 
-	
+	switch (sceneSwitch)
+	{
+		case MAINMENU:
+		{
+			// play the main menu
+			MainScene.MainMenuRender();
+
+			break;
+		}
+		case GAMESCENE:
+		{
+
+			MainScene.render();
+			break;
+		}
+	}
+
 }
 
 /****************************************************/
@@ -93,8 +130,26 @@ void update() {
 	// update game information.
 	glutPostRedisplay();
 
+	switch (sceneSwitch)
+	{
+	case MAINMENU:
+	{
+		// play the main menu
+		MainScene.MainMenu();
+		break;
+	}
+	case GAMESCENE:
+	{
 
-	MainScene.update(keyState, ArrowKeyState);
+		MainScene.update(keyState, ArrowKeyState);
+
+		break;
+	}
+
+	default:
+		break;
+	}
+
 
 
 	glutKeyboardFunc(keyboard);
@@ -118,8 +173,9 @@ void update() {
 
 	std::cout << std::endl;
 
+//	glutFullScreen();
 
-
+	/*
 	if (keyState[(unsigned char)'p'] == BUTTON_UP || keyState[(unsigned char)'P'] == BUTTON_UP) { fullScreen = true; }
 
 	if (fullscreenButton)
@@ -127,8 +183,8 @@ void update() {
 		if (fullScreen)
 		{
 			//if (keyState[(unsigned char)'p'] == BUTTON_DOWN || keyState[(unsigned char)'P'] == BUTTON_DOWN) { fullScreen = false; }
-		//	glutFullScreen();
-			//fullscreenButton = true;
+		//
+			fullscreenButton = true;
 		}
 		else
 		{
@@ -137,7 +193,7 @@ void update() {
 	//	fullscreenButton = false;
 		}
 	}
-	
+	*/
 
 	glutSpecialFunc(SpecialInput);
 	glutSpecialUpFunc(SpecialInput_up);

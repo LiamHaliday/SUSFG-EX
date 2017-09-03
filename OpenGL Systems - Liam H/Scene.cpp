@@ -26,6 +26,44 @@ Scene::Scene()
 };
 
 
+void Scene::MainMenu()
+{
+
+	mainMenuObject.object.setImage("Assets/images/SUSFG-EX_MainMenu_PLAY.png");
+	
+	//floor vec ands ind
+	GLfloat MainMenuVertices[] = {
+
+		// Fill in the top face vertex data.							 
+		-5.0f, 0.0f, -5.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		-5.0f, 0.0f,  5.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		5.0f, 0.0f,  5.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		5.0f, 0.0f, -5.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+	};
+
+
+	GLuint MainMenuIndices[] = {
+		// front
+		0, 1, 2,
+		0, 2, 3, 
+	};
+
+
+	GLfloat * testVert = MainMenuVertices;
+	GLuint * testInd = MainMenuIndices;
+
+
+	mainMenuObject.object.createObj(testVert, sizeof(MainMenuVertices), testInd, sizeof(MainMenuIndices));
+
+}
+
+
+void Scene::MainMenuRender()
+{
+	mainMenuObject.object.render(0.0, 0.0, 0.0, true, mainCam);
+}
+
+
 /****************************************************/
 // Filename: Scene.cpp
 // Created: Liam Haliday
@@ -39,6 +77,7 @@ void Scene::init()
 	FMOD::Channel* channel;
 	//audioMgr->playSound(bgMusic, 0, false, &channel); // background sound                                                 //sound -----------------------------------------
 
+	//star Scroll Point array (place where the fucking stars are bitch)
 	starScrollPoint[0] = 0.0f;
 	starScrollPoint[1] = -10.0f;
 
@@ -144,11 +183,11 @@ void Scene::init()
 		delete floor;
 		if (starFloor.size() <= 2)
 		{
-			starFloor[starFloor.size() - 1].object.setImage("Assets/images/BG_Grid.png");	// Back Layer
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Back_Stars.png");	// Back Layer
 		}
 		else if (starFloor.size() > 2 && starFloor.size() <= 4)
 		{
-			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Back_Stars.png");	// Middle Layer
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Bg_grid.png");	// Middle Layer
 		}
 		else
 		{
