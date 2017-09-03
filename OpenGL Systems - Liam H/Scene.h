@@ -137,6 +137,8 @@ private:
 	//keyboard bits
 	unsigned char keyState[255];
 	float Playerspeed;
+	float enemySpeed;
+	float changeableSpeed = 0.001f;
 
 	float CamLookX = 0.0f;
 	float CamLookY = 0.0f;

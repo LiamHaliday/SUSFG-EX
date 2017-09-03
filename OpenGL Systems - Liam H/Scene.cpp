@@ -172,7 +172,8 @@ void Scene::init()
 /****************************************************/
 void Scene::render()
 {
-	glClearColor(0.050f, 0.050f, 0.050f, 1.0f);
+	//glClearColor(0.050f, 0.050f, 0.050f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 3D
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
@@ -246,7 +247,8 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	CurrentFPS = ((1 / deltaTime) * 1000);
 	//std::cout << currentTime << std::endl;
 
-	Playerspeed = 0.005f * deltaTime;
+	Playerspeed = 0.003 * deltaTime;
+	enemySpeed = changeableSpeed * deltaTime;
 
 
 	std::string FPString = "FPS: ";
@@ -259,25 +261,41 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	// ---------------------------------- enemy reset
 	for (unsigned int i = 0; i < pinkEnemys.size(); i++)
 	{
-		pinkEnemys[i].yCoord += 0.01f;
+		pinkEnemys[i].yCoord += enemySpeed;
 		if (pinkEnemys[i].yCoord > 3.0)
-		{
-			pinkEnemys[i].yCoord = -3.0;
+		{			
+			float RandX = rand() % 800;
+			float RandY = rand() % 1000;
+			RandX = (RandX / 100) - 4;
+			RandY = (-(RandY / 100) - 2);
+
+			//pinkEnemys[i].yCoord = -3.0;
+
+			pinkEnemys[i].xCoord = RandX;
+			pinkEnemys[i].yCoord = RandY - 1;
 		}
 
-		pinkEnemys[i].xCoord -= cos(currentTime) * 0.01f;
+		pinkEnemys[i].xCoord -= cos(currentTime) * 0.01;
 		//camZ = cos(currentTime) * 4.0f;
 	}
 
 	for (unsigned int i = 0; i < greenEnemys.size(); i++)
 	{
-		greenEnemys[i].yCoord += 0.01f;
+		greenEnemys[i].yCoord += enemySpeed;
 		if (greenEnemys[i].yCoord > 3.0)
 		{
-			greenEnemys[i].yCoord = -3.0;
+			//randomize
+			float RandX = rand() % 800;
+			float RandY = rand() % 1000;
+			RandX = (RandX / 100) - 4;
+			RandY = (-(RandY / 100) - 2);
+
+
+			greenEnemys[i].xCoord = RandX;
+			greenEnemys[i].yCoord = RandY - 1;
 		}
 
-		greenEnemys[i].xCoord -= sin(currentTime) * 0.01f;
+		greenEnemys[i].xCoord -= sin(currentTime) * 0.01;
 	}
 
 
@@ -339,7 +357,7 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 	GLfloat currentTime = glutGet(GLUT_ELAPSED_TIME);
 	currentTime = currentTime / 1000;
 
-
+	
 
 	if (keyState[(unsigned char)'w'] == BUTTON_DOWN && player.yCoord >= -0.5f || keyState[(unsigned char)'W'] == BUTTON_DOWN && player.yCoord >= -0.5f) { player.yCoord -= Playerspeed; } //up
 	if (keyState[(unsigned char)'s'] == BUTTON_DOWN && player.yCoord <= 2.5f || keyState[(unsigned char)'S'] == BUTTON_DOWN && player.yCoord <= 2.5f) { player.yCoord += Playerspeed; } //down
@@ -395,14 +413,6 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 			float StartingAngle = 0;
 			float Yshift = 0;
 			bullets[i].yCoord -= 0.15f;
-			//	if (IsLeft == false)
-			//	{
-			//		bullets[i].xCoord = Amplitude * -sin(Frequency * bullets[i].yCoord + StartingAngle) + bullets[i].xCoord;
-			//	}
-			//	else
-			//	{
-			//		bullets[i].xCoord = Amplitude * sin(Frequency * bullets[i].yCoord + StartingAngle) + bullets[i].xCoord;
-			//	}
 		}
 
 		if (bullets[i].yCoord < -3.0)
@@ -461,7 +471,6 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 void Scene::MoventBox() 
 {
-	//bullets 
 
 	// bullet to pink enemy
 	for (size_t i = 0; i < bullets2.size(); i++)
@@ -485,6 +494,8 @@ void Scene::MoventBox()
 				bullets2[i].direction = 0;	//dircetion
 				bullets2[i].xCoord = (0.5 + i * 0.02) - 1;
 				bullets2[i].yCoord = bulletsPlace;
+				//BULLETS SPEED
+				changeableSpeed += 0.00005f;
 			}
 		}
 	}
@@ -511,10 +522,14 @@ void Scene::MoventBox()
 				bullets[i].direction = 0;	//dircetion
 				bullets[i].xCoord = (0.5f + i * 0.02f) - 1;
 				bullets[i].yCoord = bulletsPlace;
+				//BULLETS SPEED
+				changeableSpeed += 0.00005f;
 			}
 		}
 	}
 
+
+	// bullets reset
 	for (size_t i = 0; i < bullets2.size(); i++)
 	{
 		for (size_t x = 0; x < greenEnemys.size(); x++)
