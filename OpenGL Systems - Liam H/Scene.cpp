@@ -94,8 +94,8 @@ void Scene::init()
 
 
 	//player creation
-	player.object.setImage("Assets/images/greenTRI.png");
-	player2.object.setImage("Assets/images/pinkTRI.png");
+	player.object.setImage("Assets/images/GreenPlayer.png");
+	player2.object.setImage("Assets/images/PinkPlayer.png");
 
 	player.xCoord = 0.5f;
 	player2.xCoord = -0.5f;
