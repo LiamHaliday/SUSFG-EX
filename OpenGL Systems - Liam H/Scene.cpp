@@ -76,6 +76,7 @@ void Scene::init()
 	LoadAudio();
 	FMOD::Channel* channel;
 	//audioMgr->playSound(bgMusic, 0, false, &channel); // background sound                                                 //sound -----------------------------------------
+	audioMgr->playSound(shootSound, 0, false, &channel); // shooting sound    
 
 	//star Scroll Point array (place where the fucking stars are bitch)
 	starScrollPoint[0] = 0.0f;
@@ -419,6 +420,7 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 	{
 		if ((currentTime - fireDifference) > fireTime)
 		{
+			// ADD SHOOTING SOUND HERE
 			fireDifference = currentTime;
 			bullets[bulletsInUse].xCoord = player.xCoord;
 			bullets[bulletsInUse].yCoord = player.yCoord;
@@ -530,6 +532,7 @@ void Scene::MoventBox()
 				pinkEnemys[x].yCoord = RandY;
 
 				//bullet delete on hit
+				// ADD BULLET HIT SOUND HERE
 				bullets2[i].direction = 0;	//dircetion
 				bullets2[i].xCoord = (0.5 + i * 0.02) - 1;
 				bullets2[i].yCoord = bulletsPlace;
