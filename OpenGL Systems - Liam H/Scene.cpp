@@ -76,7 +76,7 @@ void Scene::init()
 	LoadAudio();
 	FMOD::Channel* channel;
 	//audioMgr->playSound(bgMusic, 0, false, &channel); // background sound                                                 //sound -----------------------------------------
-	audioMgr->playSound(shootSound, 0, false, &channel); // shooting sound    
+	//audioMgr->playSound(shootSound, 0, false, &channel); // shooting sound    
 
 	//star Scroll Point array (place where the fucking stars are bitch)
 	starScrollPoint[0] = 0.0f;
