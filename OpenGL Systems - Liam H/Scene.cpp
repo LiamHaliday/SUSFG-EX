@@ -605,6 +605,50 @@ void Scene::MoventBox()
 		}
 	}
 
+		// player1 colision
+
+		for (size_t x = 0; x < pinkEnemys.size(); x++)
+		{
+			if (player.xCoord >= (pinkEnemys[x].xCoord - 0.2) && player.xCoord <= (pinkEnemys[x].xCoord + 0.2)
+				&& player.yCoord >= (pinkEnemys[x].yCoord - 0.2) && player.yCoord <= (pinkEnemys[x].yCoord + 0.2))
+			{
+				std::cout << "Playone hit by pink";
+			}
+		}
+
+		for (size_t x = 0; x < greenEnemys.size(); x++)
+		{
+			if (player.xCoord >= (greenEnemys[x].xCoord - 0.2) && player.xCoord <= (greenEnemys[x].xCoord + 0.2)
+				&& player.yCoord >= (greenEnemys[x].yCoord - 0.2) && player.yCoord <= (greenEnemys[x].yCoord + 0.2))
+			{
+				std::cout << "Playone hit by green";
+			}
+		}
+
+		
+		// player2 colision
+
+		for (size_t x = 0; x < pinkEnemys.size(); x++)
+		{
+			if (player2.xCoord >= (pinkEnemys[x].xCoord - 0.2) && player2.xCoord <= (pinkEnemys[x].xCoord + 0.2)
+				&& player2.yCoord >= (pinkEnemys[x].yCoord - 0.2) && player2.yCoord <= (pinkEnemys[x].yCoord + 0.2))
+			{
+				std::cout << "PlayTwo hit by pink";
+			}
+		}
+
+		for (size_t x = 0; x < greenEnemys.size(); x++)
+		{
+			if (player2.xCoord >= (greenEnemys[x].xCoord - 0.2) && player2.xCoord <= (greenEnemys[x].xCoord + 0.2)
+				&& player2.yCoord >= (greenEnemys[x].yCoord - 0.2) && player2.yCoord <= (greenEnemys[x].yCoord + 0.2))
+			{
+				std::cout << "PlayTwo hit by green";
+
+			}
+		}
+
+
+
 }	
 
 
