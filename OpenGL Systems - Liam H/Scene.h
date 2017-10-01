@@ -82,6 +82,8 @@ public:
 	void Setenemy();
 	void Setenemy2();
 
+	void SetMainMenu();	// TEST
+
 	void MoventBox();
 
 	void update(unsigned char *keyState, unsigned int *ArrowKeyState);
@@ -121,6 +123,8 @@ private:
 	objectStruct player;
 	objectStruct player2;
 	objectStruct mainMenuObject;
+
+	std::vector<objectStruct> mainMenu;	// TEST
 
 	std::vector<objectStruct> starFloor;
 

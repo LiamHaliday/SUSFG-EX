@@ -78,6 +78,9 @@ void Scene::init()
 	//audioMgr->playSound(bgMusic, 0, false, &channel); // background sound                                                 //sound -----------------------------------------
 	//audioMgr->playSound(shootSound, 0, false, &channel); // shooting sound    
 
+	// Main Menu Option
+	int menuOption = 1;	// Start on PLAY
+
 	//star Scroll Point array (place where the fucking stars are bitch)
 	starScrollPoint[0] = 0.0f;
 	starScrollPoint[1] = -10.0f;
@@ -89,7 +92,8 @@ void Scene::init()
 	starScrollPointBack2[1] = -10.0f;
 
 
-	FPS = new TextLabel("End score", "Assets/fonts/arial.ttf");
+	FPS = new TextLabel("End score", "Assets/fonts/PressStart2P.ttf");	// SET FONT
+	FPS->setScale(0.5);
 	FPS->setPosition(glm::vec2(250.0f, 10.0f));
 	FPS->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 
@@ -172,7 +176,7 @@ void Scene::init()
 		SetBulet2();
 	}
 
-
+	// Stars
 	for (int b = 0; b < 6; b++)
 	{
 		objectStruct * floor = new objectStruct;
@@ -198,6 +202,28 @@ void Scene::init()
 		SetStarFloor();
 	}
 
+	//// Main Menu
+	//if (menuOption == 1) {
+	//	objectStruct * floor = new objectStruct;
+
+	//	floor->direction = 0;
+	//	floor->xCoord = 0;
+	//	floor->yCoord = 0;
+	//	mainMenu.push_back(*floor);
+	//	delete floor;
+
+	//	if (menuOption <= 1) {
+	//		mainMenu[mainMenu.size() - 1].object.setImage("Assets/images/SUSFG-EX_MainMenu_PLAY.png");	// PLAY BUTTON
+	//	}
+	//	if (menuOption == 2) {
+	//		mainMenu[mainMenu.size() - 1].object.setImage("Assets/images/SUSFG-EX_MainMenu_OPTIONS.png");	// OPTIONS BUTTON
+	//	}
+	//	else if (menuOption >= 3) {
+	//		mainMenu[mainMenu.size() - 1].object.setImage("Assets/images/SUSFG-EX_MainMenu_QUIT.png");	// QUIT BUTTON
+	//	}
+
+	//	SetMainMenu();
+	//}
 
 
 	//floor.setImage("Assets/images/blueBOX.png");
@@ -238,6 +264,12 @@ void Scene::render()
 	{
 		bullets2[i].object.render(bullets2[i].xCoord, bullets2[i].zCoord, bullets2[i].yCoord, true, mainCam);
 	}
+
+	//// MAIN MENU TEST
+	//for (unsigned int i = 0; i < mainMenu.size(); i++)
+	//{
+	//	mainMenu[i].object.render(mainMenu[i].xCoord, mainMenu[i].zCoord, mainMenu[i].yCoord, true, mainCam);
+	//}
 
 	// RGBA Alpha
 	glEnable(GL_BLEND);
@@ -295,15 +327,13 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	std::string scoreText = "Green Score: ";
 	scoreText += std::to_string(int(greenScore)).c_str();
 
-	scoreText += "     Main Score: ";
+	scoreText += "   Main Score: ";
 	scoreText += std::to_string(int(mainScore)).c_str();
 
-	scoreText += "     Pink Score: ";
+	scoreText += "   Pink Score: ";
 	scoreText += std::to_string(int(pinkScore)).c_str();
 
 	FPS->setText(scoreText.c_str());
-
-
 
 
 	controll(keyState,  ArrowKeyState);
@@ -395,8 +425,6 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 		}
 	}
 
-
-	
 	MoventBox();
 	mainCam.movingCam(camLoc, camLook);
 	
@@ -505,7 +533,7 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 		if (bullets2[i].yCoord < -3.0)
 		{
-			bullets2[i].direction = 0;	//dircetion
+			bullets2[i].direction = 0;	//direction
 			bullets2[i].xCoord = (0.5 + i * 0.02) - 1;
 			bullets2[i].yCoord = bulletsPlace;
 			//std::cout << bulletsInUse << "\n";
@@ -946,3 +974,32 @@ void Scene::SetStarFloor()
 	starFloor[starFloor.size() - 1].object.createObj(ptrEnemyVert, sizeof(vertices), prtEnemyInd, sizeof(indices));
 
 }
+
+//// SET MAIN MENU TEST
+//void Scene::SetMainMenu()
+//{
+//
+//	GLfloat vertices[] = {
+//		// Fill in the top face vertex data.							 
+//		-0.025f, 0.01f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+//		-0.025f, 0.01f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+//		0.025f, 0.01f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+//		0.025f, 0.01f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+//
+//	};
+//
+//	GLuint indices[] = {
+//		// front
+//		0, 1, 2,
+//		0, 2, 3,
+//
+//	};
+//
+//
+//	GLfloat * ptrMainMenuV = vertices;
+//	GLuint * ptrMainMenuI = indices;
+//
+//
+//	mainMenu[mainMenu.size() - 1].object.createObj(ptrMainMenuV, sizeof(vertices), ptrMainMenuI, sizeof(indices));
+//
+//};
