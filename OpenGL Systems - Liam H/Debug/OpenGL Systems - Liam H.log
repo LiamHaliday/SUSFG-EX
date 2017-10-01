@@ -1,5 +1,5 @@
 ﻿  Scene.cpp
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.h(104): warning C4305: 'initializing' : truncation from 'double' to 'float'
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.h(109): warning C4305: 'initializing' : truncation from 'double' to 'float'
 c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(25): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
 c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(115): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
 c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(116): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
@@ -10,25 +10,25 @@ c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(167): 
 c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(77): warning C4101: 'channel' : unreferenced local variable
 c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(224): warning C4305: 'argument' : truncation from 'double' to 'float'
 c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(229): warning C4305: 'argument' : truncation from 'double' to 'float'
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(279): warning C4244: 'initializing' : conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(283): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(290): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(307): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(308): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(318): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(328): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(329): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(338): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(397): warning C4244: 'initializing' : conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(452): warning C4305: 'initializing' : truncation from 'double' to 'float'
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(462): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(504): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(526): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(527): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(537): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(554): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(555): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(602): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(276): warning C4244: 'initializing' : conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(280): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(289): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(318): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(319): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(329): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(339): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(340): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(349): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(408): warning C4244: 'initializing' : conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(457): warning C4305: 'initializing' : truncation from 'double' to 'float'
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(467): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(509): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(531): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(532): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(542): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(560): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(561): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+c:\users\liam\documents\github\susfg-ex\opengl systems - liam h\scene.cpp(609): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
   SOIL.lib(SOIL.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
 camera.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:ICF' specification

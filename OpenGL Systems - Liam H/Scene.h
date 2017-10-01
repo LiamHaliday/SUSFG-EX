@@ -93,6 +93,11 @@ public:
 
 private:
 
+	// score
+	int greenScore;
+	int pinkScore;
+	int mainScore;
+
 	// star wall scroll
 	float starScrollPoint[2];
 	float starScrollPointBack[2];
@@ -132,7 +137,7 @@ private:
 	std::vector<objectStruct> bullets2;
 	int bulletsInUse2;
 
-
+	// enemy objects
 	std::vector<objectStruct> pinkEnemys;
 	std::vector<objectStruct> greenEnemys;
 

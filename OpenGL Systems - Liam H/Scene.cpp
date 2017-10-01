@@ -90,8 +90,8 @@ void Scene::init()
 
 
 	FPS = new TextLabel("End score", "Assets/fonts/arial.ttf");
-	FPS->setPosition(glm::vec2(1350.0f, 900.0f));
-	FPS->setColor(glm::vec3(1.0f, 1.0f, 0.0f));
+	FPS->setPosition(glm::vec2(250.0f, 10.0f));
+	FPS->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 
 
 	//player creation
@@ -243,7 +243,7 @@ void Scene::render()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
+	//Beckground Render
 	starFloor[0].object.render(0.0f, -0.03f, starScrollPoint[0], true, mainCam);
 	starFloor[1].object.render(0.0f, -0.03f, starScrollPoint[1], true, mainCam);
 
@@ -253,11 +253,8 @@ void Scene::render()
 	starFloor[2].object.render(0.0f, -0.00f, starScrollPointBack[0], true, mainCam);
 	starFloor[3].object.render(0.0f, -0.00f, starScrollPointBack[1], true, mainCam);
 
-//	std::cout << "place " << starScrollPointBack[i] << std::endl;
 
-
-	// player render and movment
-
+	// player render
 	player2.object.render(player2.xCoord, player2.zCoord - 0.001f, player2.yCoord, true, mainCam);
 	player.object.render(player.xCoord, player.zCoord, player.yCoord , true, mainCam);
 
@@ -284,16 +281,30 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	deltaTime = currentFrame - lastFrame;
 	lastFrame = currentFrame;
 
+	//fps
 	CurrentFPS = ((1 / deltaTime) * 1000);
-	//std::cout << currentTime << std::endl;
+	std::cout << CurrentFPS << std::endl;
 
+	// player Speeds
 	Playerspeed = 0.003 * deltaTime;
 	enemySpeed = changeableSpeed * deltaTime;
 
+	// score set up
+	mainScore = (greenScore + pinkScore);
 
-	std::string FPString = "FPS: ";
-	FPString += std::to_string(int(CurrentFPS)).c_str();
-	FPS->setText(FPString.c_str());
+	std::string scoreText = "Green Score: ";
+	scoreText += std::to_string(int(greenScore)).c_str();
+
+	scoreText += "     Main Score: ";
+	scoreText += std::to_string(int(mainScore)).c_str();
+
+	scoreText += "     Pink Score: ";
+	scoreText += std::to_string(int(pinkScore)).c_str();
+
+	FPS->setText(scoreText.c_str());
+
+
+
 
 	controll(keyState,  ArrowKeyState);
 
@@ -400,22 +411,16 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 	
 
 	if (keyState[(unsigned char)'w'] == BUTTON_DOWN && player.yCoord >= -0.5f || keyState[(unsigned char)'W'] == BUTTON_DOWN && player.yCoord >= -0.5f) { player.yCoord -= Playerspeed; } //up
-	if (keyState[(unsigned char)'s'] == BUTTON_DOWN && player.yCoord <= 2.5f || keyState[(unsigned char)'S'] == BUTTON_DOWN && player.yCoord <= 2.5f) { player.yCoord += Playerspeed; } //down
+	if (keyState[(unsigned char)'s'] == BUTTON_DOWN && player.yCoord <= 2.25f || keyState[(unsigned char)'S'] == BUTTON_DOWN && player.yCoord <= 2.5f) { player.yCoord += Playerspeed; } //down
 	if (keyState[(unsigned char)'a'] == BUTTON_DOWN && player.xCoord <= 4.0f || keyState[(unsigned char)'A'] == BUTTON_DOWN && player.xCoord <= 4.0f) { player.xCoord += Playerspeed; } //left
 	if (keyState[(unsigned char)'d'] == BUTTON_DOWN && player.xCoord >= -4.0f || keyState[(unsigned char)'D'] == BUTTON_DOWN && player.xCoord >= -4.0f) { player.xCoord -= Playerspeed; } //right 
 
-
-	//if (keyState[(unsigned char)'r'] == BUTTON_DOWN || keyState[(unsigned char)'R'] == BUTTON_DOWN){ player.zCoord -= Playerspeed; }
-	//if (keyState[(unsigned char)'f'] == BUTTON_DOWN || keyState[(unsigned char)'F'] == BUTTON_DOWN){ player.zCoord += Playerspeed; }
-	//std::cout << "x:" << player.xCoord << std::endl;
-	//std::cout << "y:" << player.yCoord << std::endl;
-
 	if (ArrowKeyState[0] == BUTTON_DOWN && player2.yCoord >= -0.5f) { player2.yCoord -= Playerspeed; }	 //up
-	if (ArrowKeyState[1] == BUTTON_DOWN && player2.yCoord <= 2.5f) { player2.yCoord += Playerspeed; }	 //down
+	if (ArrowKeyState[1] == BUTTON_DOWN && player2.yCoord <= 2.25f) { player2.yCoord += Playerspeed; }	 //down
 	if (ArrowKeyState[2] == BUTTON_DOWN && player2.xCoord <= 4.0f) { player2.xCoord += Playerspeed; }	 //left
 	if (ArrowKeyState[3] == BUTTON_DOWN && player2.xCoord >= -4.0f) { player2.xCoord -= Playerspeed; }	 //right 
 
-																										 // bullet part ---------------------------------------------
+	// --------------------------------------------- bullet part ---------------------------------------------
 	if (keyState[(unsigned char)'g'] == BUTTON_DOWN || keyState[(unsigned char)'G'] == BUTTON_DOWN)
 	{
 		if ((currentTime - fireDifference) > fireTime)
@@ -538,6 +543,7 @@ void Scene::MoventBox()
 				bullets2[i].yCoord = bulletsPlace;
 				//BULLETS SPEED
 				changeableSpeed += 0.00005f;
+				pinkScore += 10;
 			}
 		}
 	}
@@ -566,6 +572,7 @@ void Scene::MoventBox()
 				bullets[i].yCoord = bulletsPlace;
 				//BULLETS SPEED
 				changeableSpeed += 0.00005f;
+				greenScore += 10;
 			}
 		}
 	}
@@ -605,47 +612,49 @@ void Scene::MoventBox()
 		}
 	}
 
-		// player1 colision
+	//	-- -- -- player colisions -- -- --
 
-		for (size_t x = 0; x < pinkEnemys.size(); x++)
+	// player1 colision
+
+	for (size_t x = 0; x < pinkEnemys.size(); x++)
+	{
+		if (player.xCoord >= (pinkEnemys[x].xCoord - 0.2) && player.xCoord <= (pinkEnemys[x].xCoord + 0.2)
+			&& player.yCoord >= (pinkEnemys[x].yCoord - 0.2) && player.yCoord <= (pinkEnemys[x].yCoord + 0.2))
 		{
-			if (player.xCoord >= (pinkEnemys[x].xCoord - 0.2) && player.xCoord <= (pinkEnemys[x].xCoord + 0.2)
-				&& player.yCoord >= (pinkEnemys[x].yCoord - 0.2) && player.yCoord <= (pinkEnemys[x].yCoord + 0.2))
-			{
-				std::cout << "Playone hit by pink";
-			}
+			std::cout << "Playone hit by pink";
 		}
+	}
 
-		for (size_t x = 0; x < greenEnemys.size(); x++)
+	for (size_t x = 0; x < greenEnemys.size(); x++)
+	{
+		if (player.xCoord >= (greenEnemys[x].xCoord - 0.2) && player.xCoord <= (greenEnemys[x].xCoord + 0.2)
+			&& player.yCoord >= (greenEnemys[x].yCoord - 0.2) && player.yCoord <= (greenEnemys[x].yCoord + 0.2))
 		{
-			if (player.xCoord >= (greenEnemys[x].xCoord - 0.2) && player.xCoord <= (greenEnemys[x].xCoord + 0.2)
-				&& player.yCoord >= (greenEnemys[x].yCoord - 0.2) && player.yCoord <= (greenEnemys[x].yCoord + 0.2))
-			{
-				std::cout << "Playone hit by green";
-			}
+			std::cout << "Playone hit by green";
 		}
+	}
 
-		
-		// player2 colision
+	
+	// player2 colision
 
-		for (size_t x = 0; x < pinkEnemys.size(); x++)
+	for (size_t x = 0; x < pinkEnemys.size(); x++)
+	{
+		if (player2.xCoord >= (pinkEnemys[x].xCoord - 0.2) && player2.xCoord <= (pinkEnemys[x].xCoord + 0.2)
+			&& player2.yCoord >= (pinkEnemys[x].yCoord - 0.2) && player2.yCoord <= (pinkEnemys[x].yCoord + 0.2))
 		{
-			if (player2.xCoord >= (pinkEnemys[x].xCoord - 0.2) && player2.xCoord <= (pinkEnemys[x].xCoord + 0.2)
-				&& player2.yCoord >= (pinkEnemys[x].yCoord - 0.2) && player2.yCoord <= (pinkEnemys[x].yCoord + 0.2))
-			{
-				std::cout << "PlayTwo hit by pink";
-			}
+			std::cout << "PlayTwo hit by pink";
 		}
+	}
 
-		for (size_t x = 0; x < greenEnemys.size(); x++)
+	for (size_t x = 0; x < greenEnemys.size(); x++)
+	{
+		if (player2.xCoord >= (greenEnemys[x].xCoord - 0.2) && player2.xCoord <= (greenEnemys[x].xCoord + 0.2)
+			&& player2.yCoord >= (greenEnemys[x].yCoord - 0.2) && player2.yCoord <= (greenEnemys[x].yCoord + 0.2))
 		{
-			if (player2.xCoord >= (greenEnemys[x].xCoord - 0.2) && player2.xCoord <= (greenEnemys[x].xCoord + 0.2)
-				&& player2.yCoord >= (greenEnemys[x].yCoord - 0.2) && player2.yCoord <= (greenEnemys[x].yCoord + 0.2))
-			{
-				std::cout << "PlayTwo hit by green";
+			std::cout << "PlayTwo hit by green";
 
-			}
 		}
+	}
 
 
 
