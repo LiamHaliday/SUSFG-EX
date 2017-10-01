@@ -94,6 +94,9 @@ public:
 
 
 private:
+	// play Alives
+	bool greenAlive = true;
+	bool pinkAlive = true;
 
 	// score
 	int greenScore;

@@ -287,8 +287,10 @@ void Scene::render()
 
 
 	// player render
-	player2.object.render(player2.xCoord, player2.zCoord - 0.001f, player2.yCoord, true, mainCam);
-	player.object.render(player.xCoord, player.zCoord, player.yCoord , true, mainCam);
+
+	if (pinkAlive) {	player2.object.render(player2.xCoord, player2.zCoord - 0.001f, player2.yCoord, true, mainCam);	}
+	
+	if (greenAlive) { player.object.render(player.xCoord, player.zCoord, player.yCoord, true, mainCam); }
 
 	glDisable(GL_BLEND);
 
@@ -437,36 +439,43 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 	currentTime = currentTime / 1000;
 
 	
-
-	if (keyState[(unsigned char)'w'] == BUTTON_DOWN && player.yCoord >= -0.5f || keyState[(unsigned char)'W'] == BUTTON_DOWN && player.yCoord >= -0.5f) { player.yCoord -= Playerspeed; } //up
-	if (keyState[(unsigned char)'s'] == BUTTON_DOWN && player.yCoord <= 2.25f || keyState[(unsigned char)'S'] == BUTTON_DOWN && player.yCoord <= 2.5f) { player.yCoord += Playerspeed; } //down
-	if (keyState[(unsigned char)'a'] == BUTTON_DOWN && player.xCoord <= 4.0f || keyState[(unsigned char)'A'] == BUTTON_DOWN && player.xCoord <= 4.0f) { player.xCoord += Playerspeed; } //left
-	if (keyState[(unsigned char)'d'] == BUTTON_DOWN && player.xCoord >= -4.0f || keyState[(unsigned char)'D'] == BUTTON_DOWN && player.xCoord >= -4.0f) { player.xCoord -= Playerspeed; } //right 
-
-	if (ArrowKeyState[0] == BUTTON_DOWN && player2.yCoord >= -0.5f) { player2.yCoord -= Playerspeed; }	 //up
-	if (ArrowKeyState[1] == BUTTON_DOWN && player2.yCoord <= 2.25f) { player2.yCoord += Playerspeed; }	 //down
-	if (ArrowKeyState[2] == BUTTON_DOWN && player2.xCoord <= 4.0f) { player2.xCoord += Playerspeed; }	 //left
-	if (ArrowKeyState[3] == BUTTON_DOWN && player2.xCoord >= -4.0f) { player2.xCoord -= Playerspeed; }	 //right 
-
-	// --------------------------------------------- bullet part ---------------------------------------------
-	if (keyState[(unsigned char)'g'] == BUTTON_DOWN || keyState[(unsigned char)'G'] == BUTTON_DOWN)
+	if (greenAlive)
 	{
-		if ((currentTime - fireDifference) > fireTime)
+		if (keyState[(unsigned char)'w'] == BUTTON_DOWN && player.yCoord >= -0.5f || keyState[(unsigned char)'W'] == BUTTON_DOWN && player.yCoord >= -0.5f) { player.yCoord -= Playerspeed; } //up
+		if (keyState[(unsigned char)'s'] == BUTTON_DOWN && player.yCoord <= 2.25f || keyState[(unsigned char)'S'] == BUTTON_DOWN && player.yCoord <= 2.5f) { player.yCoord += Playerspeed; } //down
+		if (keyState[(unsigned char)'a'] == BUTTON_DOWN && player.xCoord <= 4.0f || keyState[(unsigned char)'A'] == BUTTON_DOWN && player.xCoord <= 4.0f) { player.xCoord += Playerspeed; } //left
+		if (keyState[(unsigned char)'d'] == BUTTON_DOWN && player.xCoord >= -4.0f || keyState[(unsigned char)'D'] == BUTTON_DOWN && player.xCoord >= -4.0f) { player.xCoord -= Playerspeed; } //right 
+	}
+
+	if (pinkAlive)
+	{
+		if (ArrowKeyState[0] == BUTTON_DOWN && player2.yCoord >= -0.5f) { player2.yCoord -= Playerspeed; }	 //up
+		if (ArrowKeyState[1] == BUTTON_DOWN && player2.yCoord <= 2.25f) { player2.yCoord += Playerspeed; }	 //down
+		if (ArrowKeyState[2] == BUTTON_DOWN && player2.xCoord <= 4.0f) { player2.xCoord += Playerspeed; }	 //left
+		if (ArrowKeyState[3] == BUTTON_DOWN && player2.xCoord >= -4.0f) { player2.xCoord -= Playerspeed; }	 //right 
+	}
+
+	if (greenAlive) {
+		// --------------------------------------------- bullet part ---------------------------------------------
+		if (keyState[(unsigned char)'g'] == BUTTON_DOWN || keyState[(unsigned char)'G'] == BUTTON_DOWN)
 		{
-			// ADD SHOOTING SOUND HERE
-			fireDifference = currentTime;
-			bullets[bulletsInUse].xCoord = player.xCoord;
-			bullets[bulletsInUse].yCoord = player.yCoord;
-			bullets[bulletsInUse].zCoord = player.zCoord;
-			bullets[bulletsInUse].direction = 1;
-			bulletsInUse++;
-			if (IsLeft == false)
+			if ((currentTime - fireDifference) > fireTime)
 			{
-				IsLeft = true;
-			}
-			else
-			{
-				IsLeft = false;
+				// ADD SHOOTING SOUND HERE
+				fireDifference = currentTime;
+				bullets[bulletsInUse].xCoord = player.xCoord;
+				bullets[bulletsInUse].yCoord = player.yCoord;
+				bullets[bulletsInUse].zCoord = player.zCoord;
+				bullets[bulletsInUse].direction = 1;
+				bulletsInUse++;
+				if (IsLeft == false)
+				{
+					IsLeft = true;
+				}
+				else
+				{
+					IsLeft = false;
+				}
 			}
 		}
 	}
@@ -498,21 +507,23 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 		}
 	}
 
-
-	// bullet part ---------------------------------------------   2   ----------------------------------------------
-	if (keyState[(unsigned char)'/'] == BUTTON_DOWN || keyState[(unsigned char)'?'] == BUTTON_DOWN)
+	if (pinkAlive) 
 	{
-		if ((currentTime - fireDifferencep2) > fireTime)
+	// bullet part ---------------------------------------------   2   ----------------------------------------------
+		if (keyState[(unsigned char)'/'] == BUTTON_DOWN || keyState[(unsigned char)'?'] == BUTTON_DOWN)
 		{
-			fireDifferencep2 = currentTime;
+			if ((currentTime - fireDifferencep2) > fireTime)
+			{
+				fireDifferencep2 = currentTime;
 
-			bullets2[bulletsInUse2].xCoord = player2.xCoord;
-			bullets2[bulletsInUse2].yCoord = player2.yCoord;
-			bullets2[bulletsInUse2].zCoord = player2.zCoord;
+				bullets2[bulletsInUse2].xCoord = player2.xCoord;
+				bullets2[bulletsInUse2].yCoord = player2.yCoord;
+				bullets2[bulletsInUse2].zCoord = player2.zCoord;
 
-			bullets2[bulletsInUse2].direction = 1;
-			bulletsInUse2++;
+				bullets2[bulletsInUse2].direction = 1;
+				bulletsInUse2++;
 
+			}
 		}
 	}
 
@@ -650,6 +661,7 @@ void Scene::MoventBox()
 			&& player.yCoord >= (pinkEnemys[x].yCoord - 0.2) && player.yCoord <= (pinkEnemys[x].yCoord + 0.2))
 		{
 			std::cout << "Playone hit by pink";
+			greenAlive = false;
 		}
 	}
 
@@ -658,11 +670,11 @@ void Scene::MoventBox()
 		if (player.xCoord >= (greenEnemys[x].xCoord - 0.2) && player.xCoord <= (greenEnemys[x].xCoord + 0.2)
 			&& player.yCoord >= (greenEnemys[x].yCoord - 0.2) && player.yCoord <= (greenEnemys[x].yCoord + 0.2))
 		{
-			std::cout << "Playone hit by green";
+			greenAlive = false;
 		}
 	}
+	if (!greenAlive) {	std::cout << "green Dead";	}
 
-	
 	// player2 colision
 
 	for (size_t x = 0; x < pinkEnemys.size(); x++)
@@ -670,7 +682,7 @@ void Scene::MoventBox()
 		if (player2.xCoord >= (pinkEnemys[x].xCoord - 0.2) && player2.xCoord <= (pinkEnemys[x].xCoord + 0.2)
 			&& player2.yCoord >= (pinkEnemys[x].yCoord - 0.2) && player2.yCoord <= (pinkEnemys[x].yCoord + 0.2))
 		{
-			std::cout << "PlayTwo hit by pink";
+			pinkAlive = false;
 		}
 	}
 
@@ -679,11 +691,10 @@ void Scene::MoventBox()
 		if (player2.xCoord >= (greenEnemys[x].xCoord - 0.2) && player2.xCoord <= (greenEnemys[x].xCoord + 0.2)
 			&& player2.yCoord >= (greenEnemys[x].yCoord - 0.2) && player2.yCoord <= (greenEnemys[x].yCoord + 0.2))
 		{
-			std::cout << "PlayTwo hit by green";
-
+			pinkAlive = false;
 		}
 	}
-
+	if (!pinkAlive) { std::cout << "pink Dead"; }
 
 
 }	
