@@ -58,6 +58,14 @@ Scene MainScene;
 
 bool mainMenu = true;
 bool gameInit = false;
+int menuNumber = 0;
+
+enum MyEnum
+{
+	START,
+	HELPPART,
+	EXIT
+};
 
 /****************************************************/
 // Filename: main.cpp
@@ -66,7 +74,7 @@ bool gameInit = false;
 /****************************************************/
 void init()
 {
-	sceneSwitch = GAMESCENE;
+	sceneSwitch = MAINMENU;
 
 	switch (sceneSwitch)
 	{
@@ -96,27 +104,34 @@ void init()
 // Created: Liam Haliday
 // Description: render the Scenes 
 /****************************************************/
+bool gameinit = false;
 void render(void)
 {
-
 	switch (sceneSwitch)
 	{
 		case MAINMENU:
 		{
 			// play the main menu
-			MainScene.MainMenuRender();
+			MainScene.MainMenuRender(menuNumber);
 
 			break;
 		}
 		case GAMESCENE:
 		{
-
+			if (!gameinit)
+			{
+				MainScene.init();
+				gameinit = true;
+				std::cout << "init";
+			}
 			MainScene.render();
 			break;
 		}
 	}
 
 }
+
+
 
 /****************************************************/
 // Filename: main.cpp
@@ -126,16 +141,44 @@ void render(void)
 bool fullScreen = false;
 bool fullscreenButton = true;
 
+
 void update() {
 	// update game information.
 	glutPostRedisplay();
+	glutKeyboardFunc(keyboard);
+	glutKeyboardUpFunc(keyboard_up);
+
+	if (keyState[27] == BUTTON_DOWN) { exit(0); };
 
 	switch (sceneSwitch)
 	{
 	case MAINMENU:
 	{
 		// play the main menu
-		MainScene.MainMenu();
+
+		//MainScene.UpdateMainMenu(sceneSwitch);
+		
+		if (keyState[(unsigned char)'w'] == BUTTON_DOWN && menuNumber != 0) { menuNumber--; };
+		if (keyState[(unsigned char)'s'] == BUTTON_DOWN && menuNumber != 2) { menuNumber++; };
+
+		if (ArrowKeyState[0] == BUTTON_DOWN && menuNumber != 0) { menuNumber--; };
+		if (ArrowKeyState[1] == BUTTON_DOWN && menuNumber != 2) { menuNumber++; };
+
+		if (keyState[(unsigned char)' '] == BUTTON_DOWN && menuNumber == 0) { sceneSwitch = GAMESCENE; };
+		if (keyState[13] == BUTTON_DOWN && menuNumber == 0) { sceneSwitch = GAMESCENE; }; // enter
+
+		if (keyState[(unsigned char)' '] == BUTTON_DOWN && menuNumber == 2) { exit(0); };
+		if (keyState[13] == BUTTON_DOWN && menuNumber == 2) { exit(0); }; // enter
+
+	//	if (keyState[(unsigned char)'3'] == BUTTON_DOWN) { /* EXIT GAME */ };
+
+		break;
+	}
+
+	case HELP:
+	{
+		if (keyState[(unsigned char)'1'] == BUTTON_DOWN) { sceneSwitch = GAMESCENE; };
+		
 		break;
 	}
 	case GAMESCENE:
@@ -152,25 +195,24 @@ void update() {
 
 
 
-	glutKeyboardFunc(keyboard);
-	glutKeyboardUpFunc(keyboard_up);
 
-	// check buttons
-	for (size_t i = 0; i < 255; i++)
-	{
-		if (keyState[i] == BUTTON_DOWN)
-		{
-			std::cout << (unsigned char)i;
-		}
-	}
-	for (size_t i = 0; i < 4; i++)
-	{
-		if (ArrowKeyState[i] == BUTTON_DOWN)
-		{
-			std::cout << i;
-		}
-	}
 
+	//// check buttons
+	//for (size_t i = 0; i < 255; i++)
+	//{
+	//	if (keyState[i] == BUTTON_DOWN)
+	//	{
+	//		std::cout << (unsigned char)i;
+	//	}
+	//}
+	//for (size_t i = 0; i < 4; i++)
+	//{
+	//	if (ArrowKeyState[i] == BUTTON_DOWN)
+	//	{
+	//		std::cout << i;
+	//	}
+	//}
+	
 	std::cout << std::endl;
 
 //	glutFullScreen();

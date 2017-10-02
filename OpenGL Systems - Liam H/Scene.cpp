@@ -35,10 +35,10 @@ void Scene::MainMenu()
 	GLfloat MainMenuVertices[] = {
 
 		// Fill in the top face vertex data.							 
-		-5.0f, 0.0f, -5.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-		-5.0f, 0.0f,  5.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-		5.0f, 0.0f,  5.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-		5.0f, 0.0f, -5.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		-1.60f, 0.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		-1.60f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		1.60f, 0.0f,  1.0f, 1.0f, 1.0f,	1.0f, 0.0f, 0.0f,
+		1.60f, 0.0f, -1.0f, 1.0f, 1.0f,	1.0f, 0.0f, 1.0f,
 	};
 
 
@@ -54,13 +54,61 @@ void Scene::MainMenu()
 
 
 	mainMenuObject.object.createObj(testVert, sizeof(MainMenuVertices), testInd, sizeof(MainMenuIndices));
+	
+	// --------------------------------------------------- button two ---------------------------------------------------
+
+	mainMenuObject1.object.setImage("Assets/images/SUSFG-EX_MainMenu_OPTIONS.png");
+	mainMenuObject1.object.createObj(testVert, sizeof(MainMenuVertices), testInd, sizeof(MainMenuIndices));
+
+	// --------------------------------------------------- button three ---------------------------------------------------
+
+	mainMenuObject2.object.setImage("Assets/images/SUSFG-EX_MainMenu_QUIT.png");
+	mainMenuObject2.object.createObj(testVert, sizeof(MainMenuVertices), testInd, sizeof(MainMenuIndices));
 
 }
 
 
-void Scene::MainMenuRender()
+
+void Scene::MainMenuRender(int menuNumber)
 {
-	mainMenuObject.object.render(0.0, 0.0, 0.0, true, mainCam);
+	//glClearColor(0.050f, 0.050f, 0.050f, 1.0f);
+	glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 3D
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+	switch (menuNumber)
+	{
+	case 0:
+	{
+		mainMenuObject.object.render(0.0, 0.0, 0.0, true, mainCam);
+
+		break;
+	}
+	case 1:
+	{
+		mainMenuObject1.object.render(0.0, 0.0, 0.0, true, mainCam);
+
+		break;
+	}
+	case 2:
+	{
+		mainMenuObject2.object.render(0.0, 0.0, 0.0, true, mainCam);
+
+		break;
+	}
+
+	default:
+		break;
+	}
+
+
+
+
+	glDisable(GL_BLEND);
+	glutSwapBuffers();
+
+
+	mainCam.movingCam(camLocMainMenu, camLook);
 }
 
 
@@ -97,6 +145,25 @@ void Scene::init()
 	FPS->setPosition(glm::vec2(250.0f, 10.0f));
 	FPS->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 
+	// ----------- GAME OVER -----------
+
+	greenScoreText = new TextLabel("End score", "Assets/fonts/PressStart2P.ttf");	// SET FONT
+	greenScoreText->setScale(1.0);
+	greenScoreText->setPosition(glm::vec2(250.0f, 750.0f));
+	greenScoreText->setColor(glm::vec3(0.0f, 1.0f, 0.0f));
+
+
+	mainScoreText = new TextLabel("End score", "Assets/fonts/PressStart2P.ttf");	// SET FONT
+	mainScoreText->setScale(1.5);
+	mainScoreText->setPosition(glm::vec2(250, 475.0f));
+	mainScoreText->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+
+
+	pinkScoreText = new TextLabel("End score", "Assets/fonts/PressStart2P.ttf");	// SET FONT
+	pinkScoreText->setScale(1.0);
+	pinkScoreText->setPosition(glm::vec2(250.0f, 225.0f));
+	pinkScoreText->setColor(glm::vec3(1.0f, 0.2f, 0.5f));
+
 
 	//player creation
 	player.object.setImage("Assets/images/GreenPlayer.png");
@@ -113,7 +180,17 @@ void Scene::init()
 
 	Setsquare();	
 
-	// pink
+	// big boss
+
+	specialEnemy.object.setImage("Assets/images/Final/Enemy2_Pink.png");
+	specialEnemyCreate();
+
+	specialEnemy.xCoord = 0.0f;
+	specialEnemy.yCoord = -6.0f;
+	specialEnemy.zCoord = 0.10f;
+
+
+	// pink enemy1
 	for (int i = 0; i < 10; i++)
 	{
 		float RandX = rand() % 800;
@@ -127,11 +204,11 @@ void Scene::init()
 		enemy->yCoord = RandY;
 		pinkEnemys.push_back(*enemy);
 		delete enemy;
-		pinkEnemys[pinkEnemys.size() - 1].object.setImage("Assets/images/pinkBOX - Copy.png");
+		pinkEnemys[pinkEnemys.size() - 1].object.setImage("Assets/images/Final/Enemy1_Pink.png");
 		Setenemy();
 	}
 
-	//green
+	// green enemy1
 	for (int i = 0; i < 10; i++)
 	{
 		float RandX = rand() % 800;
@@ -145,7 +222,7 @@ void Scene::init()
 		enemy->yCoord = RandY;
 		greenEnemys.push_back(*enemy);
 		delete enemy;
-		greenEnemys[greenEnemys.size() - 1].object.setImage("Assets/images/blueBOX - Copy.png");
+		greenEnemys[greenEnemys.size() - 1].object.setImage("Assets/images/Final/Enemy1_Green.png");
 		Setenemy2();
 	}
 
@@ -174,6 +251,20 @@ void Scene::init()
 		delete bullet;
 		bullets2[bullets2.size() - 1].object.setImage("Assets/images/pinkBOX.png");
 		SetBulet2();
+	}
+
+	for (int b = 0; b < 50; b++)
+	{
+		objectStruct * bullet = new objectStruct;
+
+		bullet->direction = 0;
+		bullet->xCoord = (0.5 + b * 0.02) - 1;
+		bullet->yCoord = bulletsPlace;
+		bullet->zCoord = 0.0f;
+		specialEnemyBullets.push_back(*bullet);
+		delete bullet;
+		specialEnemyBullets[specialEnemyBullets.size() - 1].object.setImage("Assets/images/blueBOX.png");
+		SetSpecialEnemyBullets();
 	}
 
 	// Stars
@@ -205,13 +296,11 @@ void Scene::init()
 	//// Main Menu
 	//if (menuOption == 1) {
 	//	objectStruct * floor = new objectStruct;
-
 	//	floor->direction = 0;
 	//	floor->xCoord = 0;
 	//	floor->yCoord = 0;
 	//	mainMenu.push_back(*floor);
 	//	delete floor;
-
 	//	if (menuOption <= 1) {
 	//		mainMenu[mainMenu.size() - 1].object.setImage("Assets/images/SUSFG-EX_MainMenu_PLAY.png");	// PLAY BUTTON
 	//	}
@@ -221,7 +310,6 @@ void Scene::init()
 	//	else if (menuOption >= 3) {
 	//		mainMenu[mainMenu.size() - 1].object.setImage("Assets/images/SUSFG-EX_MainMenu_QUIT.png");	// QUIT BUTTON
 	//	}
-
 	//	SetMainMenu();
 	//}
 
@@ -244,33 +332,6 @@ void Scene::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 	//floor.render(0.0, 0.0, -1.0, 0.0 , true);             // put back from thing
-
-	for (unsigned int i = 0; i < pinkEnemys.size(); i++)
-	{
-		pinkEnemys[i].object.render(pinkEnemys[i].xCoord, 0.12, pinkEnemys[i].yCoord, true, mainCam);
-	}
-
-	for (unsigned int i = 0; i < greenEnemys.size(); i++)
-	{
-		greenEnemys[i].object.render(greenEnemys[i].xCoord, 0.11, greenEnemys[i].yCoord, true, mainCam);
-	}
-
-	for (unsigned int i = 0; i < bullets.size(); i++)
-	{
-		bullets[i].object.render(bullets[i].xCoord, bullets[i].zCoord, bullets[i].yCoord, true, mainCam);
-	}
-
-	for (unsigned int i = 0; i < bullets2.size(); i++)
-	{
-		bullets2[i].object.render(bullets2[i].xCoord, bullets2[i].zCoord, bullets2[i].yCoord, true, mainCam);
-	}
-
-	//// MAIN MENU TEST
-	//for (unsigned int i = 0; i < mainMenu.size(); i++)
-	//{
-	//	mainMenu[i].object.render(mainMenu[i].xCoord, mainMenu[i].zCoord, mainMenu[i].yCoord, true, mainCam);
-	//}
-
 	// RGBA Alpha
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -285,17 +346,63 @@ void Scene::render()
 	starFloor[2].object.render(0.0f, -0.00f, starScrollPointBack[0], true, mainCam);
 	starFloor[3].object.render(0.0f, -0.00f, starScrollPointBack[1], true, mainCam);
 
+	for (unsigned int i = 0; i < bullets.size(); i++)
+	{
+		bullets[i].object.render(bullets[i].xCoord, bullets[i].zCoord, bullets[i].yCoord, true, mainCam);
+	}
+
+	for (unsigned int i = 0; i < bullets2.size(); i++)
+	{
+		bullets2[i].object.render(bullets2[i].xCoord, bullets2[i].zCoord, bullets2[i].yCoord, true, mainCam);
+	}
+
+	for (unsigned int i = 0; i < bullets2.size(); i++)
+	{
+		specialEnemyBullets[i].object.render(specialEnemyBullets[i].xCoord, specialEnemyBullets[i].zCoord, specialEnemyBullets[i].yCoord, true, mainCam);
+	}
+
+	//// MAIN MENU TEST
+	//for (unsigned int i = 0; i < mainMenu.size(); i++)
+	//{
+	//	mainMenu[i].object.render(mainMenu[i].xCoord, mainMenu[i].zCoord, mainMenu[i].yCoord, true, mainCam);
+	//}
+
+	// boss 
+	specialEnemy.object.render(specialEnemy.xCoord, specialEnemy.zCoord, specialEnemy.yCoord,true, mainCam);
+
+
+	for (unsigned int i = 0; i < pinkEnemys.size(); i++)
+	{
+		pinkEnemys[i].object.render(pinkEnemys[i].xCoord, 0.12, pinkEnemys[i].yCoord, true, mainCam);
+	}
+
+	for (unsigned int i = 0; i < greenEnemys.size(); i++)
+	{
+		greenEnemys[i].object.render(greenEnemys[i].xCoord, 0.11, greenEnemys[i].yCoord, true, mainCam);
+	}
 
 	// player render
 
 	if (pinkAlive) {	player2.object.render(player2.xCoord, player2.zCoord - 0.001f, player2.yCoord, true, mainCam);	}
 	
-	if (greenAlive) { player.object.render(player.xCoord, player.zCoord, player.yCoord, true, mainCam); }
+	if (greenAlive) {	player.object.render(player.xCoord, player.zCoord, player.yCoord, true, mainCam);				}
 
 	glDisable(GL_BLEND);
 
-	FPS->Render();
+
+	if (!greenAlive && !pinkAlive)
+	{
+		pinkScoreText->Render();
+		greenScoreText->Render();
+		mainScoreText->Render();
+	}
+	else
+	{
+		FPS->Render();
+	}
+
 	
+
 	glutSwapBuffers();
 }
 
@@ -317,7 +424,7 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 	//fps
 	CurrentFPS = ((1 / deltaTime) * 1000);
-	std::cout << CurrentFPS << std::endl;
+	//std::cout << CurrentFPS << std::endl;
 
 	// player Speeds
 	Playerspeed = 0.003 * deltaTime;
@@ -337,8 +444,43 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 	FPS->setText(scoreText.c_str());
 
+	// --------------------- GAVE OVER ---------------------
+	scoreText = "Green Score: ";
+	scoreText += std::to_string(int(greenScore)).c_str();
+	greenScoreText->setText(scoreText);
+
+	scoreText = "Pink Score: ";
+	scoreText += std::to_string(int(pinkScore)).c_str();
+	pinkScoreText->setText(scoreText);
+
+	scoreText = "Main Score: ";
+	scoreText += std::to_string(int(mainScore)).c_str();
+	mainScoreText->setText(scoreText);
 
 	controll(keyState,  ArrowKeyState);
+
+	// big boss 
+	if (mainScore > 750)
+	{
+		if (specialEnemy.yCoord < -3.0f)
+		{
+			specialEnemy.yCoord += (Playerspeed / 3);
+			specialEnemyMovement = (Playerspeed / 3);
+		}
+		else
+		{
+			specialEnemy.xCoord += specialEnemyMovement;
+		}
+
+		if (specialEnemy.xCoord > 3.0f)
+		{
+			specialEnemyMovement = -(Playerspeed / 3);
+		}
+		else if (specialEnemy.xCoord < -3.0f)
+		{
+			specialEnemyMovement = (Playerspeed / 3);
+		}
+	}
 
 
 	// ---------------------------------- enemy reset
@@ -382,22 +524,18 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	}
 
 
-	if (keyState[(unsigned char)'i'] == BUTTON_DOWN && player.yCoord >= -0.5f	) { camLoc.y -= Playerspeed; } //up
-	if (keyState[(unsigned char)'k'] == BUTTON_DOWN && player.yCoord <= 2.5f	) { camLoc.y += Playerspeed; } //down
-	if (keyState[(unsigned char)'j'] == BUTTON_DOWN && player.xCoord <= 4.0f	) { camLoc.x += Playerspeed; } //left
-	if (keyState[(unsigned char)'l'] == BUTTON_DOWN && player.xCoord >= -4.0f	) { camLoc.x -= Playerspeed; } //right 
-
-	if (keyState[(unsigned char)'p'] == BUTTON_DOWN && player.xCoord <= 4.0f	) { camLoc.z += Playerspeed; } //left
-	if (keyState[(unsigned char)';'] == BUTTON_DOWN && player.xCoord >= -4.0f	) { camLoc.z -= Playerspeed; } //right 
-
-	//------------------------------
-	std::cout << "x :" << camLoc.x << ", ";;
-	std::cout << "y :" << camLoc.y << ", ";
-	std::cout << "z :" << camLoc.z << ", " << std::endl;
-
-	//camLook.x = player.xCoord;	//0.0;//sin(currentTime) *  0.50f;
-	//camLook.y = player.zCoord;	//0.0;//0.25f;
-	//camLook.z = -player.yCoord;	//0.0;//cos(currentTime) *  0.50f;
+//	if (keyState[(unsigned char)'i'] == BUTTON_DOWN && player.yCoord >= -0.5f	) { camLoc.y -= Playerspeed; } //up
+//	if (keyState[(unsigned char)'k'] == BUTTON_DOWN && player.yCoord <= 2.5f	) { camLoc.y += Playerspeed; } //down
+//	if (keyState[(unsigned char)'j'] == BUTTON_DOWN && player.xCoord <= 4.0f	) { camLoc.x += Playerspeed; } //left
+//	if (keyState[(unsigned char)'l'] == BUTTON_DOWN && player.xCoord >= -4.0f	) { camLoc.x -= Playerspeed; } //right 
+//
+//	if (keyState[(unsigned char)'p'] == BUTTON_DOWN && player.xCoord <= 4.0f	) { camLoc.z += Playerspeed; } //left
+//	if (keyState[(unsigned char)';'] == BUTTON_DOWN && player.xCoord >= -4.0f	) { camLoc.z -= Playerspeed; } //right 
+//
+//	//------------------------------
+//	std::cout << "x :" << camLoc.x << ", ";;
+//	std::cout << "y :" << camLoc.y << ", ";
+//	std::cout << "z :" << camLoc.z << ", " << std::endl;
 	//------------------------------
 
 	for (size_t i = 0; i < 2; i++)
@@ -426,6 +564,10 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 			starScrollPointBack2[i] = -10.0f;
 		}
 	}
+
+	// ------------------------ GAME OVER ------------------------
+
+
 
 	MoventBox();
 	mainCam.movingCam(camLoc, camLook);
@@ -495,10 +637,10 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 			float Frequency = 7;
 			float StartingAngle = 0;
 			float Yshift = 0;
-			bullets[i].yCoord -= 0.15f;
+			bullets[i].yCoord -= 0.25f;
 		}
 
-		if (bullets[i].yCoord < -3.0)
+		if (bullets[i].yCoord < -5.0)
 		{
 			bullets[i].direction = 0;	//dircetion
 			bullets[i].xCoord = (0.5 + i * 0.02) - 1;
@@ -539,10 +681,10 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 	{
 		if (bullets2[i].direction == 1)
 		{
-			bullets2[i].yCoord -= 0.1f;
+			bullets2[i].yCoord -= 0.25f;
 		}
 
-		if (bullets2[i].yCoord < -3.0)
+		if (bullets2[i].yCoord < -5.0)
 		{
 			bullets2[i].direction = 0;	//direction
 			bullets2[i].xCoord = (0.5 + i * 0.02) - 1;
@@ -550,6 +692,8 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 			//std::cout << bulletsInUse << "\n";
 		}
 	}
+
+
 
 }
 
@@ -581,7 +725,7 @@ void Scene::MoventBox()
 				bullets2[i].xCoord = (0.5 + i * 0.02) - 1;
 				bullets2[i].yCoord = bulletsPlace;
 				//BULLETS SPEED
-				changeableSpeed += 0.00005f;
+				changeableSpeed += 0.000025f;
 				pinkScore += 10;
 			}
 		}
@@ -610,7 +754,7 @@ void Scene::MoventBox()
 				bullets[i].xCoord = (0.5f + i * 0.02f) - 1;
 				bullets[i].yCoord = bulletsPlace;
 				//BULLETS SPEED
-				changeableSpeed += 0.00005f;
+				changeableSpeed += 0.000025f;
 				greenScore += 10;
 			}
 		}
@@ -654,49 +798,76 @@ void Scene::MoventBox()
 	//	-- -- -- player colisions -- -- --
 
 	// player1 colision
-
-	for (size_t x = 0; x < pinkEnemys.size(); x++)
+	if (greenAlive)
 	{
-		if (player.xCoord >= (pinkEnemys[x].xCoord - 0.2) && player.xCoord <= (pinkEnemys[x].xCoord + 0.2)
-			&& player.yCoord >= (pinkEnemys[x].yCoord - 0.2) && player.yCoord <= (pinkEnemys[x].yCoord + 0.2))
+
+		for (size_t x = 0; x < pinkEnemys.size(); x++)
 		{
-			std::cout << "Playone hit by pink";
-			greenAlive = false;
+			if (player.xCoord >= (pinkEnemys[x].xCoord - 0.2) && player.xCoord <= (pinkEnemys[x].xCoord + 0.2)
+				&& player.yCoord >= (pinkEnemys[x].yCoord - 0.2) && player.yCoord <= (pinkEnemys[x].yCoord + 0.2))
+			{
+				std::cout << "Playone hit by pink";
+				greenAlive = false;
+			}
+		}
+
+		for (size_t x = 0; x < greenEnemys.size(); x++)
+		{
+			if (player.xCoord >= (greenEnemys[x].xCoord - 0.2) && player.xCoord <= (greenEnemys[x].xCoord + 0.2)
+				&& player.yCoord >= (greenEnemys[x].yCoord - 0.2) && player.yCoord <= (greenEnemys[x].yCoord + 0.2))
+			{
+				greenAlive = false;
+			}
+		}
+		if (!greenAlive) 
+		{ 
+			std::cout << "green Dead"; 				
+			deathScore = mainScore;
 		}
 	}
-
-	for (size_t x = 0; x < greenEnemys.size(); x++)
-	{
-		if (player.xCoord >= (greenEnemys[x].xCoord - 0.2) && player.xCoord <= (greenEnemys[x].xCoord + 0.2)
-			&& player.yCoord >= (greenEnemys[x].yCoord - 0.2) && player.yCoord <= (greenEnemys[x].yCoord + 0.2))
-		{
-			greenAlive = false;
-		}
-	}
-	if (!greenAlive) {	std::cout << "green Dead";	}
-
 	// player2 colision
-
-	for (size_t x = 0; x < pinkEnemys.size(); x++)
+	if (pinkAlive)
 	{
-		if (player2.xCoord >= (pinkEnemys[x].xCoord - 0.2) && player2.xCoord <= (pinkEnemys[x].xCoord + 0.2)
-			&& player2.yCoord >= (pinkEnemys[x].yCoord - 0.2) && player2.yCoord <= (pinkEnemys[x].yCoord + 0.2))
+		for (size_t x = 0; x < pinkEnemys.size(); x++)
 		{
-			pinkAlive = false;
+			if (player2.xCoord >= (pinkEnemys[x].xCoord - 0.2) && player2.xCoord <= (pinkEnemys[x].xCoord + 0.2)
+				&& player2.yCoord >= (pinkEnemys[x].yCoord - 0.2) && player2.yCoord <= (pinkEnemys[x].yCoord + 0.2))
+			{
+				pinkAlive = false;
+			}
+		}
+
+		for (size_t x = 0; x < greenEnemys.size(); x++)
+		{
+			if (player2.xCoord >= (greenEnemys[x].xCoord - 0.2) && player2.xCoord <= (greenEnemys[x].xCoord + 0.2)
+				&& player2.yCoord >= (greenEnemys[x].yCoord - 0.2) && player2.yCoord <= (greenEnemys[x].yCoord + 0.2))
+			{
+				pinkAlive = false;
+			}
+		}
+		if (!pinkAlive) 
+		{ 
+			std::cout << "pink Dead";
+			deathScore = mainScore;
 		}
 	}
-
-	for (size_t x = 0; x < greenEnemys.size(); x++)
+	if (!greenAlive)
 	{
-		if (player2.xCoord >= (greenEnemys[x].xCoord - 0.2) && player2.xCoord <= (greenEnemys[x].xCoord + 0.2)
-			&& player2.yCoord >= (greenEnemys[x].yCoord - 0.2) && player2.yCoord <= (greenEnemys[x].yCoord + 0.2))
-		{
-			pinkAlive = false;
-		}
+		//std::cout << "green Dead";
+		deltaScore = mainScore - deathScore;
+		std::cout << deltaScore;
 	}
-	if (!pinkAlive) { std::cout << "pink Dead"; }
-
-
+	if (!pinkAlive)
+	{
+		//std::cout << "pink Dead";
+		deltaScore = mainScore - deathScore;
+		std::cout << deltaScore;
+	}
+	if (deltaScore >= 100)
+	{
+		pinkAlive = true;
+		greenAlive = true;
+	}
 }	
 
 
@@ -879,40 +1050,46 @@ void Scene::Setenemy2()
 
 }
 
+void Scene::specialEnemyCreate()
+{
+	// square ver and ind
+
+	GLfloat vertices[192] = {
+
+		-1.0f, 0.0f, -1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		-1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		1.0f, 0.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+
+	};
+
+
+	GLuint indices[36] = {
+		// front
+		0, 1, 2,
+		0, 2, 3,
+
+	};
+
+	GLfloat * ptrEnemyVert = vertices;
+	GLuint * prtEnemyInd = indices;
+
+
+	//	std::cout << "Object \n";
+	specialEnemy.object.createObj(ptrEnemyVert, sizeof(vertices), prtEnemyInd, sizeof(indices));
+
+}
+
 void Scene::SetBulet()
 {
 
 	GLfloat vertices[] = {
-	//  //position				//color				//texture coord		 
-	//  -0.15f, -0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-	//  -0.15f, 0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-	//  0.15f, 0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-	//  0.15f, -0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-	//  // Fill in the back face vertex data.							 
-	//  -0.15f, -0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-	//  0.15f, -0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-	//  0.15f, 0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-	//  -0.15f, 0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-		// Fill in the top face vertex data.							 
+						 
 		-0.025f, 0.0f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
 		-0.025f, 0.0f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
 		 0.025f, 0.0f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
 		 0.025f, 0.0f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-	//	// Fill in the bottom face vertex data.							 
-	//	-0.15f, -0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-	//	0.15f, -0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-	//	0.15f, -0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-	//	-0.15f, -0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-	//	// Fill in the left face vertex data.							 
-	//	-0.15f, -0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-	//	-0.15f, 0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-	//	-0.15f, 0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-	//	-0.15f, -0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-	//	// Fill in the right face vertex data.							 
-	//	0.15f, -0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-	//	0.15f, 0.025f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-	//	0.15f, 0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-	//	0.15f, -0.025f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+
 	};
 
 	GLuint indices[] = {
@@ -956,6 +1133,34 @@ void Scene::SetBulet2()
 
 
 	bullets2[bullets2.size() - 1].object.createObj(ptrEnemyVert, sizeof(vertices), prtEnemyInd, sizeof(indices));
+
+};
+
+void Scene::SetSpecialEnemyBullets()
+{
+
+	GLfloat vertices[] = {
+
+		-0.15f, 0.0f, -0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		-0.15f, 0.0f, 0.15f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		0.15f, 0.0f, 0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		0.15f, 0.0f, -0.15f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+
+	};
+
+	GLuint indices[] = {
+		// front
+		0, 1, 2,
+		0, 2, 3,
+
+	};
+
+
+	GLfloat * ptrEnemyVert = vertices;
+	GLuint * prtEnemyInd = indices;
+
+
+	specialEnemyBullets[specialEnemyBullets.size() - 1].object.createObj(ptrEnemyVert, sizeof(vertices), prtEnemyInd, sizeof(indices));
 
 };
 

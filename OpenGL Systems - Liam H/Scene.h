@@ -11,7 +11,8 @@
 enum Scenes
 {
 	MAINMENU,
-	GAMESCENE
+	GAMESCENE,
+	HELP
 };
 
 struct objectStruct
@@ -37,7 +38,8 @@ public:
 	void SetFloor();
 
 	void MainMenu();
-	void MainMenuRender();
+	void UpdateMainMenu(int menuNumber);
+	void MainMenuRender(int menuNumber);
 
 	FMOD::System* audioMgr;
 	FMOD::Sound* hitSound;
@@ -78,9 +80,12 @@ public:
 
 	void SetBulet();
 	void SetBulet2();
+	void SetSpecialEnemyBullets();
 	void SetStarFloor();
 	void Setenemy();
 	void Setenemy2();
+
+	void specialEnemyCreate();
 
 	void SetMainMenu();	// TEST
 
@@ -102,6 +107,8 @@ private:
 	int greenScore;
 	int pinkScore;
 	int mainScore;
+	int deltaScore;
+	int deathScore;
 
 	// star wall scroll
 	float starScrollPoint[2];
@@ -118,14 +125,22 @@ private:
 	bool IsLeft = false;
 
 	//text
-	TextLabel* label;
-	TextLabel* endlabel;
-	TextLabel* EnterToRestart;
 	TextLabel* FPS;
+	TextLabel* greenScoreText;
+	TextLabel* pinkScoreText;
+	TextLabel* mainScoreText;
 
 	objectStruct player;
 	objectStruct player2;
+
+	//mainMenu
 	objectStruct mainMenuObject;
+	objectStruct mainMenuObject1;
+	objectStruct mainMenuObject2;
+
+	objectStruct specialEnemy;
+	std::vector<objectStruct> specialEnemyBullets;
+	float specialEnemyMovement = 0;
 
 	std::vector<objectStruct> mainMenu;	// TEST
 
@@ -162,7 +177,9 @@ private:
 	float CamLookY = 0.0f;
 	float CamLookZ = 0.0f;
 
-	glm::vec3 camLoc{ 0.0, 5.0, -0.01 };
+	glm::vec3 camLocMainMenu{ 0.0, 1.79, -0.000001 };
+
+	glm::vec3 camLoc{ 0.0, 5.0, -2.5 };
 	glm::vec3 camLook{ 0,0,0 };
 
 	// deltaTime
