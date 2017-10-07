@@ -101,11 +101,11 @@ public:
 private:
 	// play Alives
 	bool greenAlive = true;
-	bool pinkAlive = true;
+	bool purpleAlive = true;
 
 	// score
 	int greenScore;
-	int pinkScore;
+	int purpleScore;
 	int mainScore;
 	int deltaScore;
 	int deathScore;
@@ -127,7 +127,7 @@ private:
 	//text
 	TextLabel* FPS;
 	TextLabel* greenScoreText;
-	TextLabel* pinkScoreText;
+	TextLabel* purpleScoreText;
 	TextLabel* mainScoreText;
 
 	objectStruct player;
@@ -160,7 +160,7 @@ private:
 	int bulletsInUse2;
 
 	// enemy objects
-	std::vector<objectStruct> pinkEnemys;
+	std::vector<objectStruct> purpleEnemys;
 	std::vector<objectStruct> greenEnemys;
 
 	std::vector<objectStruct> Stars;
@@ -179,8 +179,8 @@ private:
 
 	glm::vec3 camLocMainMenu{ 0.0, 1.79, -0.000001 };
 
-	glm::vec3 camLoc{ 0.0, 5.0, -2.5 };
-	glm::vec3 camLook{ 0,0,0 };
+	glm::vec3 camLoc{ 0.0, 6.0, -2.5 };	// CAMERA LOCATION
+	glm::vec3 camLook{ 0, 0, 0 };
 
 	// deltaTime
 	float deltaTime;

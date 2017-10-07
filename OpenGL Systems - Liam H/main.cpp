@@ -158,8 +158,8 @@ void update() {
 
 		//MainScene.UpdateMainMenu(sceneSwitch);
 		
-		if (keyState[(unsigned char)'w'] == BUTTON_DOWN && menuNumber != 0) { menuNumber--; };
-		if (keyState[(unsigned char)'s'] == BUTTON_DOWN && menuNumber != 2) { menuNumber++; };
+		if ((keyState[(unsigned char)'w'] == BUTTON_DOWN && menuNumber != 0) || (keyState[(unsigned char)'W'] == BUTTON_DOWN && menuNumber != 0)) { menuNumber--; };
+		if ((keyState[(unsigned char)'s'] == BUTTON_DOWN && menuNumber != 2) || (keyState[(unsigned char)'S'] == BUTTON_DOWN && menuNumber != 2)) { menuNumber++; };
 
 		if (ArrowKeyState[0] == BUTTON_DOWN && menuNumber != 0) { menuNumber--; };
 		if (ArrowKeyState[1] == BUTTON_DOWN && menuNumber != 2) { menuNumber++; };

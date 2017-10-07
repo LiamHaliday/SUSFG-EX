@@ -1,35 +1,5 @@
-﻿  Scene.cpp
-h:\github\susfg-ex\opengl systems - liam h\Scene.h(121): warning C4305: 'initializing' : truncation from 'double' to 'float'
-Scene.cpp(25): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-Scene.cpp(196): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-Scene.cpp(197): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-Scene.cpp(214): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-Scene.cpp(215): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-Scene.cpp(235): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-Scene.cpp(248): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-Scene.cpp(261): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-Scene.cpp(125): warning C4101: 'channel' : unreferenced local variable
-Scene.cpp(376): warning C4305: 'argument' : truncation from 'double' to 'float'
-Scene.cpp(381): warning C4305: 'argument' : truncation from 'double' to 'float'
-Scene.cpp(417): warning C4244: 'initializing' : conversion from 'int' to 'GLfloat', possible loss of data
-Scene.cpp(421): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-Scene.cpp(430): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-Scene.cpp(492): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-Scene.cpp(493): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-Scene.cpp(503): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-Scene.cpp(513): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-Scene.cpp(514): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-Scene.cpp(523): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-Scene.cpp(580): warning C4244: 'initializing' : conversion from 'int' to 'GLfloat', possible loss of data
-Scene.cpp(636): warning C4305: 'initializing' : truncation from 'double' to 'float'
-Scene.cpp(646): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-Scene.cpp(690): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-Scene.cpp(714): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-Scene.cpp(715): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-Scene.cpp(725): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-Scene.cpp(743): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-Scene.cpp(744): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-Scene.cpp(792): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+﻿  main.cpp
+e:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\Scene.h(121): warning C4305: 'initializing' : truncation from 'double' to 'float'
   Generating code
   Finished generating code
-  OpenGL Systems - Liam H.vcxproj -> H:\GITHUB\SUSFG-EX\Release\OpenGL Systems - Liam H.exe
+  OpenGL Systems - Liam H.vcxproj -> E:\Jarlin School\2017\Semester 2\GD2S02 - Software Engineering For Games\My Work\Super Ultra Space Fighting Game - Edition X\SUSFG-EX\Release\OpenGL Systems - Liam H.exe

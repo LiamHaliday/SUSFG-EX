@@ -1,39 +1,43 @@
 ﻿  Scene.cpp
-h:\github\susfg-ex\opengl systems - liam h\scene.h(119): warning C4305: 'initializing' : truncation from 'double' to 'float'
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(25): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(129): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(130): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(147): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(148): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(168): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(181): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(194): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(77): warning C4101: 'channel' : unreferenced local variable
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(309): warning C4305: 'argument' : truncation from 'double' to 'float'
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(314): warning C4305: 'argument' : truncation from 'double' to 'float'
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(338): warning C4244: 'initializing' : conversion from 'int' to 'GLfloat', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(342): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(351): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(401): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(402): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(412): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(422): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(423): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(432): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(489): warning C4244: 'initializing' : conversion from 'int' to 'GLfloat', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(545): warning C4305: 'initializing' : truncation from 'double' to 'float'
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(555): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(599): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(623): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(624): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(634): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(652): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(653): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-h:\github\susfg-ex\opengl systems - liam h\scene.cpp(701): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.h(121): warning C4305: 'initializing': truncation from 'double' to 'float'
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(25): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(194): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(195): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(212): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(213): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(233): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(246): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(259): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(123): warning C4101: 'channel': unreferenced local variable
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(374): warning C4305: 'argument': truncation from 'double' to 'float'
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(379): warning C4305: 'argument': truncation from 'double' to 'float'
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(415): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(419): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(428): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(490): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(491): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(501): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(511): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(512): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(521): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(575): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(631): warning C4305: 'initializing': truncation from 'double' to 'float'
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(641): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(685): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(709): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(710): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(720): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(738): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(739): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+g:\jarlin school\2017\semester 2\gd2s02 - software engineering for games\my work\super ultra space fighting game - edition x\susfg-ex\opengl systems - liam h\scene.cpp(787): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   SOIL.lib(SOIL.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
-camera.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:ICF' specification
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Generating code
   Finished generating code
-  OpenGL Systems - Liam H.vcxproj -> H:\GITHUB\SUSFG-EX\Debug\OpenGL Systems - Liam H.exe
+SOIL.lib(SOIL.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'SOIL.lib(SOIL.obj)' or at 'G:\Jarlin School\2017\Semester 2\GD2S02 - Software Engineering For Games\My Work\Super Ultra Space Fighting Game - Edition X\SUSFG-EX\Debug\vc120.pdb'; linking object as if no debug info
+SOIL.lib(stb_image_aug.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'SOIL.lib(stb_image_aug.obj)' or at 'G:\Jarlin School\2017\Semester 2\GD2S02 - Software Engineering For Games\My Work\Super Ultra Space Fighting Game - Edition X\SUSFG-EX\Debug\vc120.pdb'; linking object as if no debug info
+SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'G:\Jarlin School\2017\Semester 2\GD2S02 - Software Engineering For Games\My Work\Super Ultra Space Fighting Game - Edition X\SUSFG-EX\Debug\vc120.pdb'; linking object as if no debug info
+SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'G:\Jarlin School\2017\Semester 2\GD2S02 - Software Engineering For Games\My Work\Super Ultra Space Fighting Game - Edition X\SUSFG-EX\Debug\vc120.pdb'; linking object as if no debug info
+  OpenGL Systems - Liam H.vcxproj -> G:\Jarlin School\2017\Semester 2\GD2S02 - Software Engineering For Games\My Work\Super Ultra Space Fighting Game - Edition X\SUSFG-EX\Debug\OpenGL Systems - Liam H.exe
+  OpenGL Systems - Liam H.vcxproj -> G:\Jarlin School\2017\Semester 2\GD2S02 - Software Engineering For Games\My Work\Super Ultra Space Fighting Game - Edition X\SUSFG-EX\Debug\OpenGL Systems - Liam H.pdb (Partial PDB)
