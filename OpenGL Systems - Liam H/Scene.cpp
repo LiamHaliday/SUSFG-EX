@@ -160,7 +160,7 @@ void Scene::init()
 	purpleScoreText = new TextLabel("End score", "Assets/fonts/PressStart2P.ttf");	// SET FONT
 	purpleScoreText->setScale(1.0);
 	purpleScoreText->setPosition(glm::vec2(250.0f, 225.0f));
-	purpleScoreText->setColor(glm::vec3(1.0f, 0.2f, 0.5f));
+	purpleScoreText->setColor(glm::vec3(1.0f, 0.0f, 1.0f));
 
 
 	//player creation
@@ -179,8 +179,7 @@ void Scene::init()
 	Setsquare();	
 
 	// big boss
-
-	specialEnemy.object.setImage("Assets/images/Final/Enemy2_purple.png");
+	specialEnemy.object.setImage("Assets/images/alpha/Enemy2_purple.png");
 	specialEnemyCreate();
 
 	specialEnemy.xCoord = 0.0f;
@@ -202,7 +201,7 @@ void Scene::init()
 		enemy->yCoord = RandY;
 		purpleEnemys.push_back(*enemy);
 		delete enemy;
-		purpleEnemys[purpleEnemys.size() - 1].object.setImage("Assets/images/Final/Enemy1_purple.png");
+		purpleEnemys[purpleEnemys.size() - 1].object.setImage("Assets/images/alpha/Enemy1_purple.png");
 		Setenemy();
 	}
 
@@ -220,7 +219,7 @@ void Scene::init()
 		enemy->yCoord = RandY;
 		greenEnemys.push_back(*enemy);
 		delete enemy;
-		greenEnemys[greenEnemys.size() - 1].object.setImage("Assets/images/Final/Enemy1_Green.png");
+		greenEnemys[greenEnemys.size() - 1].object.setImage("Assets/images/alpha/Enemy1_Green.png");
 		Setenemy2();
 	}
 
@@ -695,7 +694,6 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 void Scene::MoventBox() 
 {
-
 	// bullet to purple enemy
 	for (size_t i = 0; i < bullets2.size(); i++)
 	{
