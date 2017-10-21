@@ -7,10 +7,10 @@
 unsigned char keyState[255];
 unsigned int ArrowKeyState[4];
 
-void keyboard(unsigned char key, int x, int y){
+void keyboard(unsigned char key, int x, int y) {
 	keyState[key] = BUTTON_DOWN;
 }
-void keyboard_up(unsigned char key, int x, int y){
+void keyboard_up(unsigned char key, int x, int y) {
 	keyState[key] = BUTTON_UP;
 }
 
@@ -87,7 +87,7 @@ void init()
 	}
 	case GAMESCENE:
 	{
-	
+
 		MainScene.init();
 
 		break;
@@ -109,24 +109,24 @@ void render(void)
 {
 	switch (sceneSwitch)
 	{
-		case MAINMENU:
-		{
-			// play the main menu
-			MainScene.MainMenuRender(menuNumber);
+	case MAINMENU:
+	{
+		// play the main menu
+		MainScene.MainMenuRender(menuNumber);
 
-			break;
-		}
-		case GAMESCENE:
+		break;
+	}
+	case GAMESCENE:
+	{
+		if (!gameinit)
 		{
-			if (!gameinit)
-			{
-				MainScene.init();
-				gameinit = true;
-				std::cout << "init";
-			}
-			MainScene.render();
-			break;
+			MainScene.init();
+			gameinit = true;
+			std::cout << "init";
 		}
+		MainScene.render();
+		break;
+	}
 	}
 
 }
@@ -140,6 +140,7 @@ void render(void)
 /****************************************************/
 bool fullScreen = false;
 bool fullscreenButton = true;
+GLfloat getTime = 1000000;
 
 
 void update() {
@@ -147,7 +148,6 @@ void update() {
 	glutPostRedisplay();
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboard_up);
-
 	if (keyState[27] == BUTTON_DOWN) { exit(0); };
 
 	switch (sceneSwitch)
@@ -157,20 +157,46 @@ void update() {
 		// play the main menu
 
 		//MainScene.UpdateMainMenu(sceneSwitch);
-		
-		if ((keyState[(unsigned char)'w'] == BUTTON_DOWN && menuNumber != 0) || (keyState[(unsigned char)'W'] == BUTTON_DOWN && menuNumber != 0)) { menuNumber--; };
-		if ((keyState[(unsigned char)'s'] == BUTTON_DOWN && menuNumber != 2) || (keyState[(unsigned char)'S'] == BUTTON_DOWN && menuNumber != 2)) { menuNumber++; };
+		unsigned int interval = GetCurrentTime() - getTime;
+		//std::cout << getTime << std::endl;
+		std::cout << interval << std::endl;
 
-		if (ArrowKeyState[0] == BUTTON_DOWN && menuNumber != 0) { menuNumber--; };
-		if (ArrowKeyState[1] == BUTTON_DOWN && menuNumber != 2) { menuNumber++; };
+		if (interval > 200)
+		{
+			if (keyState[(unsigned char)'w'] == BUTTON_DOWN && menuNumber != 0)
+			{
+				menuNumber--;
+				getTime = GetCurrentTime();
+			}
+			if (keyState[(unsigned char)'s'] == BUTTON_DOWN && menuNumber != 2)
+			{
+				menuNumber++;
+				getTime = GetCurrentTime();
+			}
 
-		if (keyState[(unsigned char)' '] == BUTTON_DOWN && menuNumber == 0) { sceneSwitch = GAMESCENE; };
-		if (keyState[13] == BUTTON_DOWN && menuNumber == 0) { sceneSwitch = GAMESCENE; }; // enter
+			if (ArrowKeyState[0] == BUTTON_DOWN && menuNumber != 0) {
+				menuNumber--;
+				getTime = GetCurrentTime();
+			};
+			if (ArrowKeyState[1] == BUTTON_DOWN && menuNumber != 2) {
+				menuNumber++;
+				getTime = GetCurrentTime();
+			};
 
-		if (keyState[(unsigned char)' '] == BUTTON_DOWN && menuNumber == 2) { exit(0); };
-		if (keyState[13] == BUTTON_DOWN && menuNumber == 2) { exit(0); }; // enter
+			if (keyState[(unsigned char)' '] == BUTTON_DOWN && menuNumber == 0) {
+				sceneSwitch = GAMESCENE;
+				getTime = GetCurrentTime();
+			};
+			if (keyState[13] == BUTTON_DOWN && menuNumber == 0) {
+				sceneSwitch = GAMESCENE;
+				getTime = GetCurrentTime();
+			}; // enter
 
-	//	if (keyState[(unsigned char)'3'] == BUTTON_DOWN) { /* EXIT GAME */ };
+			if (keyState[(unsigned char)' '] == BUTTON_DOWN && menuNumber == 2) { exit(0); };
+			if (keyState[13] == BUTTON_DOWN && menuNumber == 2) { exit(0); }; // enter
+
+		}
+		//	if (keyState[(unsigned char)'3'] == BUTTON_DOWN) { /* EXIT GAME */ };
 
 		break;
 	}
@@ -178,7 +204,7 @@ void update() {
 	case HELP:
 	{
 		if (keyState[(unsigned char)'1'] == BUTTON_DOWN) { sceneSwitch = GAMESCENE; };
-		
+
 		break;
 	}
 	case GAMESCENE:
@@ -212,28 +238,28 @@ void update() {
 	//		std::cout << i;
 	//	}
 	//}
-	
+
 	std::cout << std::endl;
 
-//	glutFullScreen();
+	//	glutFullScreen();
 
 	/*
 	if (keyState[(unsigned char)'p'] == BUTTON_UP || keyState[(unsigned char)'P'] == BUTTON_UP) { fullScreen = true; }
 
 	if (fullscreenButton)
 	{
-		if (fullScreen)
-		{
-			//if (keyState[(unsigned char)'p'] == BUTTON_DOWN || keyState[(unsigned char)'P'] == BUTTON_DOWN) { fullScreen = false; }
-		//
-			fullscreenButton = true;
-		}
-		else
-		{
+	if (fullScreen)
+	{
+	//if (keyState[(unsigned char)'p'] == BUTTON_DOWN || keyState[(unsigned char)'P'] == BUTTON_DOWN) { fullScreen = false; }
+	//
+	fullscreenButton = true;
+	}
+	else
+	{
 	//	if (keyState[(unsigned char)'p'] == BUTTON_DOWN || keyState[(unsigned char)'P'] == BUTTON_DOWN) { fullScreen = true; }
 	//	glutReshapeWindow(1600, 1000);
 	//	fullscreenButton = false;
-		}
+	}
 	}
 	*/
 
@@ -256,4 +282,5 @@ int main(int argc, char **argv)
 	glutMainLoop();
 	return 0;
 }
+
 
