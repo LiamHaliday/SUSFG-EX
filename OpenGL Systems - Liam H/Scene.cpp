@@ -457,7 +457,7 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	controll(keyState,  ArrowKeyState);
 
 	// big boss 
-	if (mainScore > 750)
+	if (mainScore > -1)
 	{
 		if (specialEnemy.yCoord < -3.0f)
 		{
@@ -669,6 +669,10 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 		bulletsInUse2 = 0;
 	}
 
+	if (enemybulletsinuse >= 50)
+	{
+		enemybulletsinuse = 0;
+	}
 
 	// ---------------------------------- enemy reset  2
 	for (unsigned int i = 0; i < bullets2.size(); i++)
@@ -687,7 +691,35 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 		}
 	}
 
+	// ---------------------------------- enemy reset  2
+	for (unsigned int i = 0; i < specialEnemyBullets.size(); i++)
+	{
+		if (specialEnemyBullets[i].direction == 1)
+		{
+			specialEnemyBullets[i].yCoord += 0.25f;
+		}
 
+		if (specialEnemyBullets[i].yCoord < -5.0)
+		{
+			specialEnemyBullets[i].direction = 0;	//direction
+			specialEnemyBullets[i].xCoord = (0.5 + i * 0.02) - 1;
+			specialEnemyBullets[i].yCoord = bulletsPlace;
+			//std::cout << bulletsInUse << "\n";
+		}
+	}
+
+	if ((currentTime - fireDifferencep2) > fireTime)
+	{
+		fireDifferencep2 = currentTime;
+
+		specialEnemyBullets[enemybulletsinuse].xCoord = specialEnemy.xCoord;
+		specialEnemyBullets[enemybulletsinuse].yCoord = specialEnemy.yCoord;
+		specialEnemyBullets[enemybulletsinuse].zCoord = specialEnemy.zCoord;
+
+		specialEnemyBullets[enemybulletsinuse].direction = 1;
+		enemybulletsinuse++;
+
+	}
 
 }
 

@@ -141,6 +141,8 @@ private:
 	objectStruct specialEnemy;
 	std::vector<objectStruct> specialEnemyBullets;
 	float specialEnemyMovement = 0;
+	int enemybulletsinuse;
+
 
 	std::vector<objectStruct> mainMenu;	// TEST
 
