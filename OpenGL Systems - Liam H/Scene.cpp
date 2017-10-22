@@ -29,7 +29,7 @@ Scene::Scene()
 void Scene::MainMenu()
 {
 
-	mainMenuObject.object.setImage("Assets/images/SUSFG-EX_MainMenu_PLAY.png");
+	mainMenuObject.object.setImage("Assets/images/alpha/SUSFG-EX_MainMenu_PLAY.png");
 	
 	//floor vec ands ind
 	GLfloat MainMenuVertices[] = {
@@ -57,12 +57,12 @@ void Scene::MainMenu()
 	
 	// --------------------------------------------------- button two ---------------------------------------------------
 
-	mainMenuObject1.object.setImage("Assets/images/SUSFG-EX_MainMenu_HELP.png");
+	mainMenuObject1.object.setImage("Assets/images/alpha/SUSFG-EX_MainMenu_HELP.png");
 	mainMenuObject1.object.createObj(testVert, sizeof(MainMenuVertices), testInd, sizeof(MainMenuIndices));
 
 	// --------------------------------------------------- button three ---------------------------------------------------
 
-	mainMenuObject2.object.setImage("Assets/images/SUSFG-EX_MainMenu_QUIT.png");
+	mainMenuObject2.object.setImage("Assets/images/alpha/SUSFG-EX_MainMenu_QUIT.png");
 	mainMenuObject2.object.createObj(testVert, sizeof(MainMenuVertices), testInd, sizeof(MainMenuIndices));
 
 }
@@ -164,8 +164,8 @@ void Scene::init()
 
 
 	//player creation
-	player.object.setImage("Assets/images/GreenPlayer.png");
-	player2.object.setImage("Assets/images/purplePlayer.png");
+	player.object.setImage("Assets/images/alpha/Player_Green.png");
+	player2.object.setImage("Assets/images/alpha/Player_Purple.png");
 
 	player.xCoord = 0.5f;
 	player2.xCoord = -0.5f;
@@ -233,7 +233,7 @@ void Scene::init()
 		bullet->yCoord = bulletsPlace;
 		bullets.push_back(*bullet);
 		delete bullet;
-		bullets[bullets.size() - 1].object.setImage("Assets/images/blueBOX.png");
+		bullets[bullets.size() - 1].object.setImage("Assets/images/alpha/Bullet_Green.png");
 		SetBulet();
 	}
 
@@ -246,7 +246,7 @@ void Scene::init()
 		bullet->yCoord = bulletsPlace;
 		bullets2.push_back(*bullet);
 		delete bullet;
-		bullets2[bullets2.size() - 1].object.setImage("Assets/images/purpleBOX.png");
+		bullets2[bullets2.size() - 1].object.setImage("Assets/images/alpha/Bullet_Purple.png");
 		SetBulet2();
 	}
 
@@ -260,7 +260,7 @@ void Scene::init()
 		bullet->zCoord = 0.0f;
 		specialEnemyBullets.push_back(*bullet);
 		delete bullet;
-		specialEnemyBullets[specialEnemyBullets.size() - 1].object.setImage("Assets/images/blueBOX.png");
+		specialEnemyBullets[specialEnemyBullets.size() - 1].object.setImage("Assets/images/alpha/Bullet_Green.png");
 		SetSpecialEnemyBullets();
 	}
 
@@ -276,15 +276,15 @@ void Scene::init()
 		delete floor;
 		if (starFloor.size() <= 2)
 		{
-			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Back_Stars.png");	// Back Layer
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/alpha/BG_Back_Stars.png");	// Back Layer
 		}
 		else if (starFloor.size() > 2 && starFloor.size() <= 4)
 		{
-			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Bg_grid.png");	// Middle Layer
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/alpha/BG_Grid.png");	// Middle Layer
 		}
 		else
 		{
-			starFloor[starFloor.size() - 1].object.setImage("Assets/images/Top_Stars.png");	// Front Layer
+			starFloor[starFloor.size() - 1].object.setImage("Assets/images/alpha/BG_Top_Stars.png");	// Front Layer
 		}
 
 		SetStarFloor();
@@ -799,7 +799,7 @@ void Scene::MoventBox()
 			if (player.xCoord >= (purpleEnemys[x].xCoord - 0.2) && player.xCoord <= (purpleEnemys[x].xCoord + 0.2)
 				&& player.yCoord >= (purpleEnemys[x].yCoord - 0.2) && player.yCoord <= (purpleEnemys[x].yCoord + 0.2))
 			{
-				std::cout << "Playone hit by purple";
+				std::cout << "Player One hit by purple";
 				greenAlive = false;
 			}
 		}
@@ -814,7 +814,7 @@ void Scene::MoventBox()
 		}
 		if (!greenAlive) 
 		{ 
-			std::cout << "green Dead"; 				
+			std::cout << "Green Dead"; 				
 			deathScore = mainScore;
 		}
 	}
@@ -840,7 +840,7 @@ void Scene::MoventBox()
 		}
 		if (!purpleAlive) 
 		{ 
-			std::cout << "purple Dead";
+			std::cout << "Purple Dead";
 			deathScore = mainScore;
 		}
 	}
