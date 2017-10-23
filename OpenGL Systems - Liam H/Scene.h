@@ -44,6 +44,7 @@ public:
 	FMOD::System* audioMgr;
 	FMOD::Sound* hitSound;
 	FMOD::Sound* bgMusic;
+	FMOD::Sound* lvlMusic;
 
 	bool InitFmod()
 	{
@@ -65,9 +66,13 @@ public:
 
 		result = audioMgr->createSound("Assets/audio/click.wav", FMOD_DEFAULT, 0, &hitSound);
 
-		result = audioMgr->createSound("Assets/audio/backGroud.wav", FMOD_LOOP_NORMAL, 0, &bgMusic);
+		result = audioMgr->createSound("Assets/audio/MainMenu.mp3", FMOD_LOOP_NORMAL, 0, &bgMusic);
+
+		result = audioMgr->createSound("Assets/audio/MainLevel.mp3", FMOD_LOOP_NORMAL, 0, &lvlMusic);
 
 		bgMusic->setMode(FMOD_LOOP_NORMAL);
+
+		lvlMusic->setMode(FMOD_LOOP_NORMAL);
 
 		return true;
 	}

@@ -28,6 +28,12 @@ Scene::Scene()
 
 void Scene::MainMenu()
 {
+	//sound
+	InitFmod();
+	LoadAudio();
+	FMOD::Channel* channel1;
+	audioMgr->playSound(lvlMusic, 0, false, &channel1);
+
 
 	mainMenuObject.object.setImage("Assets/images/alpha/SUSFG-EX_MainMenu_PLAY.png");
 	
@@ -121,9 +127,9 @@ void Scene::init()
 	InitFmod();
 	LoadAudio();
 	FMOD::Channel* channel;
-	//audioMgr->playSound(bgMusic, 0, false, &channel); // background sound                                                 //sound -----------------------------------------
-	//audioMgr->playSound(shootSound, 0, false, &channel); // shooting sound    
-
+	audioMgr->playSound(bgMusic, 0, false, &channel); // background sound                                                 //sound -----------------------------------------
+	//audioMgr->playSound(hitSound, 0, false, &channel); // shooting sound    
+	
 	// Main Menu Option
 	int menuOption = 1;	// Start on PLAY
 
