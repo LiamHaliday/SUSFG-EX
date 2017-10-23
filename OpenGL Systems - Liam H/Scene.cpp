@@ -842,6 +842,18 @@ void Scene::MoventBox()
 			}
 		}
 
+
+		for (unsigned int i = 0; i < specialEnemyBullets.size(); i++)
+		{
+			if (player.xCoord >= (specialEnemyBullets[i].xCoord - 0.2) && player.xCoord <= (specialEnemyBullets[i].xCoord + 0.2)
+				&& player.yCoord >= (specialEnemyBullets[i].yCoord - 0.2) && player.yCoord <= (specialEnemyBullets[i].yCoord + 0.2))
+			{
+				std::cout << "Player One hit by purple";
+				greenAlive = false;
+			}
+		}
+
+
 		for (size_t x = 0; x < greenEnemys.size(); x++)
 		{
 			if (player.xCoord >= (greenEnemys[x].xCoord - 0.2) && player.xCoord <= (greenEnemys[x].xCoord + 0.2)
@@ -850,6 +862,7 @@ void Scene::MoventBox()
 				greenAlive = false;
 			}
 		}
+
 		if (!greenAlive) 
 		{ 
 			std::cout << "Green Dead"; 				
@@ -864,6 +877,17 @@ void Scene::MoventBox()
 			if (player2.xCoord >= (purpleEnemys[x].xCoord - 0.2) && player2.xCoord <= (purpleEnemys[x].xCoord + 0.2)
 				&& player2.yCoord >= (purpleEnemys[x].yCoord - 0.2) && player2.yCoord <= (purpleEnemys[x].yCoord + 0.2))
 			{
+				purpleAlive = false;
+			}
+		}
+
+		// enemy bullet collision
+		for (unsigned int i = 0; i < specialEnemyBullets.size(); i++)
+		{
+			if (player2.xCoord >= (specialEnemyBullets[i].xCoord - 0.2) && player2.xCoord <= (specialEnemyBullets[i].xCoord + 0.2)
+				&& player2.yCoord >= (specialEnemyBullets[i].yCoord - 0.2) && player2.yCoord <= (specialEnemyBullets[i].yCoord + 0.2))
+			{
+				std::cout << "Player One hit by purple";
 				purpleAlive = false;
 			}
 		}
