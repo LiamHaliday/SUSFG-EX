@@ -1,1 +1,35 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.Cpp.Platform.targets(57,5): error MSB8020: The build tools for v141 (Platform Toolset = 'v141') cannot be found. To build using the v141 build tools, please install v141 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Retarget solution".
+﻿  Scene.cpp
+d:\users\jayden.fac6880\documents\github\susfg-ex\opengl systems - liam h\Scene.h(131): warning C4305: 'initializing' : truncation from 'double' to 'float'
+Scene.cpp(25): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+Scene.cpp(196): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(197): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(214): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(215): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(235): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Scene.cpp(248): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Scene.cpp(261): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Scene.cpp(379): warning C4305: 'argument' : truncation from 'double' to 'float'
+Scene.cpp(384): warning C4305: 'argument' : truncation from 'double' to 'float'
+Scene.cpp(420): warning C4244: 'initializing' : conversion from 'int' to 'GLfloat', possible loss of data
+Scene.cpp(424): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(433): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Scene.cpp(521): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(522): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(532): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+Scene.cpp(542): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(543): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(552): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+Scene.cpp(606): warning C4244: 'initializing' : conversion from 'int' to 'GLfloat', possible loss of data
+Scene.cpp(622): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Scene.cpp(699): warning C4305: 'initializing' : truncation from 'double' to 'float'
+Scene.cpp(709): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Scene.cpp(761): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Scene.cpp(784): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(785): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(795): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Scene.cpp(814): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(815): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+Scene.cpp(899): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+  Generating code
+  Finished generating code
+  OpenGL Systems - Liam H.vcxproj -> D:\Users\jayden.fac6880\Documents\GitHub\SUSFG-EX\Release\OpenGL Systems - Liam H.exe

@@ -40,9 +40,11 @@ public:
 	void MainMenu();
 	void UpdateMainMenu(int menuNumber);
 	void MainMenuRender(int menuNumber);
+	void Help();
 
 	FMOD::System* audioMgr;
-	FMOD::Sound* hitSound;
+	FMOD::Sound* shotSound;
+	FMOD::Sound* Explosion;
 	FMOD::Sound* bgMusic;
 	FMOD::Sound* lvlMusic;
 
@@ -64,7 +66,9 @@ public:
 	{
 		FMOD_RESULT result;
 
-		result = audioMgr->createSound("Assets/audio/click.wav", FMOD_DEFAULT, 0, &hitSound);
+		result = audioMgr->createSound("Assets/audio/LazerShot.wav", FMOD_DEFAULT, 0, &shotSound);
+
+		result = audioMgr->createSound("Assets/audio/Explosion.mp3", FMOD_DEFAULT, 0, &Explosion);
 
 		result = audioMgr->createSound("Assets/audio/MainMenu.mp3", FMOD_LOOP_NORMAL, 0, &bgMusic);
 
@@ -76,6 +80,8 @@ public:
 
 		return true;
 	}
+	bool bosskilled = false;
+
 
 	float adjacent;
 	float opposite;
@@ -114,7 +120,7 @@ private:
 	int mainScore;
 	int deltaScore;
 	int deathScore;
-
+	int bossHealth;
 	// star wall scroll
 	float starScrollPoint[2];
 	float starScrollPointBack[2];
@@ -126,6 +132,8 @@ private:
 	float fireTime = 0.1;
 	float fireDifference = 0.0;
 	float fireDifferencep2 = 0.0;
+	float EnemyFireDifference = 0.0;
+	
 	float BulletX;
 	bool IsLeft = false;
 
@@ -142,12 +150,17 @@ private:
 	objectStruct mainMenuObject;
 	objectStruct mainMenuObject1;
 	objectStruct mainMenuObject2;
+	objectStruct mainMenuHelp;
+
+	objectStruct mainMenuHelp1;
 
 	objectStruct specialEnemy;
 	std::vector<objectStruct> specialEnemyBullets;
 	float specialEnemyMovement = 0;
 	int enemybulletsinuse;
 
+	int bossSpawnScore;
+	bool isSpawned = false;
 
 	std::vector<objectStruct> mainMenu;	// TEST
 

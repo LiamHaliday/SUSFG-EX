@@ -32,7 +32,7 @@ void Scene::MainMenu()
 	InitFmod();
 	LoadAudio();
 	FMOD::Channel* channel1;
-	audioMgr->playSound(lvlMusic, 0, false, &channel1);
+	audioMgr->playSound(bgMusic, 0, false, &channel1);
 
 
 	mainMenuObject.object.setImage("Assets/images/alpha/SUSFG-EX_MainMenu_PLAY.png");
@@ -71,9 +71,53 @@ void Scene::MainMenu()
 	mainMenuObject2.object.setImage("Assets/images/alpha/SUSFG-EX_MainMenu_QUIT.png");
 	mainMenuObject2.object.createObj(testVert, sizeof(MainMenuVertices), testInd, sizeof(MainMenuIndices));
 
+	// --------------------------------------------------- help ---------------------------------------------------
+
+	mainMenuHelp.object.setImage("Assets/images/alpha/SUSFG-EX_MainMenu_HELP_Menu.png");
+	mainMenuHelp.object.createObj(testVert, sizeof(MainMenuVertices), testInd, sizeof(MainMenuIndices));
+
 }
 
+/*
 
+void Scene::Help()
+{
+	////sound
+	//InitFmod();
+	//LoadAudio();
+	//FMOD::Channel* channel1;
+	//audioMgr->playSound(bgMusic, 0, false, &channel1);
+
+
+	mainMenuObject.object.setImage("Assets/images/alpha/SUSFG-EX_MainMenu_HELP_Menu.png");
+
+	//floor vec ands ind
+	GLfloat MainMenuVertices[] = {
+
+		// Fill in the top face vertex data.							 
+		-1.60f, 0.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		-1.60f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		1.60f, 0.0f,  1.0f, 1.0f, 1.0f,	1.0f, 0.0f, 0.0f,
+		1.60f, 0.0f, -1.0f, 1.0f, 1.0f,	1.0f, 0.0f, 1.0f,
+	};
+
+
+	GLuint MainMenuIndices[] = {
+		// front
+		0, 1, 2,
+		0, 2, 3,
+	};
+
+
+	GLfloat * testVert = MainMenuVertices;
+	GLuint * testInd = MainMenuIndices;
+
+
+	mainMenuObject.object.createObj(testVert, sizeof(MainMenuVertices), testInd, sizeof(MainMenuIndices));
+
+}
+
+*/
 
 void Scene::MainMenuRender(int menuNumber)
 {
@@ -102,6 +146,12 @@ void Scene::MainMenuRender(int menuNumber)
 
 		break;
 	}
+	case 3:
+	{
+		mainMenuHelp.object.render(0.0, 0.0, 0.0, true, mainCam);
+
+		break;
+	}
 
 	default:
 		break;
@@ -123,11 +173,7 @@ void Scene::MainMenuRender(int menuNumber)
 /****************************************************/
 void Scene::init()
 {
-	//sound
-	InitFmod();
-	LoadAudio();
-	FMOD::Channel* channel;
-	audioMgr->playSound(bgMusic, 0, false, &channel); // background sound                                                 //sound -----------------------------------------
+	                                              //sound -----------------------------------------
 	//audioMgr->playSound(hitSound, 0, false, &channel); // shooting sound    
 	
 	// Main Menu Option
@@ -182,16 +228,17 @@ void Scene::init()
 	player.zCoord = 0.05f;
 	player2.zCoord = 0.05f;
 
-	Setsquare();	
+	Setsquare();
 
 	// big boss
-	specialEnemy.object.setImage("Assets/images/alpha/Enemy2_purple.png");
+	specialEnemy.object.setImage("Assets/images/alpha/Boss1_Yellow.png");
 	specialEnemyCreate();
 
 	specialEnemy.xCoord = 0.0f;
-	specialEnemy.yCoord = -6.0f;
+	specialEnemy.yCoord = -8.0f;
 	specialEnemy.zCoord = 0.10f;
 
+	bossHealth = 40;
 
 	// purple enemy1
 	for (int i = 0; i < 10; i++)
@@ -266,7 +313,7 @@ void Scene::init()
 		bullet->zCoord = 0.0f;
 		specialEnemyBullets.push_back(*bullet);
 		delete bullet;
-		specialEnemyBullets[specialEnemyBullets.size() - 1].object.setImage("Assets/images/alpha/Bullet_Green.png");
+		specialEnemyBullets[specialEnemyBullets.size() - 1].object.setImage("Assets/images/alpha/Boss1_Yellow_Bullet.png");
 		SetSpecialEnemyBullets();
 	}
 
@@ -371,17 +418,20 @@ void Scene::render()
 	//}
 
 	// boss 
-	specialEnemy.object.render(specialEnemy.xCoord, specialEnemy.zCoord, specialEnemy.yCoord,true, mainCam);
+	if (bossHealth > 0)
+	{
+		specialEnemy.object.render(specialEnemy.xCoord, specialEnemy.zCoord, specialEnemy.yCoord, true, mainCam);
+	}
 
 
 	for (unsigned int i = 0; i < purpleEnemys.size(); i++)
 	{
-		purpleEnemys[i].object.render(purpleEnemys[i].xCoord, 0.12, purpleEnemys[i].yCoord, true, mainCam);
+		purpleEnemys[i].object.render(purpleEnemys[i].xCoord, 0.15, purpleEnemys[i].yCoord, true, mainCam);
 	}
 
 	for (unsigned int i = 0; i < greenEnemys.size(); i++)
 	{
-		greenEnemys[i].object.render(greenEnemys[i].xCoord, 0.11, greenEnemys[i].yCoord, true, mainCam);
+		greenEnemys[i].object.render(greenEnemys[i].xCoord, 0.125, greenEnemys[i].yCoord, true, mainCam);
 	}
 
 	// player render
@@ -389,6 +439,9 @@ void Scene::render()
 	if (purpleAlive) {	player2.object.render(player2.xCoord, player2.zCoord - 0.001f, player2.yCoord, true, mainCam);	}
 	
 	if (greenAlive) {	player.object.render(player.xCoord, player.zCoord, player.yCoord, true, mainCam);				}
+
+
+
 
 	glDisable(GL_BLEND);
 
@@ -462,9 +515,21 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 	controll(keyState,  ArrowKeyState);
 
+	//if (keyState[(unsigned char)'n'] == BUTTON_DOWN) { greenScore += 100; bossSpawnScore += 100;} 
+
 	// big boss 
-	if (mainScore > -1)
+	if (bossSpawnScore >= 500) 
 	{
+		
+		if (specialEnemy.xCoord == 10 && specialEnemy.yCoord == 10)
+		{
+
+			specialEnemy.xCoord = 0.0f;
+			specialEnemy.yCoord = -8.0f;
+
+		}
+
+
 		if (specialEnemy.yCoord < -3.0f)
 		{
 			specialEnemy.yCoord += (Playerspeed / 3);
@@ -484,13 +549,41 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 			specialEnemyMovement = (Playerspeed / 3);
 		}
 	}
+	else
+	{
+		//bossHealth = 40;
+	}
 
+
+	// big boss 
+//	if (mainScore > 200)
+//	{
+//		bosskilled = false;
+//		if (specialEnemy.yCoord < -3.0f)
+//		{
+//			specialEnemy.yCoord += (Playerspeed / 3);
+//			specialEnemyMovement = (Playerspeed / 3);
+//		}
+//		else
+//		{
+//			specialEnemy.xCoord += specialEnemyMovement;
+//		}
+//
+//		if (specialEnemy.xCoord > 3.0f)
+//		{
+//			specialEnemyMovement = -(Playerspeed / 3);
+//		}
+//		else if (specialEnemy.xCoord < -3.0f)
+//		{
+//			specialEnemyMovement = (Playerspeed / 3);
+//		}
+//	}
 
 	// ---------------------------------- enemy reset
 	for (unsigned int i = 0; i < purpleEnemys.size(); i++)
 	{
 		purpleEnemys[i].yCoord += enemySpeed;
-		if (purpleEnemys[i].yCoord > 5.0)
+		if (purpleEnemys[i].yCoord > 3.5)
 		{			
 			float RandX = rand() % 800;
 			float RandY = rand() % 1000;
@@ -510,7 +603,7 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	for (unsigned int i = 0; i < greenEnemys.size(); i++)
 	{
 		greenEnemys[i].yCoord += enemySpeed;
-		if (greenEnemys[i].yCoord > 3.0)
+		if (greenEnemys[i].yCoord > 3.5)
 		{
 			//randomize
 			float RandX = rand() % 800;
@@ -580,10 +673,44 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 	GLfloat currentTime = glutGet(GLUT_ELAPSED_TIME);
 	currentTime = currentTime / 1000;
 
+
+
+	// ---------------------------------- enemy reset  2
+	for (unsigned int i = 0; i < specialEnemyBullets.size(); i++)
+	{
+		if (specialEnemyBullets[i].direction == 1)
+		{
+			specialEnemyBullets[i].yCoord += 0.25f;
+		}
+
+		if (specialEnemyBullets[i].yCoord < -5.0)
+		{
+			specialEnemyBullets[i].direction = 0;	//direction
+			specialEnemyBullets[i].xCoord = (0.5 + i * 0.02) - 1;
+			specialEnemyBullets[i].yCoord = bulletsPlace;
+			//std::cout << bulletsInUse << "\n";
+		}
+	}
+
+	if ((currentTime - EnemyFireDifference) > fireTime * 10)
+	{
+		
+		EnemyFireDifference = currentTime;
+
+		specialEnemyBullets[enemybulletsinuse].xCoord = specialEnemy.xCoord;
+		specialEnemyBullets[enemybulletsinuse].yCoord = specialEnemy.yCoord + 1;
+		specialEnemyBullets[enemybulletsinuse].zCoord = specialEnemy.zCoord;
+
+		specialEnemyBullets[enemybulletsinuse].direction = 1;
+		enemybulletsinuse++;
+
+	}
 	
+
+
 	if (greenAlive)
 	{																	// COLLISIONS															// COLLISIONS
-		if (keyState[(unsigned char)'w'] == BUTTON_DOWN && player.yCoord >= -4.8f || keyState[(unsigned char)'W'] == BUTTON_DOWN && player.yCoord  >= -4.8f) { player.yCoord -= Playerspeed; } // UP
+		if (keyState[(unsigned char)'w'] == BUTTON_DOWN && player.yCoord >= -1.8f || keyState[(unsigned char)'W'] == BUTTON_DOWN && player.yCoord  >= -2.8f) { player.yCoord -= Playerspeed; } // UP
 		if (keyState[(unsigned char)'s'] == BUTTON_DOWN && player.yCoord <=  2.5f || keyState[(unsigned char)'S'] == BUTTON_DOWN && player.yCoord <=   2.5f) { player.yCoord += Playerspeed; } // DOWN
 		if (keyState[(unsigned char)'a'] == BUTTON_DOWN && player.xCoord <=	 4.5f || keyState[(unsigned char)'A'] == BUTTON_DOWN && player.xCoord  <=  4.5f) { player.xCoord += Playerspeed; } // LEFT
 		if (keyState[(unsigned char)'d'] == BUTTON_DOWN && player.xCoord >= -4.5f || keyState[(unsigned char)'D'] == BUTTON_DOWN && player.xCoord  >= -4.5f) { player.xCoord -= Playerspeed; } // RIGHT  
@@ -591,7 +718,7 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 
 	if (purpleAlive)
 	{															// COLLISIONS
-		if (ArrowKeyState[0] == BUTTON_DOWN && player2.yCoord >= -4.8f) { player2.yCoord -= Playerspeed; }	 // UP
+		if (ArrowKeyState[0] == BUTTON_DOWN && player2.yCoord >= -1.8f) { player2.yCoord -= Playerspeed; }	 // UP
 		if (ArrowKeyState[1] == BUTTON_DOWN && player2.yCoord <=  2.5f) { player2.yCoord += Playerspeed; }	 // DOWN
 		if (ArrowKeyState[2] == BUTTON_DOWN && player2.xCoord <=  4.5f) { player2.xCoord += Playerspeed; }	 // LEFT
 		if (ArrowKeyState[3] == BUTTON_DOWN && player2.xCoord >= -4.5f) { player2.xCoord -= Playerspeed; }	 // RIGHT 
@@ -604,6 +731,9 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 			if ((currentTime - fireDifference) > fireTime)
 			{
 				// ADD SHOOTING SOUND HERE
+				FMOD::Channel* channel;
+				audioMgr->playSound(shotSound, 0, false, &channel);
+
 				fireDifference = currentTime;
 				bullets[bulletsInUse].xCoord = player.xCoord;
 				bullets[bulletsInUse].yCoord = player.yCoord;
@@ -656,6 +786,10 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 		{
 			if ((currentTime - fireDifferencep2) > fireTime)
 			{
+				// ADD SHOOTING SOUND HERE
+				FMOD::Channel* channel;
+				audioMgr->playSound(shotSound, 0, false, &channel);
+
 				fireDifferencep2 = currentTime;
 
 				bullets2[bulletsInUse2].xCoord = player2.xCoord;
@@ -697,35 +831,7 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 		}
 	}
 
-	// ---------------------------------- enemy reset  2
-	for (unsigned int i = 0; i < specialEnemyBullets.size(); i++)
-	{
-		if (specialEnemyBullets[i].direction == 1)
-		{
-			specialEnemyBullets[i].yCoord += 0.25f;
-		}
 
-		if (specialEnemyBullets[i].yCoord < -5.0)
-		{
-			specialEnemyBullets[i].direction = 0;	//direction
-			specialEnemyBullets[i].xCoord = (0.5 + i * 0.02) - 1;
-			specialEnemyBullets[i].yCoord = bulletsPlace;
-			//std::cout << bulletsInUse << "\n";
-		}
-	}
-
-	if ((currentTime - fireDifferencep2) > fireTime)
-	{
-		fireDifferencep2 = currentTime;
-
-		specialEnemyBullets[enemybulletsinuse].xCoord = specialEnemy.xCoord;
-		specialEnemyBullets[enemybulletsinuse].yCoord = specialEnemy.yCoord;
-		specialEnemyBullets[enemybulletsinuse].zCoord = specialEnemy.zCoord;
-
-		specialEnemyBullets[enemybulletsinuse].direction = 1;
-		enemybulletsinuse++;
-
-	}
 
 }
 
@@ -758,6 +864,7 @@ void Scene::MoventBox()
 				//BULLETS SPEED
 				changeableSpeed += 0.000025f;
 				purpleScore += 10;
+				bossSpawnScore += 10;
 			}
 		}
 	}
@@ -787,10 +894,71 @@ void Scene::MoventBox()
 				//BULLETS SPEED
 				changeableSpeed += 0.000025f;
 				greenScore += 10;
+				bossSpawnScore += 10;
 			}
 		}
 	}
 
+	if (bossHealth > 0)
+	{
+
+
+		for (size_t i = 0; i < bullets.size(); i++)
+		{
+			if (bullets[i].xCoord >= (specialEnemy.xCoord - 1) && bullets[i].xCoord <= (specialEnemy.xCoord + 1)
+				&& bullets[i].yCoord >= (specialEnemy.yCoord - 1) && bullets[i].yCoord <= (specialEnemy.yCoord + 1))
+			{
+				bullets[i].direction = 0;	//dircetion
+				bullets[i].xCoord = (0.5f + i * 0.02f) - 1;
+				bullets[i].yCoord = bulletsPlace;
+
+				bossHealth--;
+			}
+		}
+
+		for (size_t i = 0; i < bullets.size(); i++)
+		{
+			if (bullets2[i].xCoord >= (specialEnemy.xCoord - 1) && bullets2[i].xCoord <= (specialEnemy.xCoord + 1)
+				&& bullets2[i].yCoord >= (specialEnemy.yCoord - 1) && bullets2[i].yCoord <= (specialEnemy.yCoord + 1))
+			{
+				bullets2[i].direction = 0;	//dircetion
+				bullets2[i].xCoord = (0.5f + i * 0.02f) - 1;
+				bullets2[i].yCoord = bulletsPlace;
+
+				bossHealth--;
+			}
+		}
+
+	}
+	else
+	{
+
+
+		if (bossSpawnScore > 500 )
+		{	
+			specialEnemy.xCoord = 10;
+			specialEnemy.yCoord = 10;
+			bossSpawnScore = 0;
+			bossHealth = 40;
+			bosskilled = true;
+		}
+		
+		
+
+	}
+
+	//if (player.xCoord >= (specialEnemy.xCoord - 1) && player.xCoord <= (specialEnemy.xCoord + 1)
+	//	&& player.yCoord >= (specialEnemy.yCoord - 1) && player.yCoord <= (specialEnemy.yCoord + 1))
+	//{
+	//	greenAlive = false;
+	//	std::cout << "green dead" << std::endl;
+	//}
+	//if (player2.xCoord >= (specialEnemy.xCoord - 1) && player2.xCoord <= (specialEnemy.xCoord + 1)
+	//	&& player2.yCoord >= (specialEnemy.yCoord - 1) && player2.yCoord <= (specialEnemy.yCoord + 1))
+	//{
+	//	purpleAlive = false;
+	//	std::cout << "pruple dead" << std::endl;
+	//}
 
 	// bullets reset
 	for (size_t i = 0; i < bullets2.size(); i++)
@@ -865,6 +1033,9 @@ void Scene::MoventBox()
 
 		if (!greenAlive) 
 		{ 
+			
+			FMOD::Channel* channel;
+			audioMgr->playSound(Explosion, 0, false, &channel);
 			std::cout << "Green Dead"; 				
 			deathScore = mainScore;
 		}
@@ -902,6 +1073,8 @@ void Scene::MoventBox()
 		}
 		if (!purpleAlive) 
 		{ 
+			FMOD::Channel* channel;
+			audioMgr->playSound(Explosion, 0, false, &channel);
 			std::cout << "Purple Dead";
 			deathScore = mainScore;
 		}
@@ -910,13 +1083,11 @@ void Scene::MoventBox()
 	{
 		//std::cout << "green Dead";
 		deltaScore = mainScore - deathScore;
-		std::cout << deltaScore;
 	}
 	if (!purpleAlive)
 	{
 		//std::cout << "purple Dead";
 		deltaScore = mainScore - deathScore;
-		std::cout << deltaScore;
 	}
 	if (deltaScore >= 100)
 	{

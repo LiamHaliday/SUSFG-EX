@@ -52,8 +52,6 @@ void camera::draw(GLuint program, GLfloat currentThime, bool spin, float one, fl
 	GLuint transformLoc = glGetUniformLocation(program, "transform");
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(translation));
 
-
-
 };
 
 /****************************************************/

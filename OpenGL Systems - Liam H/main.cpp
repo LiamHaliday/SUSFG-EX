@@ -92,11 +92,17 @@ void init()
 
 		break;
 	}
+//	case HELP:
+//	{
+//
+//	//	MainScene.Help();
+//
+//		break;
+//	}
 
 	default:
 		break;
 	}
-
 }
 
 /****************************************************/
@@ -109,24 +115,26 @@ void render(void)
 {
 	switch (sceneSwitch)
 	{
-	case MAINMENU:
-	{
-		// play the main menu
-		MainScene.MainMenuRender(menuNumber);
-
-		break;
-	}
-	case GAMESCENE:
-	{
-		if (!gameinit)
+		case MAINMENU:
 		{
-			MainScene.init();
-			gameinit = true;
-			std::cout << "init";
+			// play the main menu
+
+			
+			MainScene.MainMenuRender(menuNumber);
+
+			break;
 		}
-		MainScene.render();
-		break;
-	}
+		case GAMESCENE:
+		{
+			if (!gameinit)
+			{
+				MainScene.init();
+				gameinit = true;
+				std::cout << "init";
+			}
+			MainScene.render();
+			break;
+		}
 	}
 
 }
@@ -148,7 +156,7 @@ void update() {
 	glutPostRedisplay();
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboard_up);
-	if (keyState[27] == BUTTON_DOWN) { exit(0); };
+	if (keyState[27] == BUTTON_DOWN) { exit(0); };	// Escape Button
 
 	switch (sceneSwitch)
 	{
@@ -158,8 +166,6 @@ void update() {
 
 		//MainScene.UpdateMainMenu(sceneSwitch);
 		unsigned int interval = GetCurrentTime() - getTime;
-		//std::cout << getTime << std::endl;
-		std::cout << interval << std::endl;
 
 		if (interval > 200)
 		{
@@ -192,7 +198,18 @@ void update() {
 				getTime = GetCurrentTime();
 			}; // enter
 
-			if (keyState[(unsigned char)' '] == BUTTON_DOWN && menuNumber == 2) { exit(0); };
+			if (keyState[(unsigned char)' '] == BUTTON_DOWN && menuNumber == 1 || menuNumber == 3) {	// Help Button Pressed
+				
+				menuNumber = 3;
+				//sceneSwitch = HELPPART;
+
+			}
+			if (keyState[(unsigned char)' '] != BUTTON_DOWN && menuNumber == 3)
+			{
+				menuNumber = 1;
+			};
+
+			if (keyState[(unsigned char)' '] == BUTTON_DOWN && menuNumber == 2) { exit(0); };	// QUIT/EXIT
 			if (keyState[13] == BUTTON_DOWN && menuNumber == 2) { exit(0); }; // enter
 
 		}
@@ -239,7 +256,6 @@ void update() {
 	//	}
 	//}
 
-	std::cout << std::endl;
 
 	//	glutFullScreen();
 
@@ -275,6 +291,7 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(50, 5); glutInitWindowSize(1600, 1000);
 	glutCreateWindow("SUPER ULTRA SPACE FIGHTING GAME: EDITION X");
+
 	glewInit();
 	init();
 	glutDisplayFunc(render);
