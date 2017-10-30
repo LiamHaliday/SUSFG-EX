@@ -102,6 +102,8 @@ public:
 
 	void MoventBox();
 
+	void restart();
+
 	void update(unsigned char *keyState, unsigned int *ArrowKeyState);
 
 	void controll(unsigned char *keyState, unsigned int *ArrowKeyState);
@@ -142,6 +144,7 @@ private:
 	TextLabel* greenScoreText;
 	TextLabel* purpleScoreText;
 	TextLabel* mainScoreText;
+	TextLabel* restartTEXT;
 
 	objectStruct player;
 	objectStruct player2;

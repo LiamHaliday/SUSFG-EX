@@ -214,6 +214,11 @@ void Scene::init()
 	purpleScoreText->setPosition(glm::vec2(250.0f, 225.0f));
 	purpleScoreText->setColor(glm::vec3(1.0f, 0.0f, 1.0f));
 
+	restartTEXT = new TextLabel("End score", "Assets/fonts/PressStart2P.ttf");	// SET FONT
+	restartTEXT->setScale(1.0);
+	restartTEXT->setPosition(glm::vec2(100.0f, 25.0f));
+	restartTEXT->setColor(glm::vec3(0.0f, 1.0f, 1.0f));
+
 
 	//player creation
 	player.object.setImage("Assets/images/alpha/Player_Green.png");
@@ -243,6 +248,7 @@ void Scene::init()
 	// purple enemy1
 	for (int i = 0; i < 10; i++)
 	{
+
 		float RandX = rand() % 800;
 		float RandY = rand() % 1000;
 		RandX = (RandX / 100) - 4;
@@ -343,25 +349,14 @@ void Scene::init()
 		SetStarFloor();
 	}
 
-	//// Main Menu
-	//if (menuOption == 1) {
-	//	objectStruct * floor = new objectStruct;
-	//	floor->direction = 0;
-	//	floor->xCoord = 0;
-	//	floor->yCoord = 0;
-	//	mainMenu.push_back(*floor);
-	//	delete floor;
-	//	if (menuOption <= 1) {
-	//		mainMenu[mainMenu.size() - 1].object.setImage("Assets/images/SUSFG-EX_MainMenu_PLAY.png");	// PLAY BUTTON
-	//	}
-	//	if (menuOption == 2) {
-	//		mainMenu[mainMenu.size() - 1].object.setImage("Assets/images/SUSFG-EX_MainMenu_OPTIONS.png");	// OPTIONS BUTTON
-	//	}
-	//	else if (menuOption >= 3) {
-	//		mainMenu[mainMenu.size() - 1].object.setImage("Assets/images/SUSFG-EX_MainMenu_QUIT.png");	// QUIT BUTTON
-	//	}
-	//	SetMainMenu();
-	//}
+	for (size_t x = 0; x < greenEnemys.size(); x++)
+	{
+		greenEnemys[x].yCoord -= 5.25f;
+	}
+	for (size_t x = 0; x < purpleEnemys.size(); x++)
+	{
+		purpleEnemys[x].yCoord -= 5.25f;
+	}
 
 
 	//floor.setImage("Assets/images/blueBOX.png");
@@ -451,6 +446,7 @@ void Scene::render()
 		purpleScoreText->Render();
 		greenScoreText->Render();
 		mainScoreText->Render();
+		restartTEXT->Render();
 	}
 	else
 	{
@@ -512,6 +508,9 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	scoreText = "Main Score: ";
 	scoreText += std::to_string(int(mainScore)).c_str();
 	mainScoreText->setText(scoreText);
+
+	scoreText = "  PRESS R/ENTER TO RESTART ";
+	restartTEXT->setText(scoreText);
 
 	controll(keyState,  ArrowKeyState);
 
@@ -585,6 +584,7 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 		purpleEnemys[i].yCoord += enemySpeed;
 		if (purpleEnemys[i].yCoord > 3.5)
 		{			
+			//randomize
 			float RandX = rand() % 800;
 			float RandY = rand() % 1000;
 			RandX = (RandX / 100) - 4;
@@ -664,7 +664,9 @@ void Scene::update(unsigned char *keyState, unsigned int *ArrowKeyState)
 	// ------------------------ GAME OVER ------------------------
 	MoventBox();
 	mainCam.movingCam(camLoc, camLook);
-	
+
+
+
 }
 
 
@@ -674,6 +676,9 @@ void Scene::controll(unsigned char *keyState, unsigned int *ArrowKeyState)
 	currentTime = currentTime / 1000;
 
 
+	// Restart
+	if (keyState[(unsigned char)'r'] == BUTTON_DOWN || keyState[(unsigned char)'R'] == BUTTON_DOWN 
+		|| keyState[13] == BUTTON_DOWN) { restart(); }
 
 	// ---------------------------------- enemy reset  2
 	for (unsigned int i = 0; i < specialEnemyBullets.size(); i++)
@@ -853,8 +858,8 @@ void Scene::MoventBox()
 				RandX = (RandX / 100) - 4;
 				RandY = (-(RandY / 100) - 2);
 
-				purpleEnemys[x].xCoord = RandX;
-				purpleEnemys[x].yCoord = RandY;
+				purpleEnemys[x].xCoord = RandX - 3;
+				purpleEnemys[x].yCoord = RandY - 3;
 
 				//bullet delete on hit
 				// ADD BULLET HIT SOUND HERE
@@ -881,12 +886,12 @@ void Scene::MoventBox()
 				float RandX = rand() % 800;
 				float RandY = rand() % 1000;
 				RandX = (RandX / 100) - 4;
-				RandY = (-(RandY / 100) - 2);
+				RandY = (-(RandY / 100) - 2); 
 	
 	
-				greenEnemys[x].xCoord = RandX;
-				greenEnemys[x].yCoord = RandY;
-	
+				greenEnemys[x].yCoord = RandY - 3;
+				greenEnemys[x].xCoord = RandX - 3;
+				
 				//bullet delete on hit
 				bullets[i].direction = 0;	//dircetion
 				bullets[i].xCoord = (0.5f + i * 0.02f) - 1;
@@ -1096,6 +1101,37 @@ void Scene::MoventBox()
 	}
 }	
 
+void Scene::restart()
+{
+
+	if (!purpleAlive && !greenAlive)
+	{
+		purpleAlive = true;
+		greenAlive = true;
+
+		greenScore = 0;
+		purpleScore = 0;
+
+		player.xCoord = 0.5f;
+		player2.xCoord = -0.5f;
+
+		player.yCoord = 1.5f;
+		player2.yCoord = 1.5f;
+
+		player.zCoord = 0.05f;
+		player2.zCoord = 0.05f;
+
+		for (size_t x = 0; x < greenEnemys.size(); x++)
+		{
+			greenEnemys[x].yCoord -= 5.25f;
+		}
+		for (size_t x = 0; x < purpleEnemys.size(); x++)
+		{
+			purpleEnemys[x].yCoord -= 5.25f;
+		}
+	}
+
+}
 
 /****************************************************/
 // Filename: Scene.cpp

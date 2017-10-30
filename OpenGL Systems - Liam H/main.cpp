@@ -198,13 +198,13 @@ void update() {
 				getTime = GetCurrentTime();
 			}; // enter
 
-			if (keyState[(unsigned char)' '] == BUTTON_DOWN && menuNumber == 1 || menuNumber == 3) {	// Help Button Pressed
+			if (keyState[13] == BUTTON_DOWN && menuNumber == 1 || menuNumber == 3) {	// Help Button Pressed
 				
 				menuNumber = 3;
 				//sceneSwitch = HELPPART;
 
 			}
-			if (keyState[(unsigned char)' '] != BUTTON_DOWN && menuNumber == 3)
+			if (keyState[13] != BUTTON_DOWN && menuNumber == 3)
 			{
 				menuNumber = 1;
 			};
